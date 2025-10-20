@@ -3,6 +3,8 @@
 #include <vector>
 #include <algorithm>
 
+#include "pente.h"
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({ 1920u, 800u }), "Pentes SFML 3");
@@ -10,32 +12,9 @@ int main()
     sf::Clock clock;
     const float SPEED = 200.f;
 
-    // --- Génération du terrain ---
-    std::vector<sf::Vector2f> points;
-    for (float x = 0; x <= 800; x += 10.f)
-    {
-        float y = 400.f + std::sin(x * 0.01f) * 80.f;
-        points.push_back({ x, y });
-    }
-
-    // --- VertexArray du sol ---
-    sf::VertexArray ground(sf::PrimitiveType::TriangleStrip);
-    for (auto& p : points)
-    {
-        ground.append({ p, sf::Color::Green });
-        ground.append({ {p.x, 800.f}, sf::Color::Green });
-    }
-
-    // --- Points rouges (visualisation sommets) ---
-    std::vector<sf::CircleShape> redPoints;
-    for (auto& p : points)
-    {
-        sf::CircleShape dot(3.f);
-        dot.setFillColor(sf::Color::Red);
-        dot.setOrigin({ 3.f, 3.f });
-        dot.setPosition(p);
-        redPoints.push_back(dot);
-    }
+    Pente pente(1000, 1, 10, sf::degrees(90), sf::degrees(0), 400, 200, 0);
+    Pente pente2(500, 0, 150, sf::degrees(0), sf::degrees(90), 200, 600, 1000);
+    
 
     // --- Joueur ---
     sf::CircleShape player(3.f);
@@ -64,25 +43,16 @@ int main()
         playerX = std::clamp(playerX, 0.f, 800.f);
 
         // --- Trouver position sur la courbe ---
-        int idx = std::clamp(int(playerX / 10), 0, int(points.size()) - 2);
-        sf::Vector2f p1 = points[idx];
-        sf::Vector2f p2 = points[idx + 1];
 
-        // Interpolation linéaire
-        float t = (playerX - p1.x) / (p2.x - p1.x);
-        float y = p1.y + (p2.y - p1.y) * t;
-        player.setPosition({ playerX, y });
+        player.setPosition({ playerX, float(pente.getSurfaceHeight(playerX)) });
 
         // --- Calcul orientation ---
-        sf::Vector2f dir = p2 - p1;
-        float angleDegrees = std::atan2(dir.y, dir.x) * 180.f / 3.14159f;
-        player.setRotation(sf::degrees(angleDegrees)); // SFML 3: utilise sf::Angle
+        player.setRotation(pente.getOrientation(playerX));
 
         // --- Affichage ---
         window.clear(sf::Color::Black);
-        window.draw(ground);
-        for (auto& dot : redPoints)
-            window.draw(dot);
+        pente.draw(window);
+        pente2.draw(window);
         window.draw(player);
         window.display();
     }
