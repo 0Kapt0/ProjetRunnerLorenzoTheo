@@ -11,7 +11,8 @@ private:
 	unsigned int precision;
 
 public:
-	Pente(unsigned int lengthVal, float amplitudeVal = 1.f, unsigned int precisionVal = 10u, std::string slopeType = "flat");
+
+	Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionVal, sf::Angle angleDepart, sf::Angle angleArrivee, int startHeight, int endHeight, int positionX);
 
 	int getSurfaceHeight(int x);
 	sf::Angle getOrientation(int x);

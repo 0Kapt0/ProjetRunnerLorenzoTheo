@@ -12,7 +12,9 @@ int main()
     sf::Clock clock;
     const float SPEED = 200.f;
 
-    Pente pente(1000, 0.2, 10, "upward");
+    Pente pente(1000, 1, 10, sf::degrees(90), sf::degrees(0), 400, 200, 0);
+    Pente pente2(500, 0, 150, sf::degrees(0), sf::degrees(90), 200, 600, 1000);
+    
 
     // --- Joueur ---
     sf::CircleShape player(3.f);
@@ -41,8 +43,8 @@ int main()
         playerX = std::clamp(playerX, 0.f, 800.f);
 
         // --- Trouver position sur la courbe ---
-    
-        player.setPosition({ playerX, float(pente.getSurfaceHeight(playerX))});
+
+        player.setPosition({ playerX, float(pente.getSurfaceHeight(playerX)) });
 
         // --- Calcul orientation ---
         player.setRotation(pente.getOrientation(playerX));
@@ -50,6 +52,7 @@ int main()
         // --- Affichage ---
         window.clear(sf::Color::Black);
         pente.draw(window);
+        pente2.draw(window);
         window.draw(player);
         window.display();
     }
