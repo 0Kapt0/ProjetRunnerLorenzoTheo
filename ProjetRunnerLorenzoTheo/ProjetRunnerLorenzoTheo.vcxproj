@@ -131,7 +131,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ProjetRunnerLorenzoTheo.cpp" />
+    <ClCompile Include="bloc_niveau.cpp" />
+    <ClCompile Include="bonus.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="pente.cpp" />
+    <ClCompile Include="personnage.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bloc_niveau.h" />
+    <ClInclude Include="bonus.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="interface.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="pente.h" />
+    <ClInclude Include="personnage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
