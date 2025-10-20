@@ -38,8 +38,8 @@ int main()
     }
 
     // --- Joueur ---
-    sf::CircleShape player(3.f);
-    /*player.setOrigin({ 20.f, 10.f });*/
+    sf::RectangleShape player({ 40.f, 20.f });
+    player.setOrigin({ 20.f, 10.f });
     player.setFillColor(sf::Color::Cyan);
 
     float playerX = 0.f;
@@ -71,7 +71,7 @@ int main()
         // Interpolation linéaire
         float t = (playerX - p1.x) / (p2.x - p1.x);
         float y = p1.y + (p2.y - p1.y) * t;
-        player.setPosition({ playerX, y });
+        player.setPosition({ playerX, y - 20.f });
 
         // --- Calcul orientation ---
         sf::Vector2f dir = p2 - p1;
