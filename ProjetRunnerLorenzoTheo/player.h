@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "pente.h"
 
 class Player
 {
@@ -19,15 +20,43 @@ private:
 	bool isJumping;
 	bool isGrounded;
 
+	//Jump fonction
+	bool isCharging;
+	float chargeTime;
+	float maxChargeTime;
+	bool hasBoost;
+	float coyoteTimer;
+	float maxCoyoteTime;
+
 	//methode interne
 	void moveForward(float dt);
 	void applyGravity(float dt);
-	void handleJump();
-	void checkGroundCollision();
+	void handleInput(float dt);
+	void checkGroundCollision(Pente& pente);
+	void updateCoyoteTimer(float dt);
+
+	//methode particules
+	void createJumpPoof();
+	void spawnParticles(float dt);
+	void updateParticles(float dt);
+	void drawParticles(sf::RenderWindow& window);
+
+	
+	//effects visuels
+	struct Particle
+	{
+		sf::Vector2f pos;
+		sf::Vector2f vel;
+		float lifetime;
+	};
+
+	std::vector<Particle> particles;
+	float particleSpawnTimer;
+
 public:
 	Player(sf::Vector2f startPos, float pspeed = 250.f);
 
-	void update(float dt);
+	void update(float dt, Pente& pente);
 	void draw(sf::RenderWindow& window);
 
 	sf::Vector2f getPosition() const { return position; }
