@@ -2,8 +2,9 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
-#include "pente.h"
+#include "bloc_niveau.h"
 
 int main()
 {
@@ -12,8 +13,10 @@ int main()
     sf::Clock clock;
     const float SPEED = 200.f;
 
-    Pente pente(1000, 1, 10, sf::degrees(90), sf::degrees(0), 400, 200, 0);
-    Pente pente2(500, 0, 150, sf::degrees(0), sf::degrees(90), 200, 600, 1000);
+    BlocNiveau b1(sf::Vector2f(0, 400), 0);
+    BlocNiveau b2(b1.getEndPosition(), 0);
+
+    std::cout << b1.getEndPosition().x << ", " << b1.getEndPosition().y << "\n";
     
 
     // --- Joueur ---
@@ -44,15 +47,15 @@ int main()
 
         // --- Trouver position sur la courbe ---
 
-        player.setPosition({ playerX, float(pente.getSurfaceHeight(playerX)) });
+        //player.setPosition({ playerX, float(pente.getSurfaceHeight(playerX)) });
 
         // --- Calcul orientation ---
-        player.setRotation(pente.getOrientation(playerX));
+        //player.setRotation(pente.getOrientation(playerX));
 
         // --- Affichage ---
         window.clear(sf::Color::Black);
-        pente.draw(window);
-        pente2.draw(window);
+        b1.draw(window);
+        b2.draw(window);
         window.draw(player);
         window.display();
     }

@@ -1,8 +1,11 @@
 #include "pente.h"
 
-Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionVal, sf::Angle angleDepart, sf::Angle angleArrivee, int startHeight, int endHeight, int positionX)
+Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionVal, sf::Angle angleDepart, sf::Angle angleArrivee, int startHeight, int endHeightVal, int positionXVal)
 {
 	precision = precisionVal;
+    length = lengthVal;
+    endHeight = endHeightVal;
+    positionX = positionXVal;
 
 	ground.setPrimitiveType(sf::PrimitiveType::TriangleStrip);
 
@@ -13,7 +16,7 @@ Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionV
 
         // Points de contrôle codés en dur
         sf::Vector2f P0(0.f, startHeight);
-        sf::Vector2f P3(lengthVal, endHeight);
+        sf::Vector2f P3(lengthVal, endHeightVal);
 
         float tangentLength = lengthVal * 0.25f;
 
@@ -65,8 +68,8 @@ Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionV
 
     for (auto& p : points)
     {
-        ground.append({ {p.x + positionX, p.y}, sf::Color::Color(200, 255, 200) });
-        ground.append({ {p.x + positionX, 800.f}, sf::Color::Color(255, 255, 255)});
+        ground.append({ {p.x + positionXVal, p.y}, sf::Color::Color(200, 255, 200) });
+        ground.append({ {p.x + positionXVal, 800.f+endHeightVal}, sf::Color::Color(255, 255, 255)});
     }
 };
 
@@ -79,6 +82,21 @@ int Pente::getSurfaceHeight(int x)
     float t = (x - p1.x) / (p2.x - p1.x);
     
     return p1.y + (p2.y - p1.y) * t;
+}
+
+int Pente::getLength()
+{
+    return length;
+}
+
+int Pente::getEndHeight()
+{
+    return endHeight;
+}
+
+sf::Vector2f Pente::getEndPosition()
+{
+    return sf::Vector2f(positionX + length, endHeight);
 }
 
 sf::Angle Pente::getOrientation(int x)
