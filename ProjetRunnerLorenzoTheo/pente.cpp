@@ -7,26 +7,26 @@ Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionV
     endHeight = endHeightVal;
     positionX = positionXVal;
 
-	ground.setPrimitiveType(sf::PrimitiveType::TriangleStrip);
+    ground.setPrimitiveType(sf::PrimitiveType::TriangleStrip);
 
     for (float x = 0; x <= lengthVal; x += precision)
     {
         float y = startHeight; // ligne de base du sol
 
 
-        // Points de contrôle codés en dur
+        // Points de contrÃ´le codÃ©s en dur
         sf::Vector2f P0(0.f, startHeight);
         sf::Vector2f P3(lengthVal, endHeightVal);
 
         float tangentLength = lengthVal * 0.25f;
 
-        // P1 basé sur l'angle de départ
+        // P1 basÃ© sur l'angle de dÃ©part
         sf::Vector2f P1 = P0 + sf::Vector2f(
             tangentLength * std::cos(angleDepart.asRadians()),
             tangentLength * std::sin(angleDepart.asRadians())
         );
 
-        // P2 basé sur l'angle d'arrivée
+        // P2 basÃ© sur l'angle d'arrivÃ©e
         sf::Vector2f P2 = P3 - sf::Vector2f(
             tangentLength * std::cos(angleArrivee.asRadians()),
             tangentLength * std::sin(angleArrivee.asRadians())
@@ -62,7 +62,7 @@ Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionV
         float uuu = uu * u;
         float ttt = tt * tMid;
         y = uuu * P0.y + 3 * uu * tMid * P1.y + 3 * u * tt * P2.y + ttt * P3.y;
-        
+
         points.push_back({ x, y });
     }
 
@@ -80,7 +80,7 @@ int Pente::getSurfaceHeight(int x)
     sf::Vector2f p2 = points[idx + 1];
 
     float t = (x - p1.x) / (p2.x - p1.x);
-    
+
     return p1.y + (p2.y - p1.y) * t;
 }
 
