@@ -5,8 +5,9 @@
 GameState::GameState(sf::RenderWindow& window)
     : state(window)
 {
-    for (int i = 0; i < 11; ++i)
+    for (int i = 0; i < 11; ++i) {
         game.addBlocNiveau(0);
+    }
 
     std::srand(static_cast<unsigned>(std::time(nullptr)));
     int track = std::rand() % 4 + 1;

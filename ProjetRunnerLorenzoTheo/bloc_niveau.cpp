@@ -9,7 +9,7 @@ BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal) : positionStart(pos
 	}
 	else if (presetId == 1)
 	{
-		 
+
 	}
 	length = 0;
 	for (auto& pente : penteList)
