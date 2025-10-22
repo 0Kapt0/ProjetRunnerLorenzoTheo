@@ -60,7 +60,7 @@ void Player::handleInput(float dt)
         return;
     }
 
-    //RELÂCHEMENT DU SAUT
+    //RELACHEMENT DU SAUT
     if (isCharging && canJump)
     {
         const float ratio = chargeTime / maxChargeTime;
@@ -93,7 +93,7 @@ void Player::handleInput(float dt)
 void Player::checkGroundCollision(Pente& pente)
 {
     const int x = static_cast<int>(position.x);
-    const float surfaceY = static_cast<float>(pente.getSurfaceHeight(x));
+    const float surfaceY = static_cast<float>(pente.getSurfaceHeight(x) - 20.f);
     const float groundAngle = pente.getOrientation(x).asDegrees();
 
     constexpr float tolerance = 8.f;
@@ -235,6 +235,9 @@ void Player::update(float dt, Pente& pente) {
     if (isDead)
         return;
 
+    cameraPlayer.setCenter(position);
+    /*cameraPlayer.move(position);*/
+
 	//MECANIQUE DE JEU
     updateCoyoteTimer(dt);
     handleInput(dt);
@@ -267,6 +270,7 @@ void Player::drawParticles(sf::RenderWindow& window)
 
 void Player::draw(sf::RenderWindow& window) {
     drawParticles(window);
+    /*window.setView(cameraPlayer);*/
 	window.draw(shape);
 
 	//debug pour voir le cote du joueur

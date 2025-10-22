@@ -5,6 +5,8 @@
 class Player
 {
 private:
+	sf::View cameraPlayer;
+
 	//player shape and sprite
 	sf::RectangleShape shape;
 
