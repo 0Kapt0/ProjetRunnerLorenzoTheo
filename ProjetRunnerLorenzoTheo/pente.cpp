@@ -13,7 +13,6 @@ Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionV
     {
         float y = startHeight; // ligne de base du sol
 
-
         // Points de contrôle codés en dur
         sf::Vector2f P0(0.f, startHeight);
         sf::Vector2f P3(lengthVal, endHeightVal);
@@ -73,20 +72,8 @@ Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionV
     }
 };
 
-//int Pente::getSurfaceHeight(int x)
-//{
-//    int idx = std::clamp(int(x / precision), 0, int(points.size()) - 2);
-//    sf::Vector2f p1 = points[idx];
-//    sf::Vector2f p2 = points[idx + 1];
-//
-//    float t = (x - p1.x) / (p2.x - p1.x);
-//
-//    return p1.y + (p2.y - p1.y) * t;
-//}
-
 int Pente::getSurfaceHeight(int x)
 {
-    // Ramener le X dans le repère local de la pente
     float localX = x - positionX;
     localX = std::clamp(localX, 0.f, float(length - precision));
 
@@ -97,7 +84,6 @@ int Pente::getSurfaceHeight(int x)
     float t = (localX - p1.x) / (p2.x - p1.x);
     return p1.y + (p2.y - p1.y) * t;
 }
-
 
 int Pente::getLength()
 {
@@ -114,16 +100,6 @@ sf::Vector2f Pente::getEndPosition()
     return sf::Vector2f(positionX + length, endHeight);
 }
 
-//sf::Angle Pente::getOrientation(int x)
-//{
-//    int idx = std::clamp(int(x / 10), 0, int(points.size()) - 2);
-//    sf::Vector2f p1 = points[idx];
-//    sf::Vector2f p2 = points[idx + 1];
-//
-//    sf::Vector2f dir = p2 - p1;
-//    return sf::Angle(sf::radians(std::atan2(dir.y, dir.x)));
-//}
-
 sf::Angle Pente::getOrientation(int x)
 {
     float localX = x - positionX;
@@ -136,7 +112,6 @@ sf::Angle Pente::getOrientation(int x)
     sf::Vector2f dir = p2 - p1;
     return sf::Angle(sf::radians(std::atan2(dir.y, dir.x)));
 }
-
 
 void Pente::draw(sf::RenderWindow& window)
 {

@@ -1,19 +1,6 @@
 #include "game.h"
 
 #include <iostream>
-//Pente* Game::getCurrentPente()
-//{
-//    int pPosX = player.getPosition().x;
-//    for (int i = 0; i < blocNiveauList.size(); i++)
-//    {
-//        if (pPosX <= blocNiveauList[i].getEndPosition().x && pPosX >= (blocNiveauList[i].getEndPosition().x - blocNiveauList[i].getLength()))
-//        {
-//            std::cout << "BlocNiveau . Hauteur : " << blocNiveauList[i].penteList[i].getSurfaceHeight(player.getPosition().x) << " -  Angle : " << blocNiveauList[i].penteList[i].getOrientation(player.getPosition().x).asDegrees() << "\n";
-//            return blocNiveauList[i].getPente(pPosX);
-//        }
-//    }
-//    //return &blocNiveauList[0].getPente(pPosX);
-//}
 
 Pente* Game::getCurrentPente()
 {
@@ -69,15 +56,6 @@ void Game::update(sf::RenderWindow& window)
         drawBlocNiveau(window);
 
         player.draw(window);
-
-        //tests
-        for (unsigned x = 0; x < 2001; x += 500)
-        {
-            sf::RectangleShape bar({ 10, 800 }); // largeur = thickness, hauteur = pleine hauteur
-            bar.setPosition({ float(x), 0.f });
-            bar.setFillColor(sf::Color::Red);
-            window.draw(bar);
-        }
 
         window.display();
     }

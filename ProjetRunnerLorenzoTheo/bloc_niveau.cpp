@@ -1,6 +1,5 @@
 #include "bloc_niveau.h"
 
-#include <iostream>
 BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal)
 {
 	positionStart = posVal;
@@ -26,19 +25,6 @@ int BlocNiveau::getLength()
 	return length;
 }
 
-//Pente* BlocNiveau::getPente(int x)
-//{
-//	for (int i = 0; i < penteList.size(); i++)
-//	{
-//		
-//		if (x <= penteList[i].getEndPosition().x && x >= penteList[i].getEndPosition().x - penteList[i].getLength())
-//		{
-//			return &penteList[i];
-//		}
-//	}
-//	//return penteList[0];
-//}
-
 Pente* BlocNiveau::getPente(int x)
 {
 	for (auto& pente : penteList)
@@ -51,7 +37,6 @@ Pente* BlocNiveau::getPente(int x)
 	}
 	return nullptr;
 }
-
 
 sf::Vector2f BlocNiveau::getEndPosition()
 {

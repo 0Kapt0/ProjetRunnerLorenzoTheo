@@ -2,8 +2,6 @@
 #include "player.h"
 #include <cmath>
 
-#include <iostream>
-
 Player::Player(sf::Vector2f startPos, float pspeed)
     : position(startPos),
     moveSpeed(pspeed),
@@ -94,8 +92,6 @@ void Player::handleInput(float dt)
 
 void Player::checkGroundCollision(Pente* pente)
 {
-    std::cout << "Joueur     . Hauteur : " << pente->getSurfaceHeight(position.x) << " -  Angle : " << pente->getOrientation(position.x).asDegrees() << "\n";
-
     const int x = static_cast<int>(position.x);
     const float surfaceY = static_cast<float>(pente->getSurfaceHeight(x) - 20.f);
     const float groundAngle = pente->getOrientation(x).asDegrees();
