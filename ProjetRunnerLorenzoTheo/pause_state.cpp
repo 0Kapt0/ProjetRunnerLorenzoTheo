@@ -5,7 +5,7 @@ PauseState::PauseState(sf::RenderWindow& window, const sf::Vector2f& playerPos)
     : state(window)
 {
     if (!font.openFromFile("src/fonts/font.ttf")) {
-        std::cerr << "Erreur de chargement de la police\n";
+        std::cerr << "Font non charge\n";
     }
 
     sf::Vector2f viewCenter = window.getView().getCenter();
