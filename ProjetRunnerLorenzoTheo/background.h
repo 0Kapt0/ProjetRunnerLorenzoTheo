@@ -7,7 +7,7 @@ public:
     Background(float width, float height);
 
     // Met à jour les couleurs du dégradé selon le temps
-    void update(float deltaTime);
+    void update(float deltaTime, sf::View view);
 
     // Dessine le background dans la fenêtre
     void draw(sf::RenderTarget& target) const;
@@ -18,4 +18,6 @@ private:
     sf::VertexArray m_gradient; // 4 vertices pour le dégradé
 
     float m_time; // compteur de temps pour animer le dégradé
+
+    sf::Vector2f position;
 };
