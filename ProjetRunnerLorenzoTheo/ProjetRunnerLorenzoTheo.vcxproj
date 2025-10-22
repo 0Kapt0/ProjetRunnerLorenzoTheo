@@ -135,22 +135,28 @@
     <ClCompile Include="bloc_niveau.cpp" />
     <ClCompile Include="bonus.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="game_state.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="pause_state.cpp" />
     <ClCompile Include="pente.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="state.cpp" />
+    <ClCompile Include="StateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="background.h" />
     <ClInclude Include="bloc_niveau.h" />
     <ClInclude Include="bonus.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="game_state.h" />
     <ClInclude Include="interface.h" />
     <ClInclude Include="menu.h" />
+    <ClInclude Include="pause_state.h" />
     <ClInclude Include="pente.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="state.h" />
+    <ClInclude Include="StateManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

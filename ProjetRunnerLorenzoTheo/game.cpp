@@ -36,29 +36,19 @@ void Game::addBlocNiveau(int idBloc)
     }
 }
 
-void Game::update(sf::RenderWindow& window)
+void Game::update(float dt)
 {
-    while (window.isOpen())
-    {
-        while (auto event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-                window.close();
-        }
+    player.update(dt, getCurrentPente());
+    bg.update(dt, player.getView());
+}
 
-        float dt = clock.restart().asSeconds();
+void Game::render(sf::RenderWindow& window)
+{
+    bg.draw(window);
+    drawBlocNiveau(window);
+    player.draw(window);
+}
 
-        player.update(dt, getCurrentPente());
-
-        window.clear(sf::Color::Black);
-        bg.update(dt, player.getView());
-        bg.draw(window);
-        
-        
-        drawBlocNiveau(window);
-
-        player.draw(window);
-
-        window.display();
-    }
+sf::Vector2f Game::getPlayerPosition() const {
+    return player.getPosition();
 }

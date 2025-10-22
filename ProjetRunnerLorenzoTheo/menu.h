@@ -10,12 +10,16 @@ private:
 	sf::Texture backgroundTexture;
 	sf::RectangleShape backgroundShape;
 
+	
+
 	void initMenu();
 public:
 	menu(sf::RenderWindow& window);
 	~menu();
 
 	int selectedItemIndex;
+
+	bool startGame = false;
 
 	void handleInput() override;
 	void update(float deltaTime) override;

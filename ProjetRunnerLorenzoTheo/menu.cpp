@@ -77,6 +77,17 @@ void menu::handleInput() {
     if (!mouseOverOption) {
         selectedItemIndex = -1; 
     }
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && selectedItemIndex != -1) {
+        auto text = menuOptions[selectedItemIndex].getString();
+        if (text == "Play") {
+            startGame = true;
+        }
+        else if (text == "Quit") {
+            window.close();
+        }
+    }
+
 }
 
 
@@ -88,6 +99,7 @@ void menu::update(float) {
 
 
 void menu::draw() {
+    window.setView(window.getDefaultView());
     window.draw(backgroundShape);
     for (auto& option : menuOptions) {
         window.draw(option);
