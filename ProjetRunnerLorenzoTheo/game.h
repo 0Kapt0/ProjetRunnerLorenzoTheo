@@ -2,6 +2,8 @@
 #include "player.h"
 #include "bloc_niveau.h"
 
+#include "background.h"
+
 class Game
 {
 private:
