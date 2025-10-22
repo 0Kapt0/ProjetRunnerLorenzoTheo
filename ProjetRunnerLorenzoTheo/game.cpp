@@ -1,18 +1,32 @@
 #include "game.h"
 
 #include <iostream>
+//Pente* Game::getCurrentPente()
+//{
+//    int pPosX = player.getPosition().x;
+//    for (int i = 0; i < blocNiveauList.size(); i++)
+//    {
+//        if (pPosX <= blocNiveauList[i].getEndPosition().x && pPosX >= (blocNiveauList[i].getEndPosition().x - blocNiveauList[i].getLength()))
+//        {
+//            std::cout << "BlocNiveau . Hauteur : " << blocNiveauList[i].penteList[i].getSurfaceHeight(player.getPosition().x) << " -  Angle : " << blocNiveauList[i].penteList[i].getOrientation(player.getPosition().x).asDegrees() << "\n";
+//            return blocNiveauList[i].getPente(pPosX);
+//        }
+//    }
+//    //return &blocNiveauList[0].getPente(pPosX);
+//}
+
 Pente* Game::getCurrentPente()
 {
     int pPosX = player.getPosition().x;
-    for (int i = 0; i < blocNiveauList.size(); i++)
+    for (auto& bloc : blocNiveauList)
     {
-        if (pPosX <= blocNiveauList[i].getEndPosition().x && pPosX >= (blocNiveauList[i].getEndPosition().x - blocNiveauList[i].getLength()))
-        {
-            std::cout << "BlocNiveau . Hauteur : " << blocNiveauList[i].penteList[i].getSurfaceHeight(player.getPosition().x) << " -  Angle : " << blocNiveauList[i].penteList[i].getOrientation(player.getPosition().x).asDegrees() << "\n";
-            return blocNiveauList[i].getPente(pPosX);
-        }
+        float blocStartX = bloc.getEndPosition().x - bloc.getLength();
+        float blocEndX = bloc.getEndPosition().x;
+
+        if (pPosX >= blocStartX && pPosX <= blocEndX)
+            return bloc.getPente(pPosX);
     }
-    //return &blocNiveauList[0].getPente(pPosX);
+    return nullptr;
 }
 
 void Game::drawBlocNiveau(sf::RenderWindow& window)

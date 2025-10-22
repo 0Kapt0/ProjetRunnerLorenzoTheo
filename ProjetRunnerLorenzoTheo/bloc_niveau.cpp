@@ -15,11 +15,10 @@ BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal)
 	{
 		
 	}
-
-	for (int i = 0; i < penteList.size(); i++)
-	{
-		length += penteList[i].getLength();
-	}
+	length = 0;
+	for (auto& pente : penteList)
+		length += pente.getLength();
+	
 }
 
 int BlocNiveau::getLength()
@@ -27,18 +26,32 @@ int BlocNiveau::getLength()
 	return length;
 }
 
+//Pente* BlocNiveau::getPente(int x)
+//{
+//	for (int i = 0; i < penteList.size(); i++)
+//	{
+//		
+//		if (x <= penteList[i].getEndPosition().x && x >= penteList[i].getEndPosition().x - penteList[i].getLength())
+//		{
+//			return &penteList[i];
+//		}
+//	}
+//	//return penteList[0];
+//}
+
 Pente* BlocNiveau::getPente(int x)
 {
-	for (int i = 0; i < penteList.size(); i++)
+	for (auto& pente : penteList)
 	{
-		
-		if (x <= penteList[i].getEndPosition().x && x >= penteList[i].getEndPosition().x - penteList[i].getLength())
-		{
-			return &penteList[i];
-		}
+		float startX = pente.getEndPosition().x - pente.getLength();
+		float endX = pente.getEndPosition().x;
+
+		if (x >= startX && x <= endX)
+			return &pente;
 	}
-	//return penteList[0];
+	return nullptr;
 }
+
 
 sf::Vector2f BlocNiveau::getEndPosition()
 {
@@ -47,8 +60,8 @@ sf::Vector2f BlocNiveau::getEndPosition()
 
 void BlocNiveau::draw(sf::RenderWindow& window)
 {
-	for (int i = 0; i < penteList.size(); i++)
+	for (auto& pente : penteList)
 	{
-		penteList[i].draw(window);
+		pente.draw(window);
 	}
 }
