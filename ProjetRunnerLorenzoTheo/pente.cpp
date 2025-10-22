@@ -1,18 +1,12 @@
 #include "pente.h"
 
-Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionVal, sf::Angle angleDepart, sf::Angle angleArrivee, int startHeight, int endHeightVal, int positionXVal)
+Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionVal, sf::Angle angleDepart, sf::Angle angleArrivee, int startHeight, int endHeightVal, int positionXVal) : precision(precisionVal), length(lengthVal), endHeight(endHeightVal), positionX(positionXVal)
 {
-	precision = precisionVal;
-    length = lengthVal;
-    endHeight = endHeightVal;
-    positionX = positionXVal;
-
     ground.setPrimitiveType(sf::PrimitiveType::TriangleStrip);
 
     for (float x = 0; x <= lengthVal; x += precision)
     {
         float y = startHeight; // ligne de base du sol
-
 
         // Points de contrôle codés en dur
         sf::Vector2f P0(0.f, startHeight);
@@ -75,12 +69,14 @@ Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionV
 
 int Pente::getSurfaceHeight(int x)
 {
-    int idx = std::clamp(int(x / precision), 0, int(points.size()) - 2);
+    float localX = x - positionX;
+    localX = std::clamp(localX, 0.f, float(length - precision));
+
+    int idx = std::clamp(int(localX / precision), 0, int(points.size()) - 2);
     sf::Vector2f p1 = points[idx];
     sf::Vector2f p2 = points[idx + 1];
 
-    float t = (x - p1.x) / (p2.x - p1.x);
-
+    float t = (localX - p1.x) / (p2.x - p1.x);
     return p1.y + (p2.y - p1.y) * t;
 }
 
@@ -101,7 +97,10 @@ sf::Vector2f Pente::getEndPosition()
 
 sf::Angle Pente::getOrientation(int x)
 {
-    int idx = std::clamp(int(x / 10), 0, int(points.size()) - 2);
+    float localX = x - positionX;
+    localX = std::clamp(localX, 0.f, float(length - precision));
+
+    int idx = std::clamp(int(localX / precision), 0, int(points.size()) - 2);
     sf::Vector2f p1 = points[idx];
     sf::Vector2f p2 = points[idx + 1];
 

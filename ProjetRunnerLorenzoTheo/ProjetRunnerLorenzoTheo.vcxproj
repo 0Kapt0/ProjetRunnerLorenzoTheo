@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="background.cpp" />
     <ClCompile Include="bloc_niveau.cpp" />
     <ClCompile Include="bonus.cpp" />
     <ClCompile Include="game.cpp" />
@@ -141,6 +142,7 @@
     <ClCompile Include="state.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="background.h" />
     <ClInclude Include="bloc_niveau.h" />
     <ClInclude Include="bonus.h" />
     <ClInclude Include="game.h" />

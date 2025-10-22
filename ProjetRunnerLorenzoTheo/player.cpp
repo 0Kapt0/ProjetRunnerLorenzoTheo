@@ -17,11 +17,41 @@ Player::Player(sf::Vector2f startPos, float pspeed)
     coyoteTimer(0.f),
     maxCoyoteTime(0.12f)
 {
-    shape.setSize({ 40.f, 40.f });
-    shape.setOrigin({ 20.f, 20.f });
-    shape.setFillColor(sf::Color::Cyan);
-    shape.setPosition(position);
     particleSpawnTimer = 0.f;
+
+    rgbTimer = 0.f;
+
+    const float size = 40.f;
+
+    body = sf::VertexArray(sf::PrimitiveType::TriangleStrip, 4);
+    
+    body[0].position = { -size / 2.f, -size / 2.f };
+    body[1].position = { -size / 2.f,  size / 2.f };
+    body[2].position = { size / 2.f, -size / 2.f };
+    body[3].position = { size / 2.f,  size / 2.f };
+
+    const sf::Color topColor(180, 255, 255);
+    const sf::Color bottomColor(255, 120, 120);
+
+    body[0].color = topColor;
+    body[1].color = bottomColor;
+    body[2].color = topColor;
+    body[3].color = bottomColor;
+
+    bottomEdge = sf::VertexArray(sf::PrimitiveType::Lines, 2);
+
+    bottomEdge[0].position = { -size / 2.f,  size / 2.f };
+    bottomEdge[1].position = { size / 2.f,  size / 2.f };
+
+    const sf::Color edgeColor(255, 80, 80, 220);
+    bottomEdge[0].color = edgeColor;
+    bottomEdge[1].color = edgeColor;
+
+    cameraPlayer.setSize({ 1920.f, 1080.f });
+    cameraPlayer.setCenter(position);
+    cameraTarget = position;
+    cameraSmoothness = 5.f;
+    cameraOffset = { 200.f, -100.f };
 }
 
 void Player::moveForward(float dt)
@@ -90,12 +120,11 @@ void Player::handleInput(float dt)
 }
 
 
-void Player::checkGroundCollision(Pente& pente)
+void Player::checkGroundCollision(Pente* pente)
 {
     const int x = static_cast<int>(position.x);
-    const float surfaceY = static_cast<float>(pente.getSurfaceHeight(x) - 20.f);
-    const float groundAngle = pente.getOrientation(x).asDegrees();
-
+    const float surfaceY = static_cast<float>(pente->getSurfaceHeight(x) - 20.f);
+    const float groundAngle = pente->getOrientation(x).asDegrees();
     constexpr float tolerance = 8.f;
     constexpr float crashAngle = 35.f;
 
@@ -203,40 +232,64 @@ void Player::updateParticles(float dt)
         particles.end());
 }
 
-//VERSION AVEC GRAVITE SUR LES PARTICULES
-//void Player::updateParticles(float dt)
-//{
-//    const float particleGravity = 600.f; // gravité locale
-//
-//    for (size_t i = 0; i < particles.size();)
-//    {
-//        auto& p = particles[i];
-//
-//        // Physique simple : gravité + déplacement
-//        p.vel.y += particleGravity * dt;
-//        p.pos += p.vel * dt;
-//        p.lifetime -= dt;
-//
-//        // Suppression en remplaçant par la dernière (O(1))
-//        if (p.lifetime <= 0.f)
-//        {
-//            particles[i] = particles.back();
-//            particles.pop_back();
-//        }
-//        else
-//        {
-//            ++i;
-//        }
-//    }
-//}
+void Player::updateCamera(float dt)
+{
+    cameraTarget = position + cameraOffset;
 
-void Player::update(float dt, Pente& pente) {
+    sf::Vector2f currentCenter = cameraPlayer.getCenter();
+
+    currentCenter.x += (cameraTarget.x - currentCenter.x) * cameraSmoothness * dt;
+    currentCenter.y += (cameraTarget.y - currentCenter.y) * cameraSmoothness * dt;
+
+    cameraPlayer.setCenter(currentCenter);
+}
+
+void Player::updateGradient(float dt)
+{
+    if (isCharging && hasBoost)
+    {
+        rgbTimer += 2.f * dt;
+
+        uint8_t r = static_cast<uint8_t>(std::sin(rgbTimer * 2.f) * 127 + 128);
+        uint8_t g = static_cast<uint8_t>(std::sin(rgbTimer * 2.f + 2.f) * 127 + 128);
+        uint8_t b = static_cast<uint8_t>(std::sin(rgbTimer * 2.f + 4.f) * 127 + 128);
+
+        body[0].color = sf::Color(r, g, b);
+        body[2].color = sf::Color(r, g, b);
+        body[1].color = sf::Color(r / 2, g / 2, b / 2);
+        body[3].color = sf::Color(r / 2, g / 2, b / 2);
+        return;
+    }
+
+    const sf::Color normalTop(180, 255, 255);
+    const sf::Color normalBottom(255, 120, 120);
+
+    auto lerpColor = [](sf::Color from, sf::Color to, float t)
+        {
+            return sf::Color(
+                static_cast<uint8_t>(from.r + (to.r - from.r) * t),
+                static_cast<uint8_t>(from.g + (to.g - from.g) * t),
+                static_cast<uint8_t>(from.b + (to.b - from.b) * t)
+            );
+        };
+
+    for (int i = 0; i < 4; ++i)
+    {
+        sf::Color target = (i == 0 || i == 2) ? normalTop : normalBottom;
+        body[i].color = lerpColor(body[i].color, target, dt * 6.f);
+    }
+
+    rgbTimer = 0.f; 
+}
+
+
+
+void Player::update(float dt, Pente* pente) {
 	//mort du joueur
     if (isDead)
         return;
 
-    cameraPlayer.setCenter(position);
-    /*cameraPlayer.move(position);*/
+    updateCamera(dt);
 
 	//MECANIQUE DE JEU
     updateCoyoteTimer(dt);
@@ -248,6 +301,7 @@ void Player::update(float dt, Pente& pente) {
     checkGroundCollision(pente);
 
 	//EFFETS VISUELS
+    updateGradient(dt);
     spawnParticles(dt);
     updateParticles(dt);
 
@@ -268,10 +322,22 @@ void Player::drawParticles(sf::RenderWindow& window)
     }
 }
 
+void Player::drawCube(sf::RenderWindow& window)
+{
+    sf::RenderStates states;
+    sf::Transform t;
+    t.translate(shape.getPosition());
+    t.rotate(shape.getRotation());
+    states.transform = t;
+
+    window.draw(body, states);
+    window.draw(bottomEdge, states);
+}
+
 void Player::draw(sf::RenderWindow& window) {
     drawParticles(window);
-    /*window.setView(cameraPlayer);*/
-	window.draw(shape);
+    window.setView(cameraPlayer);
+	drawCube(window);
 
 	//debug pour voir le cote du joueur
     sf::RectangleShape bottomLine;

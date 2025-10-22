@@ -5,10 +5,17 @@
 class Player
 {
 private:
+	//camera
 	sf::View cameraPlayer;
+	sf::Vector2f cameraTarget;
+	float cameraSmoothness;
+	sf::Vector2f cameraOffset;
 
 	//player shape and sprite
 	sf::RectangleShape shape;
+	sf::VertexArray body;
+	sf::VertexArray bottomEdge;
+	float rgbTimer;
 
 	//Player pos and mov
 	sf::Vector2f velocity;
@@ -34,8 +41,12 @@ private:
 	void moveForward(float dt);
 	void applyGravity(float dt);
 	void handleInput(float dt);
-	void checkGroundCollision(Pente& pente);
+	void checkGroundCollision(Pente* pente);
 	void updateCoyoteTimer(float dt);
+	void updateCamera(float dt);
+
+	void updateGradient(float dt);
+	void drawCube(sf::RenderWindow& window);
 
 	//methode particules
 	void createJumpPoof();
@@ -58,10 +69,11 @@ private:
 public:
 	Player(sf::Vector2f startPos, float pspeed = 250.f);
 
-	void update(float dt, Pente& pente);
+	void update(float dt, Pente* pente);
 	void draw(sf::RenderWindow& window);
 
 	sf::Vector2f getPosition() const { return position; }
 	sf::FloatRect getBounds() const { return shape.getGlobalBounds(); }
+	sf::View getView() { return cameraPlayer; }
 };
 

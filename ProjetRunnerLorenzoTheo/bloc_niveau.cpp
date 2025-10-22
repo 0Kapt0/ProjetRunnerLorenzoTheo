@@ -1,28 +1,38 @@
 #include "bloc_niveau.h"
 
-BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetId)
+BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal) : positionStart(posVal), presetId(presetIdVal)
 {
-	positionStart = posVal;
-
 	if (presetId == 0)
 	{
-		penteList.push_back(Pente(1000, 0, 10, sf::degrees(30), sf::degrees(0), posVal.y, posVal.y + 200, posVal.x));
-		penteList.push_back(Pente(500, 0, 10, sf::degrees(0), sf::degrees(30), posVal.y + 200, posVal.y, 1000 + posVal.x));
+		penteList.push_back(Pente(500, 0, 10, sf::degrees(30), sf::degrees(0), posVal.y, posVal.y + 200, posVal.x));
+		penteList.push_back(Pente(510, 0, 10, sf::degrees(0), sf::degrees(30), posVal.y + 200, posVal.y + 400, 500 + posVal.x));
 	}
 	else if (presetId == 1)
 	{
-		
+		 
 	}
-
-	for (int i = 0; i < penteList.size(); i++)
-	{
-		length += penteList[i].getLength();
-	}
+	length = 0;
+	for (auto& pente : penteList)
+		length += pente.getLength();
+	
 }
 
 int BlocNiveau::getLength()
 {
 	return length;
+}
+
+Pente* BlocNiveau::getPente(int x)
+{
+	for (auto& pente : penteList)
+	{
+		float startX = pente.getEndPosition().x - pente.getLength();
+		float endX = pente.getEndPosition().x;
+
+		if (x >= startX && x <= endX)
+			return &pente;
+	}
+	return nullptr;
 }
 
 sf::Vector2f BlocNiveau::getEndPosition()
@@ -32,8 +42,8 @@ sf::Vector2f BlocNiveau::getEndPosition()
 
 void BlocNiveau::draw(sf::RenderWindow& window)
 {
-	for (int i = 0; i < penteList.size(); i++)
+	for (auto& pente : penteList)
 	{
-		penteList[i].draw(window);
+		pente.draw(window);
 	}
 }
