@@ -2,8 +2,6 @@
 #include "player.h"
 #include "pente.h"
 
-#include "pente.h"
-
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({ 1280, 720}), "Runner test");
