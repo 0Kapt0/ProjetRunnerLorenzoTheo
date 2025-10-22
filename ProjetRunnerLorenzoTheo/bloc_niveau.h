@@ -7,11 +7,9 @@ private:
 	int length = 0;
 	sf::Vector2f positionStart;
 	int presetId;
-
+	std::vector<Pente> penteList;
 	
 public:
-	std::vector<Pente> penteList;
-
 	BlocNiveau(sf::Vector2f posVal, int presetId);
 
 	int getLength();
