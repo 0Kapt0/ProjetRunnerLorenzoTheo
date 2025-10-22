@@ -2,9 +2,9 @@
 
 Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionVal, sf::Angle angleDepart, sf::Angle angleArrivee, int startHeight, int endHeight, int positionX)
 {
-	precision = precisionVal;
+    precision = precisionVal;
 
-	ground.setPrimitiveType(sf::PrimitiveType::TriangleStrip);
+    ground.setPrimitiveType(sf::PrimitiveType::TriangleStrip);
 
     for (float x = 0; x <= lengthVal; x += precision)
     {
@@ -59,14 +59,14 @@ Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionV
         float uuu = uu * u;
         float ttt = tt * tMid;
         y = uuu * P0.y + 3 * uu * tMid * P1.y + 3 * u * tt * P2.y + ttt * P3.y;
-        
+
         points.push_back({ x, y });
     }
 
     for (auto& p : points)
     {
         ground.append({ {p.x + positionX, p.y}, sf::Color::Color(200, 255, 200) });
-        ground.append({ {p.x + positionX, 800.f}, sf::Color::Color(255, 255, 255)});
+        ground.append({ {p.x + positionX, 800.f}, sf::Color::Color(255, 255, 255) });
     }
 };
 
@@ -77,7 +77,7 @@ int Pente::getSurfaceHeight(int x)
     sf::Vector2f p2 = points[idx + 1];
 
     float t = (x - p1.x) / (p2.x - p1.x);
-    
+
     return p1.y + (p2.y - p1.y) * t;
 }
 
@@ -91,10 +91,10 @@ sf::Angle Pente::getOrientation(int x)
     return sf::Angle(sf::radians(std::atan2(dir.y, dir.x)));
 }
 
-sf::Angle getExitAngle()
-{
-    
-}
+//sf::Angle getExitAngle()
+//{
+//
+//}
 
 void Pente::draw(sf::RenderWindow& window)
 {
