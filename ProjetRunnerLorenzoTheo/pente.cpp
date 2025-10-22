@@ -109,11 +109,6 @@ sf::Angle Pente::getOrientation(int x)
     return sf::Angle(sf::radians(std::atan2(dir.y, dir.x)));
 }
 
-sf::Angle getExitAngle()
-{
-    
-}
-
 void Pente::draw(sf::RenderWindow& window)
 {
     window.draw(ground);
