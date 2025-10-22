@@ -1,8 +1,11 @@
 #include "pente.h"
 
-Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionVal, sf::Angle angleDepart, sf::Angle angleArrivee, int startHeight, int endHeight, int positionX)
+Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionVal, sf::Angle angleDepart, sf::Angle angleArrivee, int startHeight, int endHeightVal, int positionXVal)
 {
-    precision = precisionVal;
+	precision = precisionVal;
+    length = lengthVal;
+    endHeight = endHeightVal;
+    positionX = positionXVal;
 
     ground.setPrimitiveType(sf::PrimitiveType::TriangleStrip);
 
@@ -11,19 +14,19 @@ Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionV
         float y = startHeight; // ligne de base du sol
 
 
-        // Points de contrôle codés en dur
+        // Points de contrÃ´le codÃ©s en dur
         sf::Vector2f P0(0.f, startHeight);
-        sf::Vector2f P3(lengthVal, endHeight);
+        sf::Vector2f P3(lengthVal, endHeightVal);
 
         float tangentLength = lengthVal * 0.25f;
 
-        // P1 basé sur l'angle de départ
+        // P1 basÃ© sur l'angle de dÃ©part
         sf::Vector2f P1 = P0 + sf::Vector2f(
             tangentLength * std::cos(angleDepart.asRadians()),
             tangentLength * std::sin(angleDepart.asRadians())
         );
 
-        // P2 basé sur l'angle d'arrivée
+        // P2 basÃ© sur l'angle d'arrivÃ©e
         sf::Vector2f P2 = P3 - sf::Vector2f(
             tangentLength * std::cos(angleArrivee.asRadians()),
             tangentLength * std::sin(angleArrivee.asRadians())
@@ -65,8 +68,8 @@ Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionV
 
     for (auto& p : points)
     {
-        ground.append({ {p.x + positionX, p.y}, sf::Color::Color(200, 255, 200) });
-        ground.append({ {p.x + positionX, 800.f}, sf::Color::Color(255, 255, 255) });
+        ground.append({ {p.x + positionXVal, p.y}, sf::Color::Color(200, 255, 200) });
+        ground.append({ {p.x + positionXVal, 800.f+endHeightVal}, sf::Color::Color(255, 255, 255)});
     }
 };
 
@@ -81,6 +84,21 @@ int Pente::getSurfaceHeight(int x)
     return p1.y + (p2.y - p1.y) * t;
 }
 
+int Pente::getLength()
+{
+    return length;
+}
+
+int Pente::getEndHeight()
+{
+    return endHeight;
+}
+
+sf::Vector2f Pente::getEndPosition()
+{
+    return sf::Vector2f(positionX + length, endHeight);
+}
+
 sf::Angle Pente::getOrientation(int x)
 {
     int idx = std::clamp(int(x / 10), 0, int(points.size()) - 2);
@@ -90,11 +108,6 @@ sf::Angle Pente::getOrientation(int x)
     sf::Vector2f dir = p2 - p1;
     return sf::Angle(sf::radians(std::atan2(dir.y, dir.x)));
 }
-
-//sf::Angle getExitAngle()
-//{
-//
-//}
 
 void Pente::draw(sf::RenderWindow& window)
 {

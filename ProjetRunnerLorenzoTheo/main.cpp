@@ -1,13 +1,21 @@
 #include <SFML/Graphics.hpp>
-#include "player.h"
-#include "pente.h"
+#include <cmath>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+#include "bloc_niveau.h"
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({ 1280, 720}), "Runner test");
     sf::Clock clock;
 
-    Pente pente(800, 0.f, 10, sf::degrees(0), sf::degrees(20), 500, 600, 0);
+    BlocNiveau b1(sf::Vector2f(0, 400), 0);
+    BlocNiveau b2(b1.getEndPosition(), 0);
+
+    std::cout << b1.getEndPosition().x << ", " << b1.getEndPosition().y << "\n";
+    
 
     Player player({ 0.f, 300.f });
 
@@ -24,7 +32,8 @@ int main()
         player.update(dt, pente);
 
         window.clear(sf::Color::Black);
-        pente.draw(window);
+        b1.draw(window);
+        b2.draw(window);
         player.draw(window);
         window.display();
     }
