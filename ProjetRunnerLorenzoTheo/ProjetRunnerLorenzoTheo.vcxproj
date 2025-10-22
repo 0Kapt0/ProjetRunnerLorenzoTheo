@@ -138,6 +138,7 @@
     <ClCompile Include="pente.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="state.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bloc_niveau.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="menu.h" />
     <ClInclude Include="pente.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="state.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
