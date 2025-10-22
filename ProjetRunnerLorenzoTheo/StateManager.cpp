@@ -22,7 +22,7 @@ void StateManager::run() {
         if (currentState)
             currentState->handleInput();
 
-        //MENU PRINCIPAL
+        //IN MENU
         if (auto* m = dynamic_cast<menu*>(currentState.get())) {
             if (m->startGame) {
                 m->startGame = false;
@@ -30,7 +30,7 @@ void StateManager::run() {
             }
         }
 
-        //ETAT DE JEU
+        //IN GAME
         else if (auto* g = dynamic_cast<GameState*>(currentState.get())) {
             if (pauseMenu) {
                 pauseMenu->handleInput();
@@ -42,6 +42,7 @@ void StateManager::run() {
                     changeState<menu>();
                 }
             }
+            //IN PAUSE
             else {
                 g->handleInput();
                 if (g->wantPause) {

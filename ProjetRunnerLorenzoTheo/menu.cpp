@@ -18,20 +18,20 @@ menu::menu(sf::RenderWindow& window)
     backgroundShape.setTexture(&backgroundTexture);
 
 
-    /*if (!menuMusic.openFromFile("assets/music/Music_jeu.ogg")) {
-        cerr << "Erreur de chargement du fond d'écran du menu\n";
+    if (!menuMusic.openFromFile("src/music/menuMusic.mp3")) {
+        std:: cerr << "Erreur de chargement du fond d'écran du menu\n";
     }
     else {
-        menuMusic.setLoop(true);
+        menuMusic.setLooping(true);
         menuMusic.setVolume(10.f);
         menuMusic.play();
-    }*/
+    }
     
     initMenu();
 }
 
 menu::~menu() {
-    /*menuMusic.stop();*/
+    menuMusic.stop();
 }
 
 void menu::initMenu() {

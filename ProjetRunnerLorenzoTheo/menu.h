@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "state.h"
 
 class menu : public state {
@@ -10,7 +11,7 @@ private:
 	sf::Texture backgroundTexture;
 	sf::RectangleShape backgroundShape;
 
-	
+	sf::Music menuMusic;
 
 	void initMenu();
 public:
