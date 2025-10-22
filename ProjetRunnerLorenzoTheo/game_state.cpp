@@ -1,5 +1,6 @@
 #include "game_state.h"
 #include "pause_state.h"
+#include "AudioSettings.h"
 #include <iostream>
 
 GameState::GameState(sf::RenderWindow& window)
@@ -18,7 +19,7 @@ GameState::GameState(sf::RenderWindow& window)
     }
     else {
         gameMusic.setLooping(true);
-        gameMusic.setVolume(20.f);
+        AudioSettings::applyTo(gameMusic);
         gameMusic.play();
     }
 }
