@@ -5,7 +5,11 @@
 class Player
 {
 private:
+	//camera
 	sf::View cameraPlayer;
+	sf::Vector2f cameraTarget;
+	float cameraSmoothness;
+	sf::Vector2f cameraOffset;
 
 	//player shape and sprite
 	sf::RectangleShape shape;
@@ -36,6 +40,7 @@ private:
 	void handleInput(float dt);
 	void checkGroundCollision(Pente* pente);
 	void updateCoyoteTimer(float dt);
+	void updateCamera(float dt);
 
 	//methode particules
 	void createJumpPoof();
@@ -63,5 +68,6 @@ public:
 
 	sf::Vector2f getPosition() const { return position; }
 	sf::FloatRect getBounds() const { return shape.getGlobalBounds(); }
+	sf::View getView() { return cameraPlayer; }
 };
 
