@@ -1,10 +1,7 @@
 #include "bloc_niveau.h"
 
-BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal)
+BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal) : positionStart(posVal), presetId(presetIdVal)
 {
-	positionStart = posVal;
-	presetId = presetIdVal;
-
 	if (presetId == 0)
 	{
 		penteList.push_back(Pente(500, 0, 10, sf::degrees(30), sf::degrees(0), posVal.y, posVal.y + 200, posVal.x));
@@ -12,7 +9,7 @@ BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal)
 	}
 	else if (presetId == 1)
 	{
-		
+		 
 	}
 	length = 0;
 	for (auto& pente : penteList)
