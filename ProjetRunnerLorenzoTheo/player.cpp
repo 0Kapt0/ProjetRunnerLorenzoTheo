@@ -2,6 +2,8 @@
 #include "player.h"
 #include <cmath>
 
+#include <iostream>
+
 Player::Player(sf::Vector2f startPos, float pspeed)
     : position(startPos),
     moveSpeed(pspeed),
@@ -90,12 +92,13 @@ void Player::handleInput(float dt)
 }
 
 
-void Player::checkGroundCollision(Pente& pente)
+void Player::checkGroundCollision(Pente* pente)
 {
-    const int x = static_cast<int>(position.x);
-    const float surfaceY = static_cast<float>(pente.getSurfaceHeight(x) - 20.f);
-    const float groundAngle = pente.getOrientation(x).asDegrees();
+    std::cout << "Joueur     . Hauteur : " << pente->getSurfaceHeight(position.x) << " -  Angle : " << pente->getOrientation(position.x).asDegrees() << "\n";
 
+    const int x = static_cast<int>(position.x);
+    const float surfaceY = static_cast<float>(pente->getSurfaceHeight(x) - 20.f);
+    const float groundAngle = pente->getOrientation(x).asDegrees();
     constexpr float tolerance = 8.f;
     constexpr float crashAngle = 35.f;
 
@@ -230,12 +233,12 @@ void Player::updateParticles(float dt)
 //    }
 //}
 
-void Player::update(float dt, Pente& pente) {
+void Player::update(float dt, Pente* pente) {
 	//mort du joueur
     if (isDead)
         return;
 
-    cameraPlayer.setCenter(position);
+    //cameraPlayer.setCenter(position);
     /*cameraPlayer.move(position);*/
 
 	//MECANIQUE DE JEU

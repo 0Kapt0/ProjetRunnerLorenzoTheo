@@ -1,13 +1,15 @@
 #include "bloc_niveau.h"
 
-BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetId)
+#include <iostream>
+BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal)
 {
 	positionStart = posVal;
+	presetId = presetIdVal;
 
 	if (presetId == 0)
 	{
-		penteList.push_back(Pente(1000, 0, 10, sf::degrees(30), sf::degrees(0), posVal.y, posVal.y + 200, posVal.x));
-		penteList.push_back(Pente(500, 0, 10, sf::degrees(0), sf::degrees(30), posVal.y + 200, posVal.y, 1000 + posVal.x));
+		penteList.push_back(Pente(500, 0, 10, sf::degrees(30), sf::degrees(0), posVal.y, posVal.y + 200, posVal.x));
+		penteList.push_back(Pente(510, 0, 10, sf::degrees(0), sf::degrees(30), posVal.y + 250, posVal.y + 400, 500 + posVal.x));
 	}
 	else if (presetId == 1)
 	{
@@ -23,6 +25,19 @@ BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetId)
 int BlocNiveau::getLength()
 {
 	return length;
+}
+
+Pente* BlocNiveau::getPente(int x)
+{
+	for (int i = 0; i < penteList.size(); i++)
+	{
+		
+		if (x <= penteList[i].getEndPosition().x && x >= penteList[i].getEndPosition().x - penteList[i].getLength())
+		{
+			return &penteList[i];
+		}
+	}
+	//return penteList[0];
 }
 
 sf::Vector2f BlocNiveau::getEndPosition()

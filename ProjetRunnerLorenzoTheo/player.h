@@ -34,7 +34,7 @@ private:
 	void moveForward(float dt);
 	void applyGravity(float dt);
 	void handleInput(float dt);
-	void checkGroundCollision(Pente& pente);
+	void checkGroundCollision(Pente* pente);
 	void updateCoyoteTimer(float dt);
 
 	//methode particules
@@ -58,7 +58,7 @@ private:
 public:
 	Player(sf::Vector2f startPos, float pspeed = 250.f);
 
-	void update(float dt, Pente& pente);
+	void update(float dt, Pente* pente);
 	void draw(sf::RenderWindow& window);
 
 	sf::Vector2f getPosition() const { return position; }
