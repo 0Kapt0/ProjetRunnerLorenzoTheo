@@ -234,7 +234,7 @@ void Player::update(float dt, Pente* pente) {
     if (isDead)
         return;
 
-    //cameraPlayer.setCenter(position);
+    cameraPlayer.setCenter(position);
     /*cameraPlayer.move(position);*/
 
 	//MECANIQUE DE JEU
@@ -269,7 +269,7 @@ void Player::drawParticles(sf::RenderWindow& window)
 
 void Player::draw(sf::RenderWindow& window) {
     drawParticles(window);
-    /*window.setView(cameraPlayer);*/
+    window.setView(cameraPlayer);
 	window.draw(shape);
 
 	//debug pour voir le cote du joueur
