@@ -23,7 +23,7 @@ menu::menu(sf::RenderWindow& window)
     }
     else {
         menuMusic.setLooping(true);
-        menuMusic.setVolume(10.f);
+        menuMusic.setVolume(20.f);
         menuMusic.play();
     }
     

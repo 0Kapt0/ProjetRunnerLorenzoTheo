@@ -40,6 +40,9 @@ void StateManager::run() {
                 else if (pauseMenu->quitToMenu) {
                     pauseMenu.reset();
                     changeState<menu>();
+                    if (auto* g = dynamic_cast<GameState*>(currentState.get())) {
+                        g->stopMusic();
+                    }
                 }
             }
             //IN PAUSE

@@ -1,11 +1,25 @@
 #include "game_state.h"
 #include "pause_state.h"
+#include <iostream>
 
 GameState::GameState(sf::RenderWindow& window)
     : state(window)
 {
     for (int i = 0; i < 11; ++i)
         game.addBlocNiveau(0);
+
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+    int track = std::rand() % 4 + 1;
+
+    std::string path = "src/music/inGameMusic" + std::to_string(track) + ".mp3";
+    if (!gameMusic.openFromFile(path)) {
+        std::cerr << "Erreur de chargement musique : " << path << "\n";
+    }
+    else {
+        gameMusic.setLooping(true);
+        gameMusic.setVolume(20.f);
+        gameMusic.play();
+    }
 }
 
 void GameState::handleInput()

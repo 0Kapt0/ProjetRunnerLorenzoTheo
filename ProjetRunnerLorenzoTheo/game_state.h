@@ -1,11 +1,13 @@
 #pragma once
 #include "state.h"
 #include "game.h"
+#include <SFML/Audio.hpp>
 
 class GameState : public state {
 private:
     Game game;
     bool paused = false;
+    sf::Music gameMusic;
 
 public:
     bool wantPause = false;
@@ -17,4 +19,5 @@ public:
     void draw() override;
 
     Game& getGame() { return game; }
+    void stopMusic() { gameMusic.stop(); }
 };
