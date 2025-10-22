@@ -8,7 +8,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode({ 1280, 720 }), "Runner test");
+    sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "Runner test");
 
     Game game;
     game.addBlocNiveau(0);
