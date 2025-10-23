@@ -72,6 +72,7 @@ void Game::update(float dt) {
     scoreManager->setBoostCharge(currentBoost);
 
     updateNiveau();
+    view.updateCamera(dt, player.getPosition());
     player.update(dt, getCurrentPente());
     bg.update(dt);
 
