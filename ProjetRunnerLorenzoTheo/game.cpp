@@ -46,10 +46,25 @@ void Game::addBlocNiveau(int idBloc)
     }
 }
 
-void Game::update(float dt)
-{
+void Game::update(float dt) {
+    float currentBoost = scoreManager->getBoostCharge();
+
+    player.setHasBoost(currentBoost > 0.f);
+
+    if (player.isUsingBoost())
+    {
+        currentBoost -= 25.f * dt;
+        if (currentBoost < 0.f) currentBoost = 0.f;
+    }
+
+    scoreManager->setBoostCharge(currentBoost);
+
     player.update(dt, getCurrentPente());
     bg.update(dt, player.getView());
+
+    if (player.getIsGrounded() && scoreManager->getSpinCount() > 0) {
+        player.applyFlipBoost();
+    }
 
     scoreManager->update(dt,
         player.getPosition().x,
@@ -64,7 +79,7 @@ void Game::render(sf::RenderWindow& window)
     drawBlocNiveau(window);
     player.draw(window);
 
-    scoreManager->draw(window, player.getView());
+    scoreManager->draw(window, player.getView(), player.getPosition());
 }
 
 sf::Vector2f Game::getPlayerPosition() const {

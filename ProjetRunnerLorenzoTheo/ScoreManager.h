@@ -16,12 +16,15 @@ public:
 
     void start(float startPlayerX);
     void update(float dt, float playerX, float playerAngleDeg, bool isGrounded);
-    void draw(sf::RenderTarget& target, const sf::View& view) const;
+    void draw(sf::RenderTarget& target, const sf::View& view, const sf::Vector2f& playerPos);
 
     int   getScoreInt() const;
     float getScore() const;
     int   getCurrentMultiplier() const;
     int   getSpinCount() const;
+
+    float getBoostCharge() const { return boostCharge; }
+    void  setBoostCharge(float value) { boostCharge = std::clamp(value, 0.f, maxBoost); }
 
 private:
     Config cfg;
@@ -44,6 +47,13 @@ private:
     float airUnwrappedAngle = 0.f;
 
     float comboTimer = 0.f;
+
+    float boostCharge = 0.f;
+    float boostGainPerFlip = 25.f;
+    float maxBoost = 100.f;
+
+    sf::RectangleShape boostBarBG;
+    sf::RectangleShape boostBarFill;
 
     static float shortestAngleDelta(float a, float b);
     bool detectBackflip(float playerAngleDeg);

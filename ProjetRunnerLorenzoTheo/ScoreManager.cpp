@@ -24,6 +24,14 @@ ScoreManager::ScoreManager(const sf::Font& font, sf::Vector2f uiPos, const Confi
     comboBarFill.setSize({ 200.f, 10.f });
     comboBarFill.setFillColor(sf::Color(0, 200, 255));
 
+    boostBarBG.setSize({ 200.f, 15.f });
+    boostBarBG.setFillColor(sf::Color(0, 0, 0, 150));
+    boostBarBG.setOutlineThickness(1);
+    boostBarBG.setOutlineColor(sf::Color::White);
+
+    boostBarFill.setSize({ 200.f, 15.f });
+    boostBarFill.setFillColor(sf::Color(255, 200, 0));
+
     updateTexts();
 }
 
@@ -84,6 +92,8 @@ void ScoreManager::update(float dt, float playerX, float playerAngleDeg, bool is
             spins++;
             currentMultiplier = std::min(cfg.maxMultiplier, currentMultiplier + 1);
             comboTimer = cfg.comboDuration;
+
+            boostCharge = std::min(maxBoost, boostCharge + boostGainPerFlip);
         }
     }
 
@@ -102,7 +112,7 @@ void ScoreManager::update(float dt, float playerX, float playerAngleDeg, bool is
     updateTexts();
 }
 
-void ScoreManager::draw(sf::RenderTarget& target, const sf::View& view) const
+void ScoreManager::draw(sf::RenderTarget& target, const sf::View& view, const sf::Vector2f& playerPos)
 {
     sf::View oldView = target.getView();
     target.setView(view);
@@ -124,6 +134,21 @@ void ScoreManager::draw(sf::RenderTarget& target, const sf::View& view) const
     barFill.setSize({ 200.f * ratio, 10.f });
     barFill.setPosition(basePos + sf::Vector2f(0.f, 65.f));
 
+    sf::Vector2f topRight = view.getCenter() + view.getSize() / 2.f;
+    sf::Vector2f barSize = { 200.f, 15.f };
+    sf::Vector2f barPos = topRight - sf::Vector2f(barSize.x + 30.f, view.getSize().y - 30.f);
+
+    sf::RectangleShape bg = boostBarBG;
+    sf::RectangleShape fill = boostBarFill;
+
+    float boostRatio = boostCharge / maxBoost;
+    bg.setPosition(barPos);
+    fill.setPosition(barPos);
+    fill.setSize({ barSize.x * boostRatio, barSize.y });
+
+    target.draw(bg);
+    target.draw(fill);
+
     target.draw(score);
     target.draw(mult);
     if (currentMultiplier > 1) {
@@ -131,8 +156,53 @@ void ScoreManager::draw(sf::RenderTarget& target, const sf::View& view) const
         target.draw(barFill);
     }
 
+    {
+        sf::Vector2f center = playerPos;
+        const float radius = 60.f; 
+        const int points = 50;
+        const float arcAngle = 120.f;
+        const float startAngle = -arcAngle / 2.f;
+        const float ratio = boostCharge / maxBoost; 
+        const float visibleAngle = arcAngle * ratio;
+
+        sf::VertexArray arc(sf::PrimitiveType::TriangleStrip);
+
+        const float baseRotation = -70.f;
+        const sf::Vector2f offset(0.f, 0.f);
+
+        for (int i = 0; i <= points; ++i)
+        {
+            float t = static_cast<float>(i) / points;
+            float angle = startAngle + t * visibleAngle + baseRotation;;
+            float rad = angle * 3.14159265f / 180.f;
+
+            sf::Vector2f outer(
+                center.x + std::cos(rad) * radius + offset.x,
+                center.y + std::sin(rad) * radius + offset.y
+            );
+
+            sf::Vector2f inner(
+                center.x + std::cos(rad) * (radius - 6.f) + offset.x,
+                center.y + std::sin(rad) * (radius - 6.f) + offset.y
+            );
+
+            sf::Color c = sf::Color(
+                static_cast<uint8_t>(100 + 155 * ratio),
+                200,
+                255,
+                200
+            );
+
+            arc.append(sf::Vertex(outer, c));
+            arc.append(sf::Vertex(inner, c));
+        }
+
+        target.draw(arc);
+    }
+
     target.setView(oldView);
 }
+
 
 int ScoreManager::getScoreInt() const { return static_cast<int>(score + 0.5f); }
 float ScoreManager::getScore() const { return score; }
