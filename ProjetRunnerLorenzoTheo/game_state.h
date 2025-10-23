@@ -20,4 +20,5 @@ public:
 
     Game& getGame() { return game; }
     void stopMusic() { gameMusic.stop(); }
+    sf::Music& getMusic() { return gameMusic; }
 };

@@ -21,9 +21,12 @@ public:
 	int selectedItemIndex;
 
 	bool startGame = false;
+	bool openOptions = false;
 
 	void handleInput() override;
 	void update(float deltaTime) override;
 	void draw() override;
+
+	sf::Music& getMusic() { return menuMusic; }
 };
 

@@ -5,6 +5,7 @@
 #include "menu.h"
 #include "game_state.h"
 #include "pause_state.h"
+#include "options_state.h"
 
 class StateManager {
 private:

@@ -1,4 +1,5 @@
 ﻿#include "menu.h"
+#include "AudioSettings.h"
 #include <iostream>
 
 menu::menu(sf::RenderWindow& window)
@@ -23,7 +24,7 @@ menu::menu(sf::RenderWindow& window)
     }
     else {
         menuMusic.setLooping(true);
-        menuMusic.setVolume(20.f);
+        AudioSettings::applyTo(menuMusic);
         menuMusic.play();
     }
     
@@ -82,6 +83,9 @@ void menu::handleInput() {
         auto text = menuOptions[selectedItemIndex].getString();
         if (text == "Play") {
             startGame = true;
+        }
+        else if (text == "Options") {
+            openOptions = true;
         }
         else if (text == "Quit") {
             window.close();

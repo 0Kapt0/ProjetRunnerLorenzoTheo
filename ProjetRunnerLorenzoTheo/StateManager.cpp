@@ -1,4 +1,5 @@
-#include "StateManager.h"
+﻿#include "StateManager.h"
+#include "AudioSettings.h"
 
 StateManager::StateManager(sf::RenderWindow& win)
     : window(win)
@@ -28,6 +29,18 @@ void StateManager::run() {
                 m->startGame = false;
                 changeState<GameState>();
             }
+            else if (m->openOptions) {
+                m->openOptions = false;
+                changeState<OptionsState>();
+            }
+        }
+
+        //IN OPTIONS
+        else if (auto* o = dynamic_cast<OptionsState*>(currentState.get())) {
+            if (o->backToMenu) {
+                o->backToMenu = false;
+                changeState<menu>();
+            }
         }
 
         //IN GAME
@@ -54,6 +67,13 @@ void StateManager::run() {
                 }
                 g->update(dt);
             }
+        }
+
+        if (auto* m = dynamic_cast<menu*>(currentState.get())) {
+            AudioSettings::applyTo(m->getMusic());
+        }
+        else if (auto* g = dynamic_cast<GameState*>(currentState.get())) {
+            AudioSettings::applyTo(g->getMusic());
         }
 
         window.clear();
