@@ -7,6 +7,9 @@ class Player
 private:
 	//player shape and sprite
 	sf::RectangleShape shape;
+	sf::VertexArray body;
+	sf::VertexArray bottomEdge;
+	float rgbTimer;
 
 	//Player pos and mov
 	sf::Vector2f velocity;
@@ -35,6 +38,9 @@ private:
 	void checkGroundCollision(Pente* pente);
 	void updateCoyoteTimer(float dt);
 	
+
+	void updateGradient(float dt);
+	void drawCube(sf::RenderWindow& window);
 
 	//methode particules
 	void createJumpPoof();

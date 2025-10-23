@@ -39,6 +39,16 @@
     <ClCompile Include="background.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="game_state.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="pause_state.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="state.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="StateManager.cpp">
     <ClCompile Include="view.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -68,6 +78,16 @@
     <ClInclude Include="background.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="game_state.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="pause_state.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="state.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="StateManager.h">
     <ClInclude Include="view.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>

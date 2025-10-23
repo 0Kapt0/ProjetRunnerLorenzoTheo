@@ -22,6 +22,9 @@ public:
 	Game():view(), player({0.f, 300.f}), bg(1920.f, 1080.f, view) {};
 
 	void addBlocNiveau(int idBloc);
-	void update(sf::RenderWindow& window);
+	void render(sf::RenderWindow& window);
+	void update(float dt);
+
+	sf::Vector2f getPlayerPosition() const;
 };
 

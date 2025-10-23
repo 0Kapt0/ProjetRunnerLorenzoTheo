@@ -109,7 +109,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-audio-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-audio-s-d.lib;opengl32.lib;ogg.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;FLAC.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -127,29 +127,41 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;sfml-audio-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;sfml-audio-s.lib;opengl32.lib;ogg.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;FLAC.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AudioSettings.cpp" />
     <ClCompile Include="background.cpp" />
     <ClCompile Include="bloc_niveau.cpp" />
     <ClCompile Include="bonus.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="game_state.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="options_state.cpp" />
+    <ClCompile Include="pause_state.cpp" />
     <ClCompile Include="pente.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="state.cpp" />
+    <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="view.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AudioSettings.h" />
     <ClInclude Include="background.h" />
     <ClInclude Include="bloc_niveau.h" />
     <ClInclude Include="bonus.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="game_state.h" />
     <ClInclude Include="interface.h" />
     <ClInclude Include="menu.h" />
+    <ClInclude Include="options_state.h" />
+    <ClInclude Include="pause_state.h" />
     <ClInclude Include="pente.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="state.h" />
+    <ClInclude Include="StateManager.h" />
     <ClInclude Include="view.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
