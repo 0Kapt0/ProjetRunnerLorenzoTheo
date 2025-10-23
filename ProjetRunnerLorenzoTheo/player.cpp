@@ -46,12 +46,6 @@ Player::Player(sf::Vector2f startPos, float pspeed)
     const sf::Color edgeColor(255, 80, 80, 220);
     bottomEdge[0].color = edgeColor;
     bottomEdge[1].color = edgeColor;
-
-    cameraPlayer.setSize({ 1920.f, 1080.f });
-    cameraPlayer.setCenter(position);
-    cameraTarget = position;
-    cameraSmoothness = 5.f;
-    cameraOffset = { 200.f, -100.f };
 }
 
 void Player::moveForward(float dt)
@@ -238,11 +232,6 @@ void Player::updateCamera(float dt)
 
     sf::Vector2f currentCenter = cameraPlayer.getCenter();
 
-    currentCenter.x += (cameraTarget.x - currentCenter.x) * cameraSmoothness * dt;
-    currentCenter.y += (cameraTarget.y - currentCenter.y) * cameraSmoothness * dt;
-
-    cameraPlayer.setCenter(currentCenter);
-}
 
 void Player::updateGradient(float dt)
 {
@@ -288,8 +277,6 @@ void Player::update(float dt, Pente* pente) {
 	//mort du joueur
     if (isDead)
         return;
-
-    updateCamera(dt);
 
 	//MECANIQUE DE JEU
     updateCoyoteTimer(dt);
@@ -337,7 +324,7 @@ void Player::drawCube(sf::RenderWindow& window)
 void Player::draw(sf::RenderWindow& window) {
     drawParticles(window);
     window.setView(cameraPlayer);
-	drawCube(window);
+	  drawCube(window);
 
 	//debug pour voir le cote du joueur
     sf::RectangleShape bottomLine;
