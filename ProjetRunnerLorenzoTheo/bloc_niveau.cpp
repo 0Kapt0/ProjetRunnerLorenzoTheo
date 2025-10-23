@@ -15,26 +15,26 @@ BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal) : positionStart(pos
 	}
 	else if (presetId == 2)
 	{
-		// Montée douce suivie d’un plateau
+		// MontÃ©e douce suivie dâ€™un plateau
 		penteList.push_back(Pente(400, 10, sf::degrees(0), sf::degrees(20), posVal.y, posVal.y - 150, posVal.x));
 		penteList.push_back(Pente(300, 5, sf::degrees(20), sf::degrees(0), posVal.y - 150, posVal.y - 150, posVal.x + 400));
 	}
 	else if (presetId == 3)
 	{
-		// Enchaînement en "vague" : monte, descend, remonte
+		// EnchaÃ®nement en "vague" : monte, descend, remonte
 		penteList.push_back(Pente(300, 10, sf::degrees(0), sf::degrees(25), posVal.y, posVal.y - 100, posVal.x));
 		penteList.push_back(Pente(300, 10, sf::degrees(25), sf::degrees(-25), posVal.y - 100, posVal.y + 100, posVal.x + 300));
 		penteList.push_back(Pente(300, 10, sf::degrees(-25), sf::degrees(0), posVal.y + 100, posVal.y, posVal.x + 600));
 	}
 	else if (presetId == 4)
 	{
-		// Descente raide puis légère montée
+		// Descente raide puis lÃ©gÃ¨re montÃ©e
 		penteList.push_back(Pente(400, 10, sf::degrees(0), sf::degrees(-30), posVal.y, posVal.y + 250, posVal.x));
 		penteList.push_back(Pente(400, 8, sf::degrees(-30), sf::degrees(10), posVal.y + 250, posVal.y + 200, posVal.x + 400));
 	}
 	else if (presetId == 5)
 	{
-		// Terrain bosselé, alternance de pentes courtes
+		// Terrain bosselÃ©, alternance de pentes courtes
 		penteList.push_back(Pente(150, 10, sf::degrees(0), sf::degrees(15), posVal.y, posVal.y - 40, posVal.x));
 		penteList.push_back(Pente(150, 10, sf::degrees(15), sf::degrees(-15), posVal.y - 40, posVal.y + 40, posVal.x + 150));
 		penteList.push_back(Pente(150, 10, sf::degrees(-15), sf::degrees(0), posVal.y + 40, posVal.y, posVal.x + 300));

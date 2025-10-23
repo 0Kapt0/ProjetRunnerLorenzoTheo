@@ -1,5 +1,15 @@
 #include "game.h"
 
+Game::Game()
+    : view(), player({ 0.f, 300.f }), bg(1920.f, 1080.f, view)
+{
+    if (!uiFont.openFromFile("src/fonts/font.ttf")) {
+        std::cerr << "Erreur: police introuvable\n";
+    }
+
+    scoreManager = std::make_unique<ScoreManager>(uiFont, sf::Vector2f(30.f, 30.f));
+    scoreManager->start(player.getPosition().x);
+}
 
 Pente* Game::getCurrentPente()
 {
@@ -52,8 +62,16 @@ void Game::update(float dt)
     updateNiveau();
     player.update(dt, getCurrentPente());
     bg.update(dt);
-  
-    view.updateCamera(dt, player.getPosition());
+
+    if (player.getIsGrounded() && scoreManager->getSpinCount() > 0) {
+        player.applyFlipBoost();
+    }
+
+    scoreManager->update(dt,
+        player.getPosition().x,
+        player.getRotationDeg(),
+        player.getIsGrounded()
+    );
 }
 
 void Game::render(sf::RenderWindow& window)
@@ -62,6 +80,8 @@ void Game::render(sf::RenderWindow& window)
     bg.draw(window);
     drawBlocNiveau(window);
     player.draw(window);
+
+    scoreManager->draw(window, view.getView(), player.getPosition());
 }
 
 sf::Vector2f Game::getPlayerPosition() const {

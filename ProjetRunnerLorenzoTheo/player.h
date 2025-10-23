@@ -31,6 +31,12 @@ private:
 	float coyoteTimer;
 	float maxCoyoteTime;
 
+	//Boost temporaire apres un flip reussi
+	bool speedBoostActive = false;
+	float speedBoostTimer = 0.f;
+	float speedBoostDuration = 1.3f;
+	float speedBoostMultiplier = 2.5f;
+
 	//methode interne
 	void moveForward(float dt);
 	void applyGravity(float dt);
@@ -42,13 +48,14 @@ private:
 	void updateGradient(float dt);
 	void drawCube(sf::RenderWindow& window);
 
+	void updateFlipBoost(float dt);
+
 	//methode particules
 	void createJumpPoof();
 	void spawnParticles(float dt);
 	void updateParticles(float dt);
 	void drawParticles(sf::RenderWindow& window);
 
-	
 	//effects visuels
 	struct Particle
 	{
@@ -66,8 +73,14 @@ public:
 	void update(float dt, Pente* pente);
 	void draw(sf::RenderWindow& window);
 
+	void applyFlipBoost();
+
 	sf::Vector2f getPosition() const { return position; }
 	sf::FloatRect getBounds() const { return shape.getGlobalBounds(); }
-	
+	bool getIsGrounded() const { return isGrounded; }
+	float getRotationDeg() const { return shape.getRotation().asDegrees(); }
+	void setHasBoost(bool state) { hasBoost = state; }
+	bool isUsingBoost() const { return isCharging && hasBoost; }
+
 };
 

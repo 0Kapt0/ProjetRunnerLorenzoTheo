@@ -1,7 +1,7 @@
 #pragma once
 #include "player.h"
 #include "bloc_niveau.h"
-
+#include "ScoreManager.h"
 #include "background.h"
 #include "view.h"
 class Game
@@ -14,6 +14,9 @@ private:
 
 	int bonusX = 0;
 	std::vector<BlocNiveau> blocNiveauList;
+
+	sf::Font uiFont;
+	std::unique_ptr<ScoreManager> scoreManager;
 
 	void drawBlocNiveau(sf::RenderWindow& window);
 	Pente* getCurrentPente();

@@ -77,10 +77,15 @@ void Player::handleInput(float dt)
     const bool jumpPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
 
     //CHARGE DU SAUT
-    if (jumpPressed && canJump && hasBoost)
+    if (jumpPressed && canJump)
     {
         isCharging = true;
         chargeTime = std::min(chargeTime + dt, maxChargeTime);
+
+        if (hasBoost) {
+            rgbTimer += 2.f * dt;
+        }
+
         return;
     }
 
@@ -158,6 +163,10 @@ void Player::checkGroundCollision(Pente* pente)
     }
 }
 
+void Player::applyFlipBoost() {
+    speedBoostActive = true;
+    speedBoostTimer = speedBoostDuration;
+}
 
 void Player::updateCoyoteTimer(float dt)
 {
@@ -264,6 +273,15 @@ void Player::updateGradient(float dt)
     rgbTimer = 0.f; 
 }
 
+void Player::updateFlipBoost(float dt)
+{
+    if (!speedBoostActive) return;
+
+    velocity.x *= speedBoostMultiplier;
+    speedBoostTimer -= dt;
+    if (speedBoostTimer <= 0.f)
+        speedBoostActive = false;
+}
 
 
 void Player::update(float dt, Pente* pente) {
@@ -286,6 +304,8 @@ void Player::update(float dt, Pente* pente) {
     updateParticles(dt);
 
     shape.setPosition(position);
+
+    updateFlipBoost(dt);
 
     //Couleur debug (bleu au sol, rouge en l’air)
     shape.setFillColor(isGrounded ? sf::Color::Cyan : sf::Color::Red);
@@ -319,24 +339,24 @@ void Player::draw(sf::RenderWindow& window) {
 	  drawCube(window);
 
 	//debug pour voir le cote du joueur
-    sf::RectangleShape bottomLine;
-    bottomLine.setSize({ 40.f, 2.f });
-    bottomLine.setOrigin({ 20.f, -20.f });
-    bottomLine.setFillColor(sf::Color::Yellow);
-    bottomLine.setPosition(shape.getPosition());
-    bottomLine.setRotation(shape.getRotation());
-    window.draw(bottomLine);
+    //sf::RectangleShape bottomLine;
+    //bottomLine.setSize({ 40.f, 2.f });
+    //bottomLine.setOrigin({ 20.f, -20.f });
+    //bottomLine.setFillColor(sf::Color::Yellow);
+    //bottomLine.setPosition(shape.getPosition());
+    //bottomLine.setRotation(shape.getRotation());
+    //window.draw(bottomLine);
 
 
-    //debug pour le saut
-    if (isCharging)
-    {
-        sf::RectangleShape chargeBar;
-        chargeBar.setSize({ 40.f * (chargeTime / maxChargeTime), 5.f });
-        chargeBar.setFillColor(sf::Color::Yellow);
-        chargeBar.setOrigin({ 20.f, 40.f });
-        chargeBar.setPosition(position);
-        window.draw(chargeBar);
-    }
+    ////debug pour le saut
+    //if (isCharging)
+    //{
+    //    sf::RectangleShape chargeBar;
+    //    chargeBar.setSize({ 40.f * (chargeTime / maxChargeTime), 5.f });
+    //    chargeBar.setFillColor(sf::Color::Yellow);
+    //    chargeBar.setOrigin({ 20.f, 40.f });
+    //    chargeBar.setPosition(position);
+    //    window.draw(chargeBar);
+    //}
 
 }
