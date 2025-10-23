@@ -139,6 +139,7 @@
     <ClCompile Include="pente.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="view.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="background.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="menu.h" />
     <ClInclude Include="pente.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="view.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

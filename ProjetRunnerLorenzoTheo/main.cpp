@@ -13,5 +13,10 @@ int main()
     Game game;
     game.addBlocNiveau(0);
     game.addBlocNiveau(0);
+    game.addBlocNiveau(0);
+    game.addBlocNiveau(0);
+    game.addBlocNiveau(0);
+    game.addBlocNiveau(0);
+    game.addBlocNiveau(0);
     game.update(window);
 }

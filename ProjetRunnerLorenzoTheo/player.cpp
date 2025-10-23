@@ -23,11 +23,7 @@ Player::Player(sf::Vector2f startPos, float pspeed)
     shape.setPosition(position);
     particleSpawnTimer = 0.f;
 
-    cameraPlayer.setSize({ 1920.f, 1080.f });
-    cameraPlayer.setCenter(position);
-    cameraTarget = position;
-    cameraSmoothness = 5.f;
-    cameraOffset = { 200.f, -100.f };
+
 }
 
 void Player::moveForward(float dt)
@@ -235,27 +231,13 @@ void Player::updateParticles(float dt)
 //    }
 //}
 
-void Player::updateCamera(float dt)
-{
-    // Position cible = position du joueur + offset
-    cameraTarget = position + cameraOffset;
 
-    // Interpolation lissée (lerp)
-    sf::Vector2f currentCenter = cameraPlayer.getCenter();
-
-    currentCenter.x += (cameraTarget.x - currentCenter.x) * cameraSmoothness * dt;
-    currentCenter.y += (cameraTarget.y - currentCenter.y) * cameraSmoothness * dt;
-
-    cameraPlayer.setCenter(currentCenter);
-}
 
 
 void Player::update(float dt, Pente* pente) {
 	//mort du joueur
     if (isDead)
         return;
-
-    updateCamera(dt);
 
 	//MECANIQUE DE JEU
     updateCoyoteTimer(dt);
@@ -289,7 +271,6 @@ void Player::drawParticles(sf::RenderWindow& window)
 
 void Player::draw(sf::RenderWindow& window) {
     drawParticles(window);
-    window.setView(cameraPlayer);
 	window.draw(shape);
 
 	//debug pour voir le cote du joueur

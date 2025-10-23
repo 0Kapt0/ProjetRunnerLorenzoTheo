@@ -3,10 +3,11 @@
 #include "bloc_niveau.h"
 
 #include "background.h"
-
+#include "view.h"
 class Game
 {
 private:
+	View view;
 	Player player;
 	sf::Clock clock;
 	Background bg;
@@ -18,7 +19,7 @@ private:
 	Pente* getCurrentPente();
 
 public:
-	Game():player({0.f, 300.f}), bg(1920.f, 1080.f) {};
+	Game():view(), player({0.f, 300.f}), bg(1920.f, 1080.f, view) {};
 
 	void addBlocNiveau(int idBloc);
 	void update(sf::RenderWindow& window);

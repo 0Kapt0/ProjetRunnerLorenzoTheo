@@ -5,7 +5,7 @@ BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal) : positionStart(pos
 	if (presetId == 0)
 	{
 		penteList.push_back(Pente(500, 0, 10, sf::degrees(30), sf::degrees(0), posVal.y, posVal.y + 200, posVal.x));
-		penteList.push_back(Pente(510, 0, 10, sf::degrees(0), sf::degrees(30), posVal.y + 250, posVal.y + 400, 500 + posVal.x));
+		penteList.push_back(Pente(510, 0, 10, sf::degrees(0), sf::degrees(30), posVal.y + 200, posVal.y + 400, 500 + posVal.x));
 	}
 	else if (presetId == 1)
 	{

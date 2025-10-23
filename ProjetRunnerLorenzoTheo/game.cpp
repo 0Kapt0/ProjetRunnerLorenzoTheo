@@ -38,6 +38,7 @@ void Game::addBlocNiveau(int idBloc)
 
 void Game::update(sf::RenderWindow& window)
 {
+    window.setView(view.getView());
     while (window.isOpen())
     {
         while (auto event = window.pollEvent())
@@ -51,9 +52,12 @@ void Game::update(sf::RenderWindow& window)
         player.update(dt, getCurrentPente());
 
         window.clear(sf::Color::Black);
-        bg.update(dt, player.getView());
-        bg.draw(window);
         
+        view.updateCamera(dt, player.getPosition());
+        view.setView(window);
+
+        bg.update(dt);
+        bg.draw(window);
         
         drawBlocNiveau(window);
 
