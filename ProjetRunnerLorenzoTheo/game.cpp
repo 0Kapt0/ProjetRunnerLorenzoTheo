@@ -2,7 +2,7 @@
 #include <iostream>
 
 Game::Game()
-    : player({ 0.f, 300.f }), bg(1920.f, 1080.f)
+    : view(), player({ 0.f, 300.f }), bg(1920.f, 1080.f, view)
 {
     if (!uiFont.openFromFile("src/fonts/font.ttf")) {
         std::cerr << "Erreur: police introuvable\n";
@@ -93,7 +93,7 @@ void Game::render(sf::RenderWindow& window)
     drawBlocNiveau(window);
     player.draw(window);
 
-    scoreManager->draw(window, player.getView(), player.getPosition());
+    scoreManager->draw(window, view.getView(), player.getPosition());
 }
 
 sf::Vector2f Game::getPlayerPosition() const {

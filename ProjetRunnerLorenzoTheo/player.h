@@ -77,7 +77,6 @@ public:
 
 	sf::Vector2f getPosition() const { return position; }
 	sf::FloatRect getBounds() const { return shape.getGlobalBounds(); }
-	sf::View getView() { return cameraPlayer; }
 	bool getIsGrounded() const { return isGrounded; }
 	float getRotationDeg() const { return shape.getRotation().asDegrees(); }
 	void setHasBoost(bool state) { hasBoost = state; }
