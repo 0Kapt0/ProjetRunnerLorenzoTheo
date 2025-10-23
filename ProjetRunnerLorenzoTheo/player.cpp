@@ -193,7 +193,7 @@ void Player::createJumpPoof() {
 
 void Player::spawnParticles(float dt)
 {
-    const bool onGround = isCharging && isGrounded;
+    const bool onGround = isCharging && isGrounded && hasBoost;
     const bool inAir = !isGrounded && isJumping && velocity.y < 0.f;
     if (!onGround && !inAir)
         return;
