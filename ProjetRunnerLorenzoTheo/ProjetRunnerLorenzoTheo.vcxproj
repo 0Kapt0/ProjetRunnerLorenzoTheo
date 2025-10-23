@@ -143,6 +143,7 @@
     <ClCompile Include="pente.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="state.cpp" />
     <ClCompile Include="StateManager.cpp" />
   </ItemGroup>
@@ -159,6 +160,7 @@
     <ClInclude Include="pause_state.h" />
     <ClInclude Include="pente.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="StateManager.h" />
   </ItemGroup>
