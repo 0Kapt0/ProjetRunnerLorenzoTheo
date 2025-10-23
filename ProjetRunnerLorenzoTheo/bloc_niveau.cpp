@@ -1,10 +1,13 @@
 #include "bloc_niveau.h"
 
+#include <iostream>
+
 BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal) : positionStart(posVal), presetId(presetIdVal)
 {
 	if (presetId == 0)
 	{
 		penteList.push_back(Pente(700, 100, sf::degrees(0), sf::degrees(0), posVal.y, posVal.y, posVal.x));
+		bonusList.push_back(std::make_unique<Piece>(Piece(sf::Vector2f(posVal.x + 500, posVal.y - 200))));
 	}
 	else if (presetId == 1)
 	{
@@ -78,5 +81,10 @@ void BlocNiveau::draw(sf::RenderWindow& window)
 	for (auto& pente : penteList)
 	{
 		pente.draw(window);
+	}
+	
+	for (auto& bonus : bonusList)
+	{
+		bonus->draw(window);
 	}
 }
