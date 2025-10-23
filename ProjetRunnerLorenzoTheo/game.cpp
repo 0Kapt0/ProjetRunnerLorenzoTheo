@@ -1,7 +1,7 @@
 #include "game.h"
 
 Game::Game()
-    : view(), player({ 0.f, 300.f }), bg(1920.f, 1080.f, view)
+    : view(), player({ 1000.f, 300.f }), bg(1920.f, 1080.f, view)
 {
     if (!uiFont.openFromFile("src/fonts/font.ttf")) {
         std::cerr << "Erreur: police introuvable\n";
@@ -59,6 +59,7 @@ void Game::updateNiveau()
 
 void Game::update(float dt)
 {
+    view.updateCamera(dt, player.getPosition());
     updateNiveau();
     player.update(dt, getCurrentPente());
     bg.update(dt);

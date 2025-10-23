@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "player.h"
 #include "bloc_niveau.h"
 #include "ScoreManager.h"
@@ -22,7 +23,7 @@ private:
 	Pente* getCurrentPente();
 
 public:
-	Game():view(), player({1000.f, 300.f}), bg(1920.f, 1080.f, view) {	};
+	Game();
 
 	void addBlocNiveau(int idBloc);
 	void updateNiveau();
