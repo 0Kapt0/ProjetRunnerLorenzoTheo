@@ -22,6 +22,10 @@ private:
 	void drawBlocNiveau(sf::RenderWindow& window);
 	Pente* getCurrentPente();
 
+	bool gameOver = false;
+	sf::Text gameOverText;
+	sf::RectangleShape gameOverOverlay;
+
 public:
 	Game();
 

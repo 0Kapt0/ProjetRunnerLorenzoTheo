@@ -43,6 +43,7 @@ private:
 	void handleInput(float dt);
 	void checkGroundCollision(Pente* pente);
 	void updateCoyoteTimer(float dt);
+	void explodeOnDeath();
 	
 
 	void updateGradient(float dt);
@@ -81,6 +82,6 @@ public:
 	float getRotationDeg() const { return shape.getRotation().asDegrees(); }
 	void setHasBoost(bool state) { hasBoost = state; }
 	bool isUsingBoost() const { return isCharging && hasBoost; }
-
+	bool getIsDead() const { return isDead; }
 };
 

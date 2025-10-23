@@ -1,7 +1,7 @@
 #include "game.h"
 
 Game::Game()
-    : view(), player({ 1000.f, 300.f }), bg(1920.f, 1080.f, view)
+    : view(), player({ 1000.f, 300.f }), bg(1920.f, 1080.f, view), gameOverText(uiFont, "GAME OVER", 120)
 {
     if (!uiFont.openFromFile("src/fonts/font.ttf")) {
         std::cerr << "Erreur: police introuvable\n";
@@ -9,6 +9,15 @@ Game::Game()
 
     scoreManager = std::make_unique<ScoreManager>(uiFont, sf::Vector2f(30.f, 30.f));
     scoreManager->start(player.getPosition().x);
+
+    gameOverOverlay.setSize({ 1920.f, 1080.f });
+    gameOverOverlay.setFillColor(sf::Color(0, 0, 0, 160));
+
+    gameOverText.setFillColor(sf::Color::White);
+    sf::FloatRect bounds = gameOverText.getLocalBounds();
+    gameOverText.setOrigin({ bounds.size.x / 2.f, bounds.size.y / 2.f });
+    gameOverText.setPosition({ 960.f, 400.f });
+
 }
 
 Pente* Game::getCurrentPente()
@@ -59,6 +68,11 @@ void Game::updateNiveau()
 
 void Game::update(float dt)
 {
+    if (player.getIsDead())
+    {
+        gameOver = true;
+    }
+
     float currentBoost = scoreManager->getBoostCharge();
 
     player.setHasBoost(currentBoost > 0.f);
@@ -95,6 +109,13 @@ void Game::render(sf::RenderWindow& window)
     player.draw(window);
 
     scoreManager->draw(window, view.getView(), player.getPosition());
+
+    if (gameOver)
+    {
+        window.setView(window.getDefaultView());
+        window.draw(gameOverOverlay);
+        window.draw(gameOverText);
+    }
 }
 
 sf::Vector2f Game::getPlayerPosition() const {
