@@ -10,6 +10,7 @@ class Game
 private:
 	View view;
 	Player player;
+	float pickupRadius = 100.f;
 	sf::Clock clock;
 	Background bg;
 
@@ -22,6 +23,7 @@ private:
 	void drawBlocNiveau(sf::RenderWindow& window);
 	Pente* getCurrentPente();
 
+	void updatePiece();
 public:
 	Game();
 

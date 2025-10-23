@@ -17,6 +17,9 @@ public:
 	int getLength();
 	Pente* getPente(int x);
 	sf::Vector2f getEndPosition();
+	
+	std::vector<std::unique_ptr<Bonus>>& getBonusList() { return bonusList; }
+
 	void draw(sf::RenderWindow& window);
 };
 

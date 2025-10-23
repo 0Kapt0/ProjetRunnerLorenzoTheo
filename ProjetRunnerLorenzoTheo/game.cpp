@@ -13,7 +13,7 @@ Game::Game()
 
 Pente* Game::getCurrentPente()
 {
-    int pPosX = player.getPosition().x;
+    int pPosX = static_cast<int>(player.getPosition().x);
     for (auto& bloc : blocNiveauList)
     {
         float blocStartX = bloc.getEndPosition().x - bloc.getLength();
@@ -62,6 +62,7 @@ void Game::update(float dt)
     view.updateCamera(dt, player.getPosition());
     updateNiveau();
     player.update(dt, getCurrentPente());
+    updatePiece();
     bg.update(dt);
 
     if (player.getIsGrounded() && scoreManager->getSpinCount() > 0) {
@@ -87,4 +88,32 @@ void Game::render(sf::RenderWindow& window)
 
 sf::Vector2f Game::getPlayerPosition() const {
     return player.getPosition();
+}
+
+void Game::updatePiece()
+{
+    for (auto& bloc: blocNiveauList)
+    {
+        auto& bonusList = bloc.getBonusList();
+
+        bonusList.erase(
+            std::remove_if(
+                bonusList.begin(),
+                bonusList.end(),
+                [&](std::unique_ptr<Bonus>& piece)
+                {
+                    sf::Vector2f diff = player.getPosition() - piece->getPosition();
+                    float distance = std::sqrt(diff.x * diff.x + diff.y * diff.y);
+
+                    if (distance < pickupRadius)
+                    {
+                        // ADD SCORE
+                        return true;
+                    }
+                    return false;
+                }
+            ),
+            bonusList.end()
+        );
+    }
 }
