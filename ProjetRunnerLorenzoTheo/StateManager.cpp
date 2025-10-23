@@ -48,7 +48,10 @@ void StateManager::run() {
         else if (auto* g = dynamic_cast<GameState*>(currentState.get())) {
 
             g->handleInput();
-            g->update(dt);
+
+            if (!pauseMenu) {
+                g->update(dt);
+            }
 
             if (!pauseMenu && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
                 pauseMenu = std::make_unique<PauseState>(window, g->getGame().getPlayerPosition());
