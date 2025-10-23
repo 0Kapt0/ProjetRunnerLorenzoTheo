@@ -6,7 +6,9 @@
 GameState::GameState(sf::RenderWindow& window)
     : state(window)
 {
-    for (int i = 0; i < 11; ++i) {
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+
+    for (int i = 0; i < 2; ++i) {
         game.addBlocNiveau(0);
     }
 
