@@ -1,5 +1,6 @@
 #pragma once
 #include "pente.h"
+#include "piece.h"
 
 class BlocNiveau
 {
@@ -8,6 +9,7 @@ private:
 	sf::Vector2f positionStart;
 	int presetId;
 	std::vector<Pente> penteList;
+	std::vector<std::unique_ptr<Bonus>> bonusList;
 	
 public:
 	BlocNiveau(sf::Vector2f posVal, int presetId);

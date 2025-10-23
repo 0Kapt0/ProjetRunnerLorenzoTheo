@@ -6,11 +6,11 @@ class Piece :
 {
 private:
     sf::CircleShape circle;
-    float size = 20;
+    float size = 30;
 
 public:
     Piece(sf::Vector2f pos);
     
-    void draw(sf::RenderWindow& window);
+   void draw(sf::RenderWindow& window);
 };
 

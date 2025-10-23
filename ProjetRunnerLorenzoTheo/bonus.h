@@ -8,6 +8,6 @@ protected:
 public:
 	sf::Vector2f getPosition();
 
-	virtual void draw(sf::RenderWindow& window);
+	virtual void draw(sf::RenderWindow& window) = 0;
 };
 
