@@ -4,6 +4,7 @@ View::View()
 	view.setSize({ 1920.f, 1080.f });
 	cameraSmoothness = 5.f;
 	cameraOffset = { 200.f, -100.f };
+    view.setCenter({ 1200.f, -100.f });
 }
 
 void View::updateCamera(float dt, sf::Vector2f playerPos)

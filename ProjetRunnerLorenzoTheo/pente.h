@@ -14,7 +14,7 @@ private:
 	int positionX;
 
 public:
-	Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionVal, sf::Angle angleDepart, sf::Angle angleArrivee, int startHeight, int endHeight, int positionXVal);
+	Pente(unsigned int lengthVal, unsigned int precisionVal, sf::Angle angleDepart, sf::Angle angleArrivee, int startHeight, int endHeight, int positionXVal);
 
 	int getSurfaceHeight(int x);
 	int getLength();

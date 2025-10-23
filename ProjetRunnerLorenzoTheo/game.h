@@ -19,9 +19,10 @@ private:
 	Pente* getCurrentPente();
 
 public:
-	Game():view(), player({0.f, 300.f}), bg(1920.f, 1080.f, view) {};
+	Game():view(), player({1000.f, 300.f}), bg(1920.f, 1080.f, view) {	};
 
 	void addBlocNiveau(int idBloc);
+	void updateNiveau();
 	void render(sf::RenderWindow& window);
 	void update(float dt);
 
