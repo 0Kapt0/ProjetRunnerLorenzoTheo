@@ -141,6 +141,7 @@
     <ClCompile Include="options_state.cpp" />
     <ClCompile Include="pause_state.cpp" />
     <ClCompile Include="pente.cpp" />
+    <ClCompile Include="Piece.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ScoreManager.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="options_state.h" />
     <ClInclude Include="pause_state.h" />
     <ClInclude Include="pente.h" />
+    <ClInclude Include="Piece.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="state.h" />
