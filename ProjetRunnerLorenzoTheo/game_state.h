@@ -11,6 +11,7 @@ private:
 
 public:
     bool wantPause = false;
+    bool wantGameOver = false;
 
     GameState(sf::RenderWindow& window);
 

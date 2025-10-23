@@ -1,6 +1,7 @@
 ﻿#include "StateManager.h"
 #include "AudioSettings.h"
 
+
 StateManager::StateManager(sf::RenderWindow& win)
     : window(win)
 {
@@ -43,31 +44,52 @@ void StateManager::run() {
             }
         }
 
-        //IN GAME
+        // IN GAME
         else if (auto* g = dynamic_cast<GameState*>(currentState.get())) {
+
+            g->handleInput();
+
+            if (!pauseMenu) {
+                g->update(dt);
+            }
+
+            if (!pauseMenu && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+                pauseMenu = std::make_unique<PauseState>(window, g->getGame().getPlayerPosition());
+            }
+
+            if (g->getGame().getWantGameOver() && !gameOverMenu) {
+                g->stopMusic();
+                gameOverMenu = std::make_unique<GameOverState>(window);
+            }
+
             if (pauseMenu) {
                 pauseMenu->handleInput();
-                if (pauseMenu->resumeGame) {
+                if (pauseMenu->resumeGame)
                     pauseMenu.reset();
-                }
                 else if (pauseMenu->quitToMenu) {
                     pauseMenu.reset();
                     changeState<menu>();
-                    if (auto* g = dynamic_cast<GameState*>(currentState.get())) {
+                    if (auto* g = dynamic_cast<GameState*>(currentState.get()))
                         g->stopMusic();
-                    }
+                    continue;
                 }
             }
-            //IN PAUSE
-            else {
-                g->handleInput();
-                if (g->wantPause) {
-                    g->wantPause = false;
-                    pauseMenu = std::make_unique<PauseState>(window, g->getGame().getPlayerPosition());
+
+            if (gameOverMenu) {
+                gameOverMenu->handleInput();
+                if (gameOverMenu->restartGame) {
+                    gameOverMenu.reset();
+                    changeState<GameState>();
+                    continue;
                 }
-                g->update(dt);
+                else if (gameOverMenu->quitToMenu) {
+                    gameOverMenu.reset();
+                    changeState<menu>();
+                    continue;
+                }
             }
         }
+
 
         if (auto* m = dynamic_cast<menu*>(currentState.get())) {
             AudioSettings::applyTo(m->getMusic());
@@ -81,6 +103,8 @@ void StateManager::run() {
             currentState->draw();
         if (pauseMenu)
             pauseMenu->draw();
+        if (gameOverMenu)
+            gameOverMenu->draw();
         window.display();
     }
 }

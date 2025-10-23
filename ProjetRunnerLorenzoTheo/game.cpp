@@ -9,6 +9,7 @@ Game::Game()
 
     scoreManager = std::make_unique<ScoreManager>(uiFont, sf::Vector2f(30.f, 30.f));
     scoreManager->start(player.getPosition().x);
+
 }
 
 Pente* Game::getCurrentPente()
@@ -59,6 +60,24 @@ void Game::updateNiveau()
 
 void Game::update(float dt)
 {
+    if (player.getIsDead())
+    {
+        gameOver = true;
+        wantGameOver = true;
+    }
+
+    float currentBoost = scoreManager->getBoostCharge();
+
+    player.setHasBoost(currentBoost > 0.f);
+
+    if (player.isUsingBoost())
+    {
+        currentBoost -= 25.f * dt;
+        if (currentBoost < 0.f) currentBoost = 0.f;
+    }
+
+    scoreManager->setBoostCharge(currentBoost);
+
     view.updateCamera(dt, player.getPosition());
     updateNiveau();
     player.update(dt, getCurrentPente());

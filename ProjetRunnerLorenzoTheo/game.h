@@ -5,6 +5,7 @@
 #include "ScoreManager.h"
 #include "background.h"
 #include "view.h"
+
 class Game
 {
 private:
@@ -24,6 +25,9 @@ private:
 	Pente* getCurrentPente();
 
 	void updatePiece();
+	bool gameOver = false;
+	bool wantGameOver = false;
+
 public:
 	Game();
 
@@ -32,6 +36,7 @@ public:
 	void render(sf::RenderWindow& window);
 	void update(float dt);
 
+	bool getWantGameOver() const { return wantGameOver; }
 	sf::Vector2f getPlayerPosition() const;
 };
 

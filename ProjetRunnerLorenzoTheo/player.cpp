@@ -149,7 +149,7 @@ void Player::checkGroundCollision(Pente* pente)
         {
             isDead = true;
             isGrounded = false;
-            shape.setFillColor(sf::Color::Red);
+            explodeOnDeath();
             return;
         }
 
@@ -193,7 +193,7 @@ void Player::createJumpPoof() {
 
 void Player::spawnParticles(float dt)
 {
-    const bool onGround = isCharging && isGrounded;
+    const bool onGround = isCharging && isGrounded && hasBoost;
     const bool inAir = !isGrounded && isJumping && velocity.y < 0.f;
     if (!onGround && !inAir)
         return;
@@ -220,6 +220,28 @@ void Player::spawnParticles(float dt)
                   -30.f + static_cast<float>(rand() % 20) };
 
     particles.push_back(p);
+}
+
+void Player::explodeOnDeath()
+{
+    const int particleCount = 80;
+
+    for (int i = 0; i < particleCount; ++i)
+    {
+        Particle p;
+        p.pos = position;
+
+        float angle = static_cast<float>(rand() % 360) * 3.1415926f / 180.f;
+        float speed = 200.f + static_cast<float>(rand() % 300);
+
+        p.vel = { std::cos(angle) * speed, std::sin(angle) * speed };
+        p.lifetime = 1.0f + static_cast<float>(rand() % 100) / 100.f;
+
+        particles.push_back(p);
+    }
+
+    for (int i = 0; i < 4; ++i)
+        body[i].color = sf::Color(255, 50, 50);
 }
 
 void Player::updateParticles(float dt)
@@ -286,8 +308,17 @@ void Player::updateFlipBoost(float dt)
 
 void Player::update(float dt, Pente* pente) {
 	//mort du joueur
-    if (isDead)
+    if (isDead == true) {
+        static float slowTime = 0.f;
+        slowTime += dt;
+        float timeScale = std::max(0.1f, 1.f - slowTime * 0.8f);
+        dt *= timeScale;
+
+        updateParticles(dt);
+        body.clear();
+        bottomEdge.clear();
         return;
+    }
 
 	//MECANIQUE DE JEU
     updateCoyoteTimer(dt);
@@ -349,14 +380,14 @@ void Player::draw(sf::RenderWindow& window) {
 
 
     ////debug pour le saut
-    //if (isCharging)
-    //{
-    //    sf::RectangleShape chargeBar;
-    //    chargeBar.setSize({ 40.f * (chargeTime / maxChargeTime), 5.f });
-    //    chargeBar.setFillColor(sf::Color::Yellow);
-    //    chargeBar.setOrigin({ 20.f, 40.f });
-    //    chargeBar.setPosition(position);
-    //    window.draw(chargeBar);
-    //}
+    if (isCharging)
+    {
+        sf::RectangleShape chargeBar;
+        chargeBar.setSize({ 40.f * (chargeTime / maxChargeTime), 5.f });
+        chargeBar.setFillColor(sf::Color::Yellow);
+        chargeBar.setOrigin({ 20.f, 40.f });
+        chargeBar.setPosition(position);
+        window.draw(chargeBar);
+    }
 
 }

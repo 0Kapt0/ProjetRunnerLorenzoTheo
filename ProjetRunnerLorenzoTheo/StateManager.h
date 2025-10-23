@@ -6,6 +6,7 @@
 #include "game_state.h"
 #include "pause_state.h"
 #include "options_state.h"
+#include "game_over_state.h"
 
 class StateManager {
 private:
@@ -14,6 +15,7 @@ private:
 
     std::unique_ptr<state> currentState;
     std::unique_ptr<PauseState> pauseMenu;
+    std::unique_ptr<GameOverState> gameOverMenu;
 
 public:
     StateManager(sf::RenderWindow& win);
