@@ -38,7 +38,7 @@ private:
 	float speedBoostMultiplier = 2.5f;
 
 	//methode interne
-	void moveForward(float dt);
+	void moveForward(float dt, Pente* pente);
 	void applyGravity(float dt);
 	void handleInput(float dt);
 	void checkGroundCollision(Pente* pente);

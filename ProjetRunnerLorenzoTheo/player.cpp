@@ -6,7 +6,7 @@ Player::Player(sf::Vector2f startPos, float pspeed)
     : position(startPos),
     moveSpeed(pspeed),
     jumpForce(400.f),
-    gravity(1000.f),
+    gravity(1400.f),
     isJumping(false),
     isGrounded(false),
     isDead(false),
@@ -48,14 +48,37 @@ Player::Player(sf::Vector2f startPos, float pspeed)
     bottomEdge[1].color = edgeColor;
 }
 
-void Player::moveForward(float dt)
+void Player::moveForward(float dt, Pente* pente)
 {
     const float accel = 300.f;
-    const float decel = 200.f;
-    const float maxSpeed = 600.f;
-    const float minSpeed = 250.f;
+    const float decel = 400.f;
+    const float maxSpeed = 10000.f;
+    const float minSpeed = 100.f;
 
-    float delta = (isCharging && hasBoost) ? accel : -decel;
+    // ---- Récupérer l’angle de la pente ----
+    float slopeAngle = pente->getOrientation(static_cast<int>(position.x)).asDegrees();
+
+    // On limite un peu pour éviter des extrêmes
+    slopeAngle = std::clamp(slopeAngle, -45.f, 45.f);
+
+    // ---- Influence de la pente ----
+    // Descente (angle positif) → accélère
+    // Montée (angle négatif) → ralentit
+    float slopeFactor = std::sin(slopeAngle * 3.14159f / 180.f);
+    float slopeInfluence = slopeFactor * 600.f; // force de l’effet (à ajuster)
+
+    // ---- Boost manuel (si le joueur charge) ----
+    float baseDelta = (isCharging && hasBoost) ? accel : -decel;
+
+    // ---- Calcul final ----
+    float delta = baseDelta + slopeInfluence;
+
+    if (!isGrounded)
+    {
+        // Moins de frottement dans l’air
+        delta *= 0.3f; // 30% de la décélération au sol
+    }
+
     moveSpeed = std::clamp(moveSpeed + delta * dt, minSpeed, maxSpeed);
 
     velocity.x = moveSpeed;
@@ -114,7 +137,7 @@ void Player::handleInput(float dt)
     //ROTATION EN L’AIR
     if (!isGrounded && jumpPressed)
     {
-        shape.rotate(sf::degrees(-250.f * dt));
+        shape.rotate(sf::degrees(-300.f * dt));
     }
 }
 
@@ -326,7 +349,7 @@ void Player::update(float dt, Pente* pente) {
 
 	//PHYSIQUE
     applyGravity(dt);
-    moveForward(dt);
+    moveForward(dt, pente);
     checkGroundCollision(pente);
 
 	//EFFETS VISUELS
