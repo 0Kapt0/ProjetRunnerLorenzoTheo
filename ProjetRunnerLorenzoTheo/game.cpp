@@ -46,6 +46,18 @@ void Game::addBlocNiveau(int idBloc)
     }
 }
 
+void Game::updateNiveau()
+{
+    if (blocNiveauList[blocNiveauList.size() - 1].getEndPosition().x < player.getPosition().x + 1500)
+    {
+        addBlocNiveau(std::rand() % 6);
+    }
+    if (blocNiveauList.size() > 5)
+    {
+        blocNiveauList.erase(blocNiveauList.begin());
+    }
+}
+
 void Game::update(float dt) {
     float currentBoost = scoreManager->getBoostCharge();
 
@@ -59,23 +71,9 @@ void Game::update(float dt) {
 
     scoreManager->setBoostCharge(currentBoost);
 
-void Game::updateNiveau()
-{
-    if (blocNiveauList[blocNiveauList.size() - 1].getEndPosition().x < player.getPosition().x + 1500)
-    {
-        addBlocNiveau(std::rand()%6);
-    }
-    if (blocNiveauList.size() > 5)
-    {
-        blocNiveauList.erase(blocNiveauList.begin());
-    }
-}
-
-void Game::update(float dt)
-{
     updateNiveau();
     player.update(dt, getCurrentPente());
-    bg.update(dt, player.getView());
+    /*bg.update(dt, player.getView());*/
 
     if (player.getIsGrounded() && scoreManager->getSpinCount() > 0) {
         player.applyFlipBoost();
