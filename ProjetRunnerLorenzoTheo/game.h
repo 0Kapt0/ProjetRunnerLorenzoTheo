@@ -3,10 +3,11 @@
 #include "bloc_niveau.h"
 #include "ScoreManager.h"
 #include "background.h"
-
+#include "view.h"
 class Game
 {
 private:
+	View view;
 	Player player;
 	sf::Clock clock;
 	Background bg;
@@ -24,6 +25,7 @@ public:
 	Game();
 
 	void addBlocNiveau(int idBloc);
+	void updateNiveau();
 	void render(sf::RenderWindow& window);
 	void update(float dt);
 

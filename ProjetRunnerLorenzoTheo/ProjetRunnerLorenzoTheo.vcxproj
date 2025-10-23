@@ -146,6 +146,7 @@
     <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="state.cpp" />
     <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="view.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioSettings.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="StateManager.h" />
+    <ClInclude Include="view.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

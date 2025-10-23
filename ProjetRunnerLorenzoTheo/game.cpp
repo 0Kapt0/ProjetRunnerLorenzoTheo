@@ -59,6 +59,21 @@ void Game::update(float dt) {
 
     scoreManager->setBoostCharge(currentBoost);
 
+void Game::updateNiveau()
+{
+    if (blocNiveauList[blocNiveauList.size() - 1].getEndPosition().x < player.getPosition().x + 1500)
+    {
+        addBlocNiveau(std::rand()%6);
+    }
+    if (blocNiveauList.size() > 5)
+    {
+        blocNiveauList.erase(blocNiveauList.begin());
+    }
+}
+
+void Game::update(float dt)
+{
+    updateNiveau();
     player.update(dt, getCurrentPente());
     bg.update(dt, player.getView());
 
@@ -75,6 +90,7 @@ void Game::update(float dt) {
 
 void Game::render(sf::RenderWindow& window)
 {
+    view.setView(window);
     bg.draw(window);
     drawBlocNiveau(window);
     player.draw(window);
