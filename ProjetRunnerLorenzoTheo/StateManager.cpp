@@ -1,6 +1,7 @@
 ﻿#include "StateManager.h"
 #include "AudioSettings.h"
 
+
 StateManager::StateManager(sf::RenderWindow& win)
     : window(win)
 {
@@ -43,7 +44,7 @@ void StateManager::run() {
             }
         }
 
-        //IN GAME
+        // IN GAME
         else if (auto* g = dynamic_cast<GameState*>(currentState.get())) {
             if (pauseMenu) {
                 pauseMenu->handleInput();
@@ -58,16 +59,64 @@ void StateManager::run() {
                     }
                 }
             }
-            //IN PAUSE
-            else {
-                g->handleInput();
-                if (g->wantPause) {
-                    g->wantPause = false;
-                    pauseMenu = std::make_unique<PauseState>(window, g->getGame().getPlayerPosition());
+
+
+            else if (gameOverMenu) {
+                gameOverMenu->handleInput();
+                if (gameOverMenu->restartGame) {
+                    gameOverMenu.reset();
+                    changeState<GameState>();
                 }
-                g->update(dt);
+                else if (gameOverMenu->quitToMenu) {
+                    gameOverMenu.reset();
+                    changeState<menu>();
+                }
+            }
+
+            g->handleInput();
+            g->update(dt);
+
+            if (g->getGame().getWantGameOver() && !gameOverMenu) {
+                g->stopMusic();
+                gameOverMenu = std::make_unique<GameOverState>(window);
+            }
+
+            if (pauseMenu) {
+                pauseMenu->handleInput();
+                if (pauseMenu->resumeGame) pauseMenu.reset();
+                else if (pauseMenu->quitToMenu) {
+                    pauseMenu.reset();
+                    changeState<menu>();
+                    if (auto* g = dynamic_cast<GameState*>(currentState.get())) g->stopMusic();
+                }
+            }
+            if (gameOverMenu) {
+                gameOverMenu->handleInput();
+                if (gameOverMenu->restartGame) {
+                    gameOverMenu.reset();
+                    changeState<GameState>();
+                }
+                else if (gameOverMenu->quitToMenu) {
+                    gameOverMenu.reset();
+                    changeState<menu>();
+                }
             }
         }
+
+
+        //IN GAME OVER
+        else if (auto* go = dynamic_cast<GameOverState*>(currentState.get())) {
+            go->handleInput();
+            if (go->restartGame) {
+                go->restartGame = false;
+                changeState<GameState>();
+            }
+            else if (go->quitToMenu) {
+                go->quitToMenu = false;
+                changeState<menu>();
+            }
+        }
+
 
         if (auto* m = dynamic_cast<menu*>(currentState.get())) {
             AudioSettings::applyTo(m->getMusic());
@@ -81,6 +130,8 @@ void StateManager::run() {
             currentState->draw();
         if (pauseMenu)
             pauseMenu->draw();
+        if (gameOverMenu)
+            gameOverMenu->draw();
         window.display();
     }
 }

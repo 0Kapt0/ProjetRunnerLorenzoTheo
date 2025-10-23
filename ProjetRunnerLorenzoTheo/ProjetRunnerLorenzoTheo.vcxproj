@@ -136,6 +136,7 @@
     <ClCompile Include="bloc_niveau.cpp" />
     <ClCompile Include="bonus.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="game_over_state.cpp" />
     <ClCompile Include="game_state.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="options_state.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="bloc_niveau.h" />
     <ClInclude Include="bonus.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="game_over_state.h" />
     <ClInclude Include="game_state.h" />
     <ClInclude Include="interface.h" />
     <ClInclude Include="menu.h" />
