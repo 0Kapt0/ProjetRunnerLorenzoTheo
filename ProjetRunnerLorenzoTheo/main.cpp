@@ -18,6 +18,4 @@ int main() {
     game.addBlocNiveau(0);
   
     manager.run();
-
-    game.update(window);
 }

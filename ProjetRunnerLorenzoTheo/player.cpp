@@ -226,13 +226,6 @@ void Player::updateParticles(float dt)
         particles.end());
 }
 
-void Player::updateCamera(float dt)
-{
-    cameraTarget = position + cameraOffset;
-
-    sf::Vector2f currentCenter = cameraPlayer.getCenter();
-
-
 void Player::updateGradient(float dt)
 {
     if (isCharging && hasBoost)
@@ -323,7 +316,6 @@ void Player::drawCube(sf::RenderWindow& window)
 
 void Player::draw(sf::RenderWindow& window) {
     drawParticles(window);
-    window.setView(cameraPlayer);
 	  drawCube(window);
 
 	//debug pour voir le cote du joueur

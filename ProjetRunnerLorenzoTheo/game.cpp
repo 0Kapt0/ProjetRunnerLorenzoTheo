@@ -39,14 +39,14 @@ void Game::addBlocNiveau(int idBloc)
 void Game::update(float dt)
 {
     player.update(dt, getCurrentPente());
-    bg.update(dt, player.getView());
+    bg.update(dt);
   
     view.updateCamera(dt, player.getPosition());
-    view.setView(window);
 }
 
 void Game::render(sf::RenderWindow& window)
 {
+    view.setView(window);
     bg.draw(window);
     drawBlocNiveau(window);
     player.draw(window);
