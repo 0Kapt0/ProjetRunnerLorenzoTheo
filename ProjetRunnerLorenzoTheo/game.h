@@ -22,7 +22,7 @@ private:
 	Pente* getCurrentPente();
 
 public:
-	Game();
+	Game():view(), player({1000.f, 300.f}), bg(1920.f, 1080.f, view) {	};
 
 	void addBlocNiveau(int idBloc);
 	void updateNiveau();

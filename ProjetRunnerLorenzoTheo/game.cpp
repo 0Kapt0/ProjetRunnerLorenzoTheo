@@ -1,5 +1,4 @@
 #include "game.h"
-#include <iostream>
 
 Game::Game()
     : view(), player({ 0.f, 300.f }), bg(1920.f, 1080.f, view)
@@ -50,7 +49,7 @@ void Game::updateNiveau()
 {
     if (blocNiveauList[blocNiveauList.size() - 1].getEndPosition().x < player.getPosition().x + 1500)
     {
-        addBlocNiveau(std::rand() % 6);
+        addBlocNiveau(std::rand()%6);
     }
     if (blocNiveauList.size() > 5)
     {
@@ -58,21 +57,9 @@ void Game::updateNiveau()
     }
 }
 
-void Game::update(float dt) {
-    float currentBoost = scoreManager->getBoostCharge();
-
-    player.setHasBoost(currentBoost > 0.f);
-
-    if (player.isUsingBoost())
-    {
-        currentBoost -= 25.f * dt;
-        if (currentBoost < 0.f) currentBoost = 0.f;
-    }
-
-    scoreManager->setBoostCharge(currentBoost);
-
+void Game::update(float dt)
+{
     updateNiveau();
-    view.updateCamera(dt, player.getPosition());
     player.update(dt, getCurrentPente());
     bg.update(dt);
 

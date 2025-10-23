@@ -1,6 +1,6 @@
 #include "pente.h"
 
-Pente::Pente(unsigned int lengthVal, float amplitudeVal, unsigned int precisionVal, sf::Angle angleDepart, sf::Angle angleArrivee, int startHeight, int endHeightVal, int positionXVal) : precision(precisionVal), length(lengthVal), endHeight(endHeightVal), positionX(positionXVal)
+Pente::Pente(unsigned int lengthVal, unsigned int precisionVal, sf::Angle angleDepart, sf::Angle angleArrivee, int startHeight, int endHeightVal, int positionXVal) : precision(precisionVal), length(lengthVal), endHeight(endHeightVal), positionX(positionXVal)
 {
     ground.setPrimitiveType(sf::PrimitiveType::TriangleStrip);
 
