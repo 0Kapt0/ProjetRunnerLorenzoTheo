@@ -380,14 +380,14 @@ void Player::draw(sf::RenderWindow& window) {
 
 
     ////debug pour le saut
-    //if (isCharging)
-    //{
-    //    sf::RectangleShape chargeBar;
-    //    chargeBar.setSize({ 40.f * (chargeTime / maxChargeTime), 5.f });
-    //    chargeBar.setFillColor(sf::Color::Yellow);
-    //    chargeBar.setOrigin({ 20.f, 40.f });
-    //    chargeBar.setPosition(position);
-    //    window.draw(chargeBar);
-    //}
+    if (isCharging)
+    {
+        sf::RectangleShape chargeBar;
+        chargeBar.setSize({ 40.f * (chargeTime / maxChargeTime), 5.f });
+        chargeBar.setFillColor(sf::Color::Yellow);
+        chargeBar.setOrigin({ 20.f, 40.f });
+        chargeBar.setPosition(position);
+        window.draw(chargeBar);
+    }
 
 }

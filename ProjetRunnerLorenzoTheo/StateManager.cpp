@@ -46,35 +46,13 @@ void StateManager::run() {
 
         // IN GAME
         else if (auto* g = dynamic_cast<GameState*>(currentState.get())) {
-            if (pauseMenu) {
-                pauseMenu->handleInput();
-                if (pauseMenu->resumeGame) {
-                    pauseMenu.reset();
-                }
-                else if (pauseMenu->quitToMenu) {
-                    pauseMenu.reset();
-                    changeState<menu>();
-                    if (auto* g = dynamic_cast<GameState*>(currentState.get())) {
-                        g->stopMusic();
-                    }
-                }
-            }
-
-
-            else if (gameOverMenu) {
-                gameOverMenu->handleInput();
-                if (gameOverMenu->restartGame) {
-                    gameOverMenu.reset();
-                    changeState<GameState>();
-                }
-                else if (gameOverMenu->quitToMenu) {
-                    gameOverMenu.reset();
-                    changeState<menu>();
-                }
-            }
 
             g->handleInput();
             g->update(dt);
+
+            if (!pauseMenu && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+                pauseMenu = std::make_unique<PauseState>(window, g->getGame().getPlayerPosition());
+            }
 
             if (g->getGame().getWantGameOver() && !gameOverMenu) {
                 g->stopMusic();
@@ -83,37 +61,29 @@ void StateManager::run() {
 
             if (pauseMenu) {
                 pauseMenu->handleInput();
-                if (pauseMenu->resumeGame) pauseMenu.reset();
+                if (pauseMenu->resumeGame)
+                    pauseMenu.reset();
                 else if (pauseMenu->quitToMenu) {
                     pauseMenu.reset();
                     changeState<menu>();
-                    if (auto* g = dynamic_cast<GameState*>(currentState.get())) g->stopMusic();
+                    if (auto* g = dynamic_cast<GameState*>(currentState.get()))
+                        g->stopMusic();
+                    continue;
                 }
             }
+
             if (gameOverMenu) {
                 gameOverMenu->handleInput();
                 if (gameOverMenu->restartGame) {
                     gameOverMenu.reset();
                     changeState<GameState>();
+                    continue;
                 }
                 else if (gameOverMenu->quitToMenu) {
                     gameOverMenu.reset();
                     changeState<menu>();
+                    continue;
                 }
-            }
-        }
-
-
-        //IN GAME OVER
-        else if (auto* go = dynamic_cast<GameOverState*>(currentState.get())) {
-            go->handleInput();
-            if (go->restartGame) {
-                go->restartGame = false;
-                changeState<GameState>();
-            }
-            else if (go->quitToMenu) {
-                go->quitToMenu = false;
-                changeState<menu>();
             }
         }
 
