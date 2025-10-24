@@ -11,7 +11,7 @@ class Game
 private:
 	View view;
 	Player player;
-	float pickupRadius = 100.f;
+	float pickupRadius = 70.f;
 	sf::Clock clock;
 	Background bg;
 
