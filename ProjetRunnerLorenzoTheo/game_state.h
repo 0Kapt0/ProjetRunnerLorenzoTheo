@@ -9,6 +9,9 @@ private:
     bool paused = false;
     sf::Music gameMusic;
 
+    bool isPaused = true;
+    float timeGame = 0;
+    sf::Clock clock;
 public:
     bool wantPause = false;
     bool wantGameOver = false;

@@ -79,9 +79,10 @@ BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal) : positionStart(pos
 	}
 	else if (presetId == 6)
 	{
-		penteList.push_back(Pente(500, 10, sf::degrees(0), sf::degrees(30), posVal.y, posVal.y + 200, posVal.x));
-		penteList.push_back(Pente(500, 10, sf::degrees(0), sf::degrees(0), posVal.y+5000, posVal.y + 5000, posVal.x + 500));
-		penteList.push_back(Pente(500, 10, sf::degrees(0), sf::degrees(0), posVal.y, posVal.y, posVal.x + 1000));
+		penteList.push_back(Pente(500, 10, sf::degrees(0), sf::degrees(-30), posVal.y, posVal.y + 200, posVal.x));
+		penteList.push_back(Pente(300, 10, sf::degrees(-30), sf::degrees(-15), posVal.y + 200, posVal.y, posVal.x + 500));
+		penteList.push_back(Pente(500, 10, sf::degrees(0), sf::degrees(0), posVal.y+5000, posVal.y + 5000, posVal.x + 800));
+		penteList.push_back(Pente(500, 10, sf::degrees(0), sf::degrees(0), posVal.y, posVal.y, posVal.x + 1300));
 	}
 	length = 0;
 	for (auto& pente : penteList)

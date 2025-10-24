@@ -10,6 +10,9 @@ private:
     sf::RectangleShape overlay;
     int selectedItem = -1;
 
+    bool isPaused = false;
+    float timePaused = 0;
+    sf::Clock clock;
 public:
     bool resumeGame = false;
     bool quitToMenu = false;

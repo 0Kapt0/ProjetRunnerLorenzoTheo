@@ -36,6 +36,13 @@ PauseState::PauseState(sf::RenderWindow& window, const sf::Vector2f& playerPos)
 
 void PauseState::handleInput()
 {
+    if (isPaused == false)
+    {
+        isPaused = true;
+        timePaused = 0;
+    }
+    timePaused += clock.restart().asSeconds();
+
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePos);
 
@@ -56,6 +63,11 @@ void PauseState::handleInput()
         if (text == "Resume") resumeGame = true;
         else if (text == "Restart") resumeGame = true;
         else if (text == "Quit to Menu") quitToMenu = true;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape) && timePaused >= 0.3f)
+    {
+        resumeGame = true;
+        isPaused = false;
     }
 }
 

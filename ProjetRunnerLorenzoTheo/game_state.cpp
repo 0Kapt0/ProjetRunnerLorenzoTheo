@@ -28,8 +28,15 @@ GameState::GameState(sf::RenderWindow& window)
 
 void GameState::handleInput()
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+    if (isPaused == true)
+    {
+        isPaused = false;
+        timeGame = 0;
+    }
+    timeGame += clock.restart().asSeconds();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape) && timeGame > 0.3f) {
         wantPause = true;
+        isPaused = true;
     }
 }
 
