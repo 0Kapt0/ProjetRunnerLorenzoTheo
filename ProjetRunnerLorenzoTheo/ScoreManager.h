@@ -36,6 +36,7 @@ private:
     sf::Text multText;
     sf::RectangleShape comboBarBG;
     sf::RectangleShape comboBarFill;
+    sf::RectangleShape background;
 
     float startX = 0.f;
     float lastX = 0.f;

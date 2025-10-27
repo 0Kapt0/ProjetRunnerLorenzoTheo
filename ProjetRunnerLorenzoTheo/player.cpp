@@ -66,7 +66,7 @@ void Player::moveForward(float dt, Pente* pente)
     float slopeInfluence = slopeFactor * 600.f;
 
     // ---- Boost manuel (si le joueur charge) ----
-    float baseDelta = (isCharging && hasBoost) ? accel : -(decel+(moveSpeed*0.01));
+    float baseDelta = (isCharging && hasBoost) ? accel : -(decel+(moveSpeed*0.12));
 
     // ---- Calcul final ----
     float delta = baseDelta + slopeInfluence;

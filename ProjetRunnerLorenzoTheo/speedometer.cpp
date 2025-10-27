@@ -7,7 +7,7 @@ Speedometer::Speedometer(const sf::Font& font): speedText(font, "", 56)
 
 void Speedometer::setSpeedText(float s) {
 	std::stringstream ss;
-	ss << std::fixed << std::setprecision(0) << s;
+	ss << std::fixed << std::setprecision(0) << s/10;
 	speedText.setString(ss.str());
 }
 

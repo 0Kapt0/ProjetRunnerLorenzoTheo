@@ -62,7 +62,7 @@ Pente::Pente(unsigned int lengthVal, unsigned int precisionVal, sf::Angle angleD
 
     for (auto& p : points)
     {
-        ground.append({ {p.x + positionXVal, p.y}, sf::Color::Color(200, 255, 200) });
+        ground.append({ {p.x + positionXVal, p.y}, sf::Color::Color(100, 230, 100) });
         ground.append({ {p.x + positionXVal, 800.f+endHeightVal}, sf::Color::Color(255, 255, 255)});
     }
 };
