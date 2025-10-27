@@ -54,7 +54,7 @@ void PauseState::handleInput()
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && selectedItem != -1) {
         auto text = options[selectedItem].getString();
         if (text == "Resume") resumeGame = true;
-        else if (text == "Restart") resumeGame = true;
+        else if (text == "Restart") restartGame = true;
         else if (text == "Quit to Menu") quitToMenu = true;
     }
 }

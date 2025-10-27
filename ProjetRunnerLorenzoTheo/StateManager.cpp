@@ -66,6 +66,12 @@ void StateManager::run() {
                 pauseMenu->handleInput();
                 if (pauseMenu->resumeGame)
                     pauseMenu.reset();
+                else if (pauseMenu->restartGame) {
+                    pauseMenu.reset();
+                    changeState<GameState>();
+                    continue;
+                }
+
                 else if (pauseMenu->quitToMenu) {
                     pauseMenu.reset();
                     changeState<menu>();

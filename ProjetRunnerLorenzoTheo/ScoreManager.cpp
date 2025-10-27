@@ -203,6 +203,9 @@ void ScoreManager::draw(sf::RenderTarget& target, const sf::View& view, const sf
     target.setView(oldView);
 }
 
+void ScoreManager::addScore(float addscore) {
+    score = (score + addscore) * currentMultiplier;
+}
 
 int ScoreManager::getScoreInt() const { return static_cast<int>(score + 0.5f); }
 float ScoreManager::getScore() const { return score; }

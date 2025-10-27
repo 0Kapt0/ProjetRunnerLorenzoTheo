@@ -137,7 +137,7 @@ void Player::handleInput(float dt)
     //ROTATION EN L’AIR
     if (!isGrounded && jumpPressed)
     {
-        shape.rotate(sf::degrees(-300.f * dt));
+        shape.rotate(sf::degrees(-400.f * dt));
     }
 }
 void Player::checkGroundCollision(Pente* pente)
