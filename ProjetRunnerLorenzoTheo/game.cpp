@@ -1,7 +1,7 @@
 #include "game.h"
 
 Game::Game()
-    : view(), player({ 1000.f, -400.f }), bg(1920.f, 1080.f, view)
+    : view(), player({ 1000.f, -20.f }), bg(1920.f, 1080.f, view)
 {
     if (!uiFont.openFromFile("src/fonts/font.ttf")) {
         std::cerr << "Erreur: police introuvable\n";
