@@ -2,15 +2,39 @@
 #include "AudioSettings.h"
 
 
-StateManager::StateManager(sf::RenderWindow& win)
-    : window(win)
-{
-    changeState<menu>();
-}
+StateManager::StateManager(sf::RenderWindow& win): window(win), optionsState(win), gameState(win), gameOverState(win), pauseState(win), statsState(win), menuState(win) {}
+/*
+StateManager::State StateManager::getState() {
+    return currentState;
+}*/
 
 state* StateManager::getState() {
-    return currentState.get();
+    if (currentState == menu)
+    {
+        return &menuState;
+    }
+    else if (currentState == pause)
+    {
+        return &pauseState;
+    }
+    else if (currentState == play)
+    {
+        return &gameState;
+    }
+    else if (currentState == gameover)
+    {
+        return &gameOverState;
+    }
+    else if (currentState == stats)
+    {
+        return &statsState;
+    }
+    else if (currentState == options)
+    {
+        return &optionsState;
+    }
 }
+
 
 void StateManager::run() {
     while (window.isOpen()) {
@@ -21,96 +45,101 @@ void StateManager::run() {
 
         float dt = clock.restart().asSeconds();
 
-        if (currentState)
-            currentState->handleInput();
+        getState()->handleInput();
 
         //IN MENU
-        if (auto* m = dynamic_cast<menu*>(currentState.get())) {
-            if (m->startGame) {
-                m->startGame = false;
-                changeState<GameState>();
+        if (currentState == menu) {
+            if (menuState.startGame) {
+                menuState.startGame = false;
+                currentState = play;
             }
-            else if (m->openOptions) {
-                m->openOptions = false;
-                changeState<OptionsState>();
+            else if (menuState.openOptions) {
+                menuState.openOptions = false;
+                currentState = options;
+            }
+            else if (menuState.openStats) {
+                menuState.openStats = false;
+                currentState = stats;
             }
         }
 
         //IN OPTIONS
-        else if (auto* o = dynamic_cast<OptionsState*>(currentState.get())) {
-            if (o->backToMenu) {
-                o->backToMenu = false;
-                changeState<menu>();
+        else if (currentState == options) {
+            if (optionsState.backToMenu) {
+                optionsState.backToMenu = false;
+                currentState = menu;
+            }
+        }
+
+        //IN STATS
+        else if (currentState == stats) {
+            if (statsState.backToMenu) {
+                statsState.backToMenu = false;
+                currentState = menu;
             }
         }
 
         // IN GAME
-        else if (auto* g = dynamic_cast<GameState*>(currentState.get())) {
+        else if (currentState == play) {
 
-            g->handleInput();
+            gameState.handleInput();
 
-            if (!pauseMenu) {
-                g->update(dt);
+            if (!isPaused) {
+                gameState.update(dt);
             }
 
-            if (!pauseMenu && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-                pauseMenu = std::make_unique<PauseState>(window, g->getGame().getPlayerPosition());
+            if (!isPaused && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+                isPaused = true;
             }
 
-            if (g->getGame().getWantGameOver() && !gameOverMenu) {
-                g->stopMusic();
-                gameOverMenu = std::make_unique<GameOverState>(window);
+            if (gameState.getGame().getWantGameOver()) {
+                gameState.stopMusic();
+                currentState = gameover;
             }
 
-            if (pauseMenu) {
-                pauseMenu->handleInput();
-                if (pauseMenu->resumeGame)
-                    pauseMenu.reset();
-                else if (pauseMenu->restartGame) {
-                    pauseMenu.reset();
-                    changeState<GameState>();
+            if (isPaused) {
+                pauseState.handleInput();
+                if (pauseState.resumeGame)
+                    isPaused = false;
+                else if (pauseState.restartGame) {
+                    isPaused = false;
+                    currentState = play;
                     continue;
                 }
 
-                else if (pauseMenu->quitToMenu) {
-                    pauseMenu.reset();
-                    changeState<menu>();
-                    if (auto* g = dynamic_cast<GameState*>(currentState.get()))
-                        g->stopMusic();
-                    continue;
-                }
-            }
-
-            if (gameOverMenu) {
-                gameOverMenu->handleInput();
-                if (gameOverMenu->restartGame) {
-                    gameOverMenu.reset();
-                    changeState<GameState>();
-                    continue;
-                }
-                else if (gameOverMenu->quitToMenu) {
-                    gameOverMenu.reset();
-                    changeState<menu>();
+                else if (pauseState.quitToMenu) {
+                    isPaused = false;
+                    currentState = menu;
+                    gameState.stopMusic();
                     continue;
                 }
             }
         }
 
-
-        if (auto* m = dynamic_cast<menu*>(currentState.get())) {
-            AudioSettings::applyTo(m->getMusic());
+        else if (currentState == gameover) {
+            gameOverState.handleInput();
+            if (gameOverState.restartGame) {
+                currentState = play;
+                continue;
+            }
+            else if (gameOverState.quitToMenu) {
+                currentState = menu;
+                continue;
+            }
         }
-        else if (auto* g = dynamic_cast<GameState*>(currentState.get())) {
-            AudioSettings::applyTo(g->getMusic());
+        
+        
+
+
+        if (currentState == menu) {
+            AudioSettings::applyTo(menuState.getMusic());
+        }
+        else if (currentState == play) {
+            AudioSettings::applyTo(gameState.getMusic());
         }
 
         window.clear();
-        if (currentState)
-            currentState->draw();
-        if (pauseMenu)
-            pauseMenu->draw();
-        if (gameOverMenu)
-            gameOverMenu->draw();
+        getState()->draw();
         window.display();
     }
 }

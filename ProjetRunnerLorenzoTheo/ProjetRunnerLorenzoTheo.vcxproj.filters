@@ -19,6 +19,8 @@
     <ClCompile Include="state.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="view.cpp" />
+    <ClCompile Include="speedometer.cpp" />
+    <ClCompile Include="stats_state.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioSettings.h" />
@@ -39,5 +41,7 @@
     <ClInclude Include="state.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="view.h" />
+    <ClInclude Include="speedometer.h" />
+    <ClInclude Include="stats_state.h" />
   </ItemGroup>
 </Project>

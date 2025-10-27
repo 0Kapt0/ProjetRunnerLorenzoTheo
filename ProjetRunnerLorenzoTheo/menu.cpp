@@ -48,10 +48,16 @@ void menu::initMenu() {
     options.setPosition({ 100, 175 });
     menuOptions.push_back(options);
 
+    sf::Text stats(font);
+    stats.setCharacterSize(65);
+    stats.setString("Stats");
+    stats.setPosition({ 100, 250 });
+    menuOptions.push_back(stats);
+
     sf::Text quit(font);
     quit.setCharacterSize(65);
     quit.setString("Quit");
-    quit.setPosition({ 100, 250 });
+    quit.setPosition({ 100, 325 });
     menuOptions.push_back(quit);
 
     for (auto& option : menuOptions) {
@@ -86,6 +92,10 @@ void menu::handleInput() {
         }
         else if (text == "Options") {
             openOptions = true;
+        }
+        else if (text == "Stats")
+        {
+            openStats = true;
         }
         else if (text == "Quit") {
             window.close();

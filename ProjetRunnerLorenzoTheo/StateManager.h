@@ -7,25 +7,36 @@
 #include "pause_state.h"
 #include "options_state.h"
 #include "game_over_state.h"
+#include "stats_state.h"
 
 class StateManager {
 private:
     sf::RenderWindow& window;
     sf::Clock clock;
 
-    std::unique_ptr<state> currentState;
-    std::unique_ptr<PauseState> pauseMenu;
-    std::unique_ptr<GameOverState> gameOverMenu;
+    OptionsState optionsState;
+    GameState gameState;
+    GameOverState gameOverState;
+    PauseState pauseState;
+    StatsState statsState;
+    menu menuState;
 
     float timePaused = 0;
-    bool isPaused;
+    bool isPaused = false;
 public:
-    StateManager(sf::RenderWindow& win);
+    enum State
+    {
+        menu,
+        options,
+        stats,
+        play,
+        gameover,
+        pause
+    };
 
-    template<typename T, typename... Args>
-    void changeState(Args&&... args) {
-        currentState = std::make_unique<T>(window, std::forward<Args>(args)...);
-    }
+    State currentState = menu;
+
+    StateManager(sf::RenderWindow& win);
 
     state* getState();
     void run();

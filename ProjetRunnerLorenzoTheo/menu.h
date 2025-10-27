@@ -22,6 +22,7 @@ public:
 
 	bool startGame = false;
 	bool openOptions = false;
+	bool openStats = false;
 
 	void handleInput() override;
 	void update(float deltaTime) override;

@@ -149,6 +149,7 @@
     <ClCompile Include="speedometer.cpp" />
     <ClCompile Include="state.cpp" />
     <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="stats_state.cpp" />
     <ClCompile Include="view.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="speedometer.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="StateManager.h" />
+    <ClInclude Include="stats_state.h" />
     <ClInclude Include="view.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

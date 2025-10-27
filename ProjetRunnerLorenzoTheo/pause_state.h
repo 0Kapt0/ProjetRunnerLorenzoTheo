@@ -14,7 +14,7 @@ public:
     bool restartGame = false;
     bool quitToMenu = false;
 
-    PauseState(sf::RenderWindow& window, const sf::Vector2f& playerPos);
+    PauseState(sf::RenderWindow& window);
     void handleInput() override;
     void update(float deltaTime) override;
     void draw() override;

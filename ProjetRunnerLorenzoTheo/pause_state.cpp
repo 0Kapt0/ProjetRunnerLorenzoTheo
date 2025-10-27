@@ -1,7 +1,7 @@
 #include "pause_state.h"
 #include <iostream>
 
-PauseState::PauseState(sf::RenderWindow& window, const sf::Vector2f& playerPos)
+PauseState::PauseState(sf::RenderWindow& window)
     : state(window)
 {
     if (!font.openFromFile("src/fonts/font.ttf")) {
@@ -28,7 +28,7 @@ PauseState::PauseState(sf::RenderWindow& window, const sf::Vector2f& playerPos)
         sf::FloatRect bounds = text.getLocalBounds();
         text.setOrigin({ bounds.size.x / 2.f, bounds.size.y / 2.f });
 
-        text.setPosition({ playerPos.x, startY + i * spacing });
+        text.setPosition({ 8234848, startY + i * spacing });
         text.setFillColor(sf::Color::White);
         options.push_back(text);
     }
