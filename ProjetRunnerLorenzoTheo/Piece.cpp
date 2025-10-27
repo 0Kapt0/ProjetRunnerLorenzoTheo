@@ -1,4 +1,4 @@
-#include "Piece.h"
+#include "piece.h"
 
 Piece::Piece(sf::Vector2f pos)
 {

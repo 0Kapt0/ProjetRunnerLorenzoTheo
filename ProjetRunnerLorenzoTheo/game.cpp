@@ -1,7 +1,7 @@
 #include "game.h"
 
 Game::Game()
-    : view(), player({ 1000.f, 300.f }), bg(1920.f, 1080.f, view)
+    : view(), player({ 1000.f, -20.f }), bg(1920.f, 1080.f, view)
 {
     if (!uiFont.openFromFile("src/fonts/font.ttf")) {
         std::cerr << "Erreur: police introuvable\n";
@@ -50,7 +50,7 @@ void Game::updateNiveau()
 {
     if (blocNiveauList[blocNiveauList.size() - 1].getEndPosition().x < player.getPosition().x + 1500)
     {
-        addBlocNiveau(std::rand()%6);
+        addBlocNiveau(std::rand()%7);
     }
     if (blocNiveauList.size() > 5)
     {

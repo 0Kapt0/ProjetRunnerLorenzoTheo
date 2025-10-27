@@ -8,7 +8,6 @@ private:
     Game game;
     bool paused = false;
     sf::Music gameMusic;
-
 public:
     bool wantPause = false;
     bool wantGameOver = false;

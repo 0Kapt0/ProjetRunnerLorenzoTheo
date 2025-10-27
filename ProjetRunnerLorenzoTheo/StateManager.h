@@ -17,6 +17,8 @@ private:
     std::unique_ptr<PauseState> pauseMenu;
     std::unique_ptr<GameOverState> gameOverMenu;
 
+    float timePaused = 0;
+    bool isPaused;
 public:
     StateManager(sf::RenderWindow& win);
 

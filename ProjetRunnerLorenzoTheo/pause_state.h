@@ -9,7 +9,6 @@ private:
     sf::Font font;
     sf::RectangleShape overlay;
     int selectedItem = -1;
-
 public:
     bool resumeGame = false;
     bool quitToMenu = false;

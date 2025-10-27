@@ -140,8 +140,6 @@ void Player::handleInput(float dt)
         shape.rotate(sf::degrees(-300.f * dt));
     }
 }
-
-
 void Player::checkGroundCollision(Pente* pente)
 {
     const int x = static_cast<int>(position.x);
@@ -150,7 +148,16 @@ void Player::checkGroundCollision(Pente* pente)
     constexpr float tolerance = 8.f;
     constexpr float crashAngle = 35.f;
 
-    //collision sol
+    // --- vérifie si le joueur est enfoncé dans le sol (ex : collision mur/bug pente)
+    if (position.y > surfaceY + 10.f) // marge de sécurité
+    {
+        isDead = true;
+        isGrounded = false;
+        explodeOnDeath(); // ton effet d’explosion
+        return;
+    }
+
+    // --- collision sol (atterrissage)
     if (velocity.y >= 0.f && position.y >= surfaceY - tolerance)
     {
         position.y = surfaceY;
@@ -167,7 +174,7 @@ void Player::checkGroundCollision(Pente* pente)
         if (diff > 180.f)
             diff = 360.f - diff;
 
-		//verif si l'angle d'atterrissage est bon
+        // vérifie si l'angle d'atterrissage est bon
         if (diff > crashAngle)
         {
             isDead = true;
@@ -176,7 +183,7 @@ void Player::checkGroundCollision(Pente* pente)
             return;
         }
 
-		//si atterissage reussi
+        // si atterrissage réussi
         shape.setRotation(sf::degrees(groundAngle));
         shape.setFillColor(sf::Color::Cyan);
     }

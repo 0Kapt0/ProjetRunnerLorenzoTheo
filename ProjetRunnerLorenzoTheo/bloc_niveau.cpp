@@ -6,34 +6,69 @@ BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal) : positionStart(pos
 {
 	if (presetId == 0)
 	{
+		// Départ simple et plat — idéal pour le tuto
 		penteList.push_back(Pente(700, 100, sf::degrees(0), sf::degrees(0), posVal.y, posVal.y, posVal.x));
-		bonusList.push_back(std::make_unique<Piece>(Piece(sf::Vector2f(posVal.x + 500, posVal.y - 200))));
+
+		bonusList.push_back(std::make_unique<Piece>(sf::Vector2f(posVal.x + 400, posVal.y - 150)));
 	}
 	else if (presetId == 1)
 	{
-		// Plateau horizontal avec petite descente
-		penteList.push_back(Pente(300, 5, sf::degrees(0), sf::degrees(0), posVal.y, posVal.y, posVal.x));
-		penteList.push_back(Pente(300, 10, sf::degrees(0), sf::degrees(-15), posVal.y, posVal.y + 100, posVal.x + 300));
-		penteList.push_back(Pente(200, 8, sf::degrees(-15), sf::degrees(0), posVal.y + 100, posVal.y + 150, posVal.x + 600));
+		// Descente douce puis plat
+		penteList.push_back(Pente(500, 20, sf::degrees(0), sf::degrees(-10),
+			posVal.y, posVal.y + 150, posVal.x));
+		penteList.push_back(Pente(500, 20, sf::degrees(-10), sf::degrees(0),
+			posVal.y + 150, posVal.y + 150, posVal.x + 500));
+
+		bonusList.push_back(std::make_unique<Piece>(
+			sf::Vector2f(posVal.x + 300, posVal.y - 100)));
+		bonusList.push_back(std::make_unique<Piece>(
+			sf::Vector2f(posVal.x + 700, posVal.y - 50)));
 	}
 	else if (presetId == 2)
 	{
-		// Montée douce suivie d’un plateau
-		penteList.push_back(Pente(400, 10, sf::degrees(0), sf::degrees(20), posVal.y, posVal.y - 150, posVal.x));
-		penteList.push_back(Pente(300, 5, sf::degrees(20), sf::degrees(0), posVal.y - 150, posVal.y - 150, posVal.x + 400));
+		// Grande descente rapide avec un creux
+		penteList.push_back(Pente(600, 10, sf::degrees(0), sf::degrees(-20),
+			posVal.y, posVal.y + 250, posVal.x));
+		penteList.push_back(Pente(400, 10, sf::degrees(-20), sf::degrees(5),
+			posVal.y + 250, posVal.y + 180, posVal.x + 600));
+
+		bonusList.push_back(std::make_unique<Piece>(
+			sf::Vector2f(posVal.x + 400, posVal.y + 50)));
+		bonusList.push_back(std::make_unique<Piece>(
+			sf::Vector2f(posVal.x + 800, posVal.y - 120)));
 	}
 	else if (presetId == 3)
 	{
-		// Enchaînement en "vague" : monte, descend, remonte
-		penteList.push_back(Pente(300, 10, sf::degrees(0), sf::degrees(25), posVal.y, posVal.y - 100, posVal.x));
-		penteList.push_back(Pente(300, 10, sf::degrees(25), sf::degrees(-25), posVal.y - 100, posVal.y + 100, posVal.x + 300));
-		penteList.push_back(Pente(300, 10, sf::degrees(-25), sf::degrees(0), posVal.y + 100, posVal.y, posVal.x + 600));
+		// Série de vagues descendantes
+		penteList.push_back(Pente(300, 10, sf::degrees(-5), sf::degrees(-15),
+			posVal.y, posVal.y + 120, posVal.x));
+		penteList.push_back(Pente(300, 10, sf::degrees(-15), sf::degrees(-5),
+			posVal.y + 120, posVal.y + 180, posVal.x + 300));
+		penteList.push_back(Pente(400, 10, sf::degrees(-5), sf::degrees(0),
+			posVal.y + 180, posVal.y + 200, posVal.x + 600));
+
+		bonusList.push_back(std::make_unique<Piece>(
+			sf::Vector2f(posVal.x + 200, posVal.y - 100)));
+		bonusList.push_back(std::make_unique<Piece>(
+			sf::Vector2f(posVal.x + 500, posVal.y - 80)));
+		bonusList.push_back(std::make_unique<Piece>(
+			sf::Vector2f(posVal.x + 800, posVal.y - 60)));
 	}
+
 	else if (presetId == 4)
 	{
-		// Descente raide puis légère montée
-		penteList.push_back(Pente(400, 10, sf::degrees(0), sf::degrees(-30), posVal.y, posVal.y + 250, posVal.x));
-		penteList.push_back(Pente(400, 8, sf::degrees(-30), sf::degrees(10), posVal.y + 250, posVal.y + 200, posVal.x + 400));
+		// Longue descente progressive avec un petit saut
+		penteList.push_back(Pente(700, 10, sf::degrees(-5), sf::degrees(-15),
+			posVal.y, posVal.y + 250, posVal.x));
+		penteList.push_back(Pente(200, 10, sf::degrees(-15), sf::degrees(0),
+			posVal.y + 250, posVal.y + 200, posVal.x + 700));
+		penteList.push_back(Pente(400, 100, sf::degrees(0), sf::degrees(0),
+			posVal.y + 200, posVal.y + 200, posVal.x + 900));
+
+		bonusList.push_back(std::make_unique<Piece>(
+			sf::Vector2f(posVal.x + 500, posVal.y + 50)));
+		bonusList.push_back(std::make_unique<Piece>(
+			sf::Vector2f(posVal.x + 850, posVal.y - 100)));
 	}
 	else if (presetId == 5)
 	{
@@ -44,8 +79,10 @@ BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal) : positionStart(pos
 	}
 	else if (presetId == 6)
 	{
-		penteList.push_back(Pente(500, 10, sf::degrees(30), sf::degrees(0), posVal.y, posVal.y + 200, posVal.x));
-		penteList.push_back(Pente(500, 10, sf::degrees(0), sf::degrees(30), posVal.y + 200, posVal.y + 400, 500 + posVal.x));
+		penteList.push_back(Pente(500, 10, sf::degrees(0), sf::degrees(-30), posVal.y, posVal.y + 200, posVal.x));
+		penteList.push_back(Pente(300, 10, sf::degrees(-30), sf::degrees(-15), posVal.y + 200, posVal.y, posVal.x + 500));
+		penteList.push_back(Pente(500, 10, sf::degrees(0), sf::degrees(0), posVal.y+5000, posVal.y + 5000, posVal.x + 800));
+		penteList.push_back(Pente(500, 10, sf::degrees(0), sf::degrees(0), posVal.y, posVal.y, posVal.x + 1300));
 	}
 	length = 0;
 	for (auto& pente : penteList)
