@@ -23,6 +23,8 @@ public:
     int   getCurrentMultiplier() const;
     int   getSpinCount() const;
 
+    void addScore(float addscore);
+
     float getBoostCharge() const { return boostCharge; }
     void  setBoostCharge(float value) { boostCharge = std::clamp(value, 0.f, maxBoost); }
 

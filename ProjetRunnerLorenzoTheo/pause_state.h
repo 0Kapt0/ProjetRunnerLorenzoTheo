@@ -11,6 +11,7 @@ private:
     int selectedItem = -1;
 public:
     bool resumeGame = false;
+    bool restartGame = false;
     bool quitToMenu = false;
 
     PauseState(sf::RenderWindow& window, const sf::Vector2f& playerPos);
