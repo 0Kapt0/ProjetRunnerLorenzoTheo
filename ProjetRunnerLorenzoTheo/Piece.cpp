@@ -6,6 +6,7 @@ Piece::Piece(sf::Vector2f pos)
 	circle.setFillColor(sf::Color::Yellow);
 	circle.setRadius(size);
 	circle.setPosition(position);
+	circle.setOrigin({size, size});
 }
 
 void Piece::draw(sf::RenderWindow& window)

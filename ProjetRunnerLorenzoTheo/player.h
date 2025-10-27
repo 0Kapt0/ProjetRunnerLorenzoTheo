@@ -83,6 +83,7 @@ public:
 	void setHasBoost(bool state) { hasBoost = state; }
 	bool isUsingBoost() const { return isCharging && hasBoost; }
 	bool getIsDead() const { return isDead; }
+	float getSpeed() const { return velocity.x; }
 	float getVelocity() const { return velocity.x; }
 };
 

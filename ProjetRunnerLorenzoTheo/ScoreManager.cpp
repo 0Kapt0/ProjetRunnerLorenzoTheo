@@ -32,6 +32,8 @@ ScoreManager::ScoreManager(const sf::Font& font, sf::Vector2f uiPos, const Confi
     boostBarFill.setSize({ 200.f, 15.f });
     boostBarFill.setFillColor(sf::Color(255, 200, 0));
 
+    background.setSize({ 310.f, 90.f });
+    background.setFillColor(sf::Color(0, 0, 0, 150));
     updateTexts();
 }
 
@@ -44,6 +46,7 @@ void ScoreManager::start(float startPlayerX)
     airUnwrappedAngle = 0.f;
     currentMultiplier = 1;
     comboTimer = 0.f;
+
     updateTexts();
 }
 
@@ -129,6 +132,7 @@ void ScoreManager::draw(sf::RenderTarget& target, const sf::View& view, const sf
     sf::RectangleShape barBG = comboBarBG;
     sf::RectangleShape barFill = comboBarFill;
 
+
     float ratio = comboTimer / cfg.comboDuration;
     barBG.setPosition(basePos + sf::Vector2f(0.f, 65.f));
     barFill.setSize({ 200.f * ratio, 10.f });
@@ -140,6 +144,9 @@ void ScoreManager::draw(sf::RenderTarget& target, const sf::View& view, const sf
 
     sf::RectangleShape bg = boostBarBG;
     sf::RectangleShape fill = boostBarFill;
+
+    background.setPosition(basePos - sf::Vector2f(10.f, 10.f));
+    target.draw(background);
 
     float boostRatio = boostCharge / maxBoost;
     bg.setPosition(barPos);
@@ -204,7 +211,7 @@ void ScoreManager::draw(sf::RenderTarget& target, const sf::View& view, const sf
 }
 
 void ScoreManager::addScore(float addscore) {
-    score = (score + addscore) * currentMultiplier;
+    score += addscore * currentMultiplier;
 }
 
 int ScoreManager::getScoreInt() const { return static_cast<int>(score + 0.5f); }

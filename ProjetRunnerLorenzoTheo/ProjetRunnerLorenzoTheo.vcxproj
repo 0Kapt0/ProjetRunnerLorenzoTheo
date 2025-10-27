@@ -146,6 +146,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ScoreManager.cpp" />
+    <ClCompile Include="speedometer.cpp" />
     <ClCompile Include="state.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="view.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="piece.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="ScoreManager.h" />
+    <ClInclude Include="speedometer.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="view.h" />
