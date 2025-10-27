@@ -82,7 +82,7 @@ void Game::update(float dt)
     updateNiveau();
     player.update(dt, getCurrentPente());
     updatePiece();
-    bg.update(dt);
+    bg.update(dt, player.getVelocity());
 
     if (player.getIsGrounded() && scoreManager->getSpinCount() > 0) {
         player.applyFlipBoost();

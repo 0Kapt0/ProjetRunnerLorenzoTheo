@@ -1,26 +1,36 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include <cmath>
 #include "view.h"
+#include "pente.h"
 
 class Background
 {
 public:
     Background(float width, float height, View& view);
 
-    // Met à jour les couleurs du dégradé selon le temps
-    void update(float deltaTime);
-
-    // Dessine le background dans la fenêtre
+    void update(float deltaTime, float playerVel);
     void draw(sf::RenderTarget& target) const;
 
 private:
+    struct MountainLayer {
+        sf::VertexArray triangles;
+        float parallaxFactor;
+        float opacity;
+    };
+
+    sf::CircleShape moon;
+    sf::VertexArray moonGlow;
+
     float m_width;
     float m_height;
-    sf::VertexArray m_gradient; // 4 vertices pour le dégradé
-
-    float m_time; // compteur de temps pour animer le dégradé
-
-    sf::Vector2f position;
+    sf::VertexArray m_gradient;
+    float m_time;
     View* viewRef;
+
+    std::vector<MountainLayer> m_layers;
+    std::vector<float> layerOffsets;
+
+    void generateMountains();
 };
