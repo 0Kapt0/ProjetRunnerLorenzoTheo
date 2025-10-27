@@ -7,6 +7,7 @@ Game::Game()
         std::cerr << "Erreur: police introuvable\n";
     }
 
+    speedometer = std::make_unique<Speedometer>(uiFont);
     scoreManager = std::make_unique<ScoreManager>(uiFont, sf::Vector2f(30.f, 30.f));
     scoreManager->start(player.getPosition().x);
 
@@ -52,7 +53,7 @@ void Game::updateNiveau()
     {
         addBlocNiveau(std::rand()%7);
     }
-    if (blocNiveauList.size() > 5)
+    if (blocNiveauList.size() > 8)
     {
         blocNiveauList.erase(blocNiveauList.begin());
     }
@@ -93,6 +94,7 @@ void Game::update(float dt)
         player.getRotationDeg(),
         player.getIsGrounded()
     );
+    speedometer->setSpeedText(player.getSpeed());
 }
 
 void Game::render(sf::RenderWindow& window)
@@ -101,6 +103,7 @@ void Game::render(sf::RenderWindow& window)
     bg.draw(window);
     drawBlocNiveau(window);
     player.draw(window);
+    speedometer->draw(window, view.getView(), player.getPosition());
 
     scoreManager->draw(window, view.getView(), player.getPosition());
 }

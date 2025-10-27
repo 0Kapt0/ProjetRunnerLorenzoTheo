@@ -5,6 +5,7 @@
 #include "ScoreManager.h"
 #include "background.h"
 #include "view.h"
+#include "speedometer.h"
 
 class Game
 {
@@ -14,6 +15,7 @@ private:
 	float pickupRadius = 70.f;
 	sf::Clock clock;
 	Background bg;
+	std::unique_ptr<Speedometer> speedometer;
 
 	int bonusX = 0;
 	std::vector<BlocNiveau> blocNiveauList;

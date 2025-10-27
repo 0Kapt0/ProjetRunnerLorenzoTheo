@@ -50,10 +50,10 @@ Player::Player(sf::Vector2f startPos, float pspeed)
 
 void Player::moveForward(float dt, Pente* pente)
 {
-    const float accel = 300.f;
-    const float decel = 400.f;
+    const float accel = 150.f;
+    const float decel = 100.f;
     const float maxSpeed = 10000.f;
-    const float minSpeed = 100.f;
+    const float minSpeed = 150.f;
 
     // ---- Récupérer l’angle de la pente ----
     float slopeAngle = pente->getOrientation(static_cast<int>(position.x)).asDegrees();
@@ -62,13 +62,11 @@ void Player::moveForward(float dt, Pente* pente)
     slopeAngle = std::clamp(slopeAngle, -45.f, 45.f);
 
     // ---- Influence de la pente ----
-    // Descente (angle positif) → accélère
-    // Montée (angle négatif) → ralentit
     float slopeFactor = std::sin(slopeAngle * 3.14159f / 180.f);
-    float slopeInfluence = slopeFactor * 600.f; // force de l’effet (à ajuster)
+    float slopeInfluence = slopeFactor * 600.f;
 
     // ---- Boost manuel (si le joueur charge) ----
-    float baseDelta = (isCharging && hasBoost) ? accel : -decel;
+    float baseDelta = (isCharging && hasBoost) ? accel : -(decel+(moveSpeed*0.01));
 
     // ---- Calcul final ----
     float delta = baseDelta + slopeInfluence;
@@ -76,13 +74,14 @@ void Player::moveForward(float dt, Pente* pente)
     if (!isGrounded)
     {
         // Moins de frottement dans l’air
-        delta *= 0.3f; // 30% de la décélération au sol
+        delta *= 0.3f;
     }
 
     moveSpeed = std::clamp(moveSpeed + delta * dt, minSpeed, maxSpeed);
 
     velocity.x = moveSpeed;
     position.x += velocity.x * dt;
+
 }
 
 
@@ -103,7 +102,7 @@ void Player::handleInput(float dt)
     if (jumpPressed && canJump)
     {
         isCharging = true;
-        chargeTime = std::min(chargeTime + dt, maxChargeTime);
+        //chargeTime = std::min(chargeTime + dt, maxChargeTime);
 
         if (hasBoost) {
             rgbTimer += 2.f * dt;
@@ -115,7 +114,7 @@ void Player::handleInput(float dt)
     //RELACHEMENT DU SAUT
     if (isCharging && canJump)
     {
-        const float ratio = chargeTime / maxChargeTime;
+        const float ratio = 1; //chargeTime / maxChargeTime;
         const float jumpStrength = 300.f + (750.f - 300.f) * (ratio * ratio);
 
         velocity.y = -jumpStrength;
@@ -137,7 +136,7 @@ void Player::handleInput(float dt)
     //ROTATION EN L’AIR
     if (!isGrounded && jumpPressed)
     {
-        shape.rotate(sf::degrees(-300.f * dt));
+        shape.rotate(sf::degrees(-400.f * dt));
     }
 }
 void Player::checkGroundCollision(Pente* pente)
@@ -329,10 +328,30 @@ void Player::updateFlipBoost(float dt)
 {
     if (!speedBoostActive) return;
 
-    velocity.x *= speedBoostMultiplier;
+    // Durée totale du boost (à définir quand tu l'actives)
+    const float totalBoostDuration = 1.5f; // exemple : 1.5 secondes
+
+    // Avancement normalisé du boost [0, 1]
+    float progress = 1.f - (speedBoostTimer / totalBoostDuration);
+    progress = std::clamp(progress, 0.f, 1.f);
+
+    // Courbe d'accélération/décélération (ease in/out)
+    // -> commence lentement, accélère, puis ralentit
+    float curve = std::sin(progress * 3.14159265f); // sin(0→π) monte puis redescend
+
+    // Calcul du multiplicateur dynamique
+    float dynamicMultiplier = 1.f + (speedBoostMultiplier - 1.f) * curve;
+
+    // Application du boost
+    velocity.x *= dynamicMultiplier;
+
+    // Mise à jour du timer
     speedBoostTimer -= dt;
     if (speedBoostTimer <= 0.f)
+    {
         speedBoostActive = false;
+        speedBoostTimer = 0.f;
+    }
 }
 
 
