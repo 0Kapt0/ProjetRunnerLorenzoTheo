@@ -17,8 +17,7 @@ PauseState::PauseState(sf::RenderWindow& window, const sf::Vector2f& playerPos)
     overlay.setFillColor(sf::Color(0, 0, 0, 180));
 
     const std::vector<std::string> labels = { "Resume", "Restart", "Quit to Menu" };
-    float spacing = 100.f;
-    float startY = viewCenter.y - (spacing * (labels.size() - 1) / 2.f);
+    float startY = viewCenter.y - (100.f * (labels.size() - 1) / 2.f);
 
     for (int i = 0; i < labels.size(); ++i) {
         sf::Text text(font);
@@ -28,7 +27,7 @@ PauseState::PauseState(sf::RenderWindow& window, const sf::Vector2f& playerPos)
         sf::FloatRect bounds = text.getLocalBounds();
         text.setOrigin({ bounds.size.x / 2.f, bounds.size.y / 2.f });
 
-        text.setPosition({ playerPos.x, startY + i * spacing });
+        text.setPosition({ viewCenter.x, startY + i * 100.f });
         text.setFillColor(sf::Color::White);
         options.push_back(text);
     }
