@@ -30,6 +30,8 @@ private:
 	bool gameOver = false;
 	bool wantGameOver = false;
 
+	int nbPiecesRun;
+
 public:
 	Game();
 
@@ -42,5 +44,6 @@ public:
 	sf::Vector2f getPlayerPosition() const;
 	Player& getPlayer() { return player; };
 	void isDeadReset();
+	int getPiecesNb() { return nbPiecesRun; };
 };
 

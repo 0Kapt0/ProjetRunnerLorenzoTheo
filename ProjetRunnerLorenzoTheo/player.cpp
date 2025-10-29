@@ -341,7 +341,6 @@ void Player::updateFlipBoost(float dt)
 
 
 void Player::update(float dt, Pente* pente) {
-    std::cout << velocity.x << "\n";
 	//mort du joueur
     if (isDead == true) {
         static float slowTime = 0.f;
@@ -375,6 +374,11 @@ void Player::update(float dt, Pente* pente) {
 
     //Couleur debug (bleu au sol, rouge en l’air)
     shape.setFillColor(isGrounded ? sf::Color::Cyan : sf::Color::Red);
+
+    if (velocity.x > maxSpeed)
+    {
+        maxSpeed = velocity.x;
+    }
 }
 
 void Player::drawParticles(sf::RenderWindow& window)
@@ -429,7 +433,6 @@ void Player::draw(sf::RenderWindow& window) {
 
 void Player::isDeadReset()
 {
-    std::cout << "----------------------------------------------------------------\n";
     position = startPosition;
     velocity = sf::Vector2f(0, 0);
     moveSpeed = 0;
