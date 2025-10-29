@@ -66,7 +66,6 @@ void Game::update(float dt)
         gameOver = true;
         wantGameOver = true;
     }
-
     float currentBoost = scoreManager->getBoostCharge();
 
     player.setHasBoost(currentBoost > 0.f);

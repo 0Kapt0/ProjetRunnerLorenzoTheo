@@ -18,6 +18,8 @@ public:
     void update(float deltaTime) override;
     void draw() override;
 
+    void reloadMusic();
+
     bool getIsPaused() const { return isPaused; }
     void setIsPaused(bool state) { isPaused = state; }
 

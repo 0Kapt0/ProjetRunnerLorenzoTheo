@@ -14,8 +14,15 @@ GameState::GameState(sf::RenderWindow& window)
 
     std::srand(static_cast<unsigned>(std::time(nullptr)));
     int track = std::rand() % 4 + 1;
+}
 
+void GameState::reloadMusic()
+{
+    gameMusic.stop();
+
+    int track = std::rand() % 4 + 1;
     std::string path = "src/music/inGameMusic" + std::to_string(track) + ".mp3";
+
     if (!gameMusic.openFromFile(path)) {
         std::cerr << "Erreur de chargement musique : " << path << "\n";
     }
@@ -23,6 +30,7 @@ GameState::GameState(sf::RenderWindow& window)
         gameMusic.setLooping(true);
         AudioSettings::applyTo(gameMusic);
         gameMusic.play();
+        std::cout << "[GameState] Nouvelle musique : " << path << "\n";
     }
 }
 

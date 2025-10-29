@@ -13,6 +13,7 @@ private:
     sf::RectangleShape overlay;
     std::optional<sf::Text> titleText;
     std::optional<sf::Text> scoreText;
+    std::optional<sf::Text> bestScoreText;
     std::vector<sf::Text> options;
 
     int selectedItem = -1;
@@ -20,6 +21,7 @@ private:
 public:
     bool restartGame = false;
     bool quitToMenu = false;
+    bool scoreInitialized = false;
     
 
     GameOverState(sf::RenderWindow& window);

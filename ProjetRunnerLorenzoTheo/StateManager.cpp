@@ -2,7 +2,7 @@
 #include "AudioSettings.h"
 
 #include <iostream>
-StateManager::StateManager(sf::RenderWindow& win): window(win), optionsState(win), gameState(win), gameOverState(win, score), pauseState(win), statsState(win), menuState(win) {}
+StateManager::StateManager(sf::RenderWindow& win): window(win), optionsState(win), gameState(win), gameOverState(win), pauseState(win), statsState(win), menuState(win) {}
 /*
 StateManager::State StateManager::getState() {
     return currentState;
@@ -51,6 +51,8 @@ void StateManager::run() {
         if (currentState == menu) {
             if (menuState.startGame) {
                 menuState.startGame = false;
+                menuState.getMusic().stop();
+                gameState.reloadMusic();
                 currentState = play;
             }
             else if (menuState.openOptions) {
@@ -96,6 +98,7 @@ void StateManager::run() {
             }
         }
         
+		//IN PAUSE
         else if (currentState == pause) {
             gameState.draw();
             pauseState.handleInput();
@@ -109,6 +112,8 @@ void StateManager::run() {
             else if (pauseState.restartGame) {
                 pauseState.restartGame = false;
                 gameState.setIsPaused(false);
+                gameState.stopMusic();
+                gameState.reloadMusic();
                 gameState.getGame().isDeadReset();
 
                 currentState = play;
@@ -118,6 +123,7 @@ void StateManager::run() {
                 pauseState.quitToMenu = false;
                 gameState.setIsPaused(false);
                 gameState.stopMusic();
+                menuState.getMusic().play();
                 gameState.getGame().isDeadReset();
 
                 currentState = menu;
@@ -125,6 +131,7 @@ void StateManager::run() {
             }
         }
 
+		//IN GAME OVER
         else if (currentState == gameover) {
             gameState.draw();
             gameOverState.handleInput();
@@ -134,17 +141,22 @@ void StateManager::run() {
             if (gameOverState.restartGame) {
                 gameOverState.restartGame = false;
                 statsState.updateData((gameState.getGame().getPlayerPosition().x - 1000) / 20, gameState.getGame().getPiecesNb(), gameState.getGame().getPlayer().getMaxSpeed()/10);
+                gameState.reloadMusic();
                 gameState.getGame().isDeadReset();
                 
                 currentState = play;
+                gameOverState.scoreInitialized = false;
                 continue;
             }
             else if (gameOverState.quitToMenu) {
                 gameOverState.quitToMenu = false;
                 statsState.updateData((gameState.getGame().getPlayerPosition().x - 1000)/20, gameState.getGame().getPiecesNb(), gameState.getGame().getPlayer().getMaxSpeed()/10);
                 gameState.getGame().isDeadReset();
+                gameState.stopMusic();
 
+                menuState.getMusic().play();
                 currentState = menu;
+                gameOverState.scoreInitialized = false;
                 continue;
             }
         }

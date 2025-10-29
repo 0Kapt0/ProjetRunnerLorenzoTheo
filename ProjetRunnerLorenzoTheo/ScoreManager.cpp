@@ -2,6 +2,9 @@
 #include <algorithm>
 #include <iostream>
 
+int ScoreManager::lastScore = 0;
+int ScoreManager::highestScore = 0;
+
 ScoreManager::ScoreManager(const sf::Font& font, sf::Vector2f uiPos, const Config& cfg)
     : cfg(cfg),
     uiPos(uiPos),
@@ -113,6 +116,10 @@ void ScoreManager::update(float dt, float playerX, float playerAngleDeg, bool is
     }
 
     updateTexts();
+
+    ScoreManager::lastScore = getScoreInt();
+    if (ScoreManager::lastScore > ScoreManager::highestScore)
+        ScoreManager::highestScore = ScoreManager::lastScore;
 }
 
 void ScoreManager::draw(sf::RenderTarget& target, const sf::View& view, const sf::Vector2f& playerPos)

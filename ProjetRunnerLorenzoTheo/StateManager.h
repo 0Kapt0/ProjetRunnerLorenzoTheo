@@ -14,7 +14,6 @@ class StateManager {
 private:
     sf::RenderWindow& window;
     sf::Clock clock;
-    ScoreManager& score;
 
     OptionsState optionsState;
     GameState gameState;

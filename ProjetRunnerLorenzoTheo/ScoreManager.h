@@ -23,6 +23,9 @@ public:
     int   getCurrentMultiplier() const;
     int   getSpinCount() const;
 
+    static int lastScore;
+    static int highestScore;
+
     void addScore(float addscore);
 
     float getBoostCharge() const { return boostCharge; }
