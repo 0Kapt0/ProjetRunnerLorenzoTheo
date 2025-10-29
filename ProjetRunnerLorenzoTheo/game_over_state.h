@@ -1,5 +1,6 @@
 #pragma once
 #include "state.h"
+#include "view.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -11,6 +12,7 @@ private:
     std::vector<sf::Text> options;
 
     int selectedItem = -1;
+    View view;
 
 public:
     bool restartGame = false;

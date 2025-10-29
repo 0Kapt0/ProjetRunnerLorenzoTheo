@@ -36,7 +36,7 @@ PauseState::PauseState(sf::RenderWindow& window)
 void PauseState::handleInput()
 {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-    sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePos);
+    sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePos, view.getView());
 
     selectedItem = -1;
 

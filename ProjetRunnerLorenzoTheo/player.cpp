@@ -402,7 +402,9 @@ void Player::drawCube(sf::RenderWindow& window)
 
 void Player::draw(sf::RenderWindow& window) {
     drawParticles(window);
-	  drawCube(window);
+    if (!isDead) {
+        drawCube(window);
+    }
 
 	//debug pour voir le cote du joueur
     //sf::RectangleShape bottomLine;
