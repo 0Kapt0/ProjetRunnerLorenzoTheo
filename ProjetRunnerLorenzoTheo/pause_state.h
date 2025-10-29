@@ -1,5 +1,6 @@
 #pragma once
 #include "state.h"
+#include "view.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -9,6 +10,7 @@ private:
     sf::Font font;
     sf::RectangleShape overlay;
     int selectedItem = -1;
+    View view;
 public:
     bool resumeGame = false;
     bool restartGame = false;

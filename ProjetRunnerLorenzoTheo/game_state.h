@@ -6,8 +6,8 @@
 class GameState : public state {
 private:
     Game game;
-    bool paused = false;
     sf::Music gameMusic;
+    bool isPaused = false;
 public:
     bool wantPause = false;
     bool wantGameOver = false;
@@ -17,6 +17,9 @@ public:
     void handleInput() override;
     void update(float deltaTime) override;
     void draw() override;
+
+    bool getIsPaused() const { return isPaused; }
+    void setIsPaused(bool state) { isPaused = state; }
 
     Game& getGame() { return game; }
     void stopMusic() { gameMusic.stop(); }

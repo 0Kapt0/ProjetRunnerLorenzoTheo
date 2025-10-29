@@ -84,12 +84,8 @@ void StateManager::run() {
 
             gameState.handleInput();
 
-            if (!isPaused) {
+            if (!gameState.getIsPaused()) {
                 gameState.update(dt);
-            }
-
-            if (!isPaused && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-                isPaused = true;
             }
 
             if (gameState.getGame().getWantGameOver()) {
@@ -97,22 +93,35 @@ void StateManager::run() {
                 currentState = gameover;
             }
 
-            if (isPaused) {
-                pauseState.handleInput();
-                if (pauseState.resumeGame)
-                    isPaused = false;
-                else if (pauseState.restartGame) {
-                    isPaused = false;
-                    currentState = play;
-                    continue;
-                }
+            if (gameState.getIsPaused()) {
+                currentState = pause;
+            }
+        }
+        
+        else if (currentState == pause) {
+            pauseState.handleInput();
 
-                else if (pauseState.quitToMenu) {
-                    isPaused = false;
-                    currentState = menu;
-                    gameState.stopMusic();
-                    continue;
-                }
+            if (pauseState.resumeGame) {
+                pauseState.resumeGame = false;
+                gameState.setIsPaused(false);
+                currentState = play;
+            }
+            else if (pauseState.restartGame) {
+                pauseState.restartGame = false;
+                gameState.setIsPaused(false);
+                gameState.getGame().isDeadReset();
+
+                currentState = play;
+                continue;
+            }
+            else if (pauseState.quitToMenu) {
+                pauseState.quitToMenu = false;
+                gameState.setIsPaused(false);
+                gameState.stopMusic();
+                gameState.getGame().isDeadReset();
+
+                currentState = menu;
+                continue;
             }
         }
 

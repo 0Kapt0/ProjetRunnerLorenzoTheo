@@ -8,8 +8,8 @@ PauseState::PauseState(sf::RenderWindow& window)
         std::cerr << "Font non charge\n";
     }
 
-    sf::Vector2f viewCenter = window.getView().getCenter();
-    sf::Vector2f viewSize = window.getView().getSize();
+    sf::Vector2f viewCenter = view.getView().getCenter();
+    sf::Vector2f viewSize = view.getView().getSize();
 
     overlay.setSize(viewSize);
     overlay.setOrigin(viewSize / 2.f);
@@ -64,6 +64,7 @@ void PauseState::update(float)
 
 void PauseState::draw()
 {
+    window.setView(view.getView());
     window.draw(overlay);
     for (auto& opt : options)
         window.draw(opt);

@@ -28,8 +28,8 @@ GameState::GameState(sf::RenderWindow& window)
 
 void GameState::handleInput()
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-        wantPause = true;
+    if (!isPaused && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
+        isPaused = true;
     }
 }
 

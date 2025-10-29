@@ -22,7 +22,7 @@ private:
     menu menuState;
 
     float timePaused = 0;
-    bool isPaused = false;
+    /*bool isPaused = false;*/
 public:
     enum State
     {

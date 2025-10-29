@@ -15,6 +15,7 @@ private:
 public:
     bool restartGame = false;
     bool quitToMenu = false;
+    
 
     GameOverState(sf::RenderWindow& window);
 
