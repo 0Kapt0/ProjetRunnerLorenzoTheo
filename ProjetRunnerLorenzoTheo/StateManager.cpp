@@ -1,7 +1,7 @@
 ﻿#include "StateManager.h"
 #include "AudioSettings.h"
 
-
+//test
 StateManager::StateManager(sf::RenderWindow& win)
     : window(win)
 {
