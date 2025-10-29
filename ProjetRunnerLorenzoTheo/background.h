@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <cmath>
+#include <random>
 #include "view.h"
 #include "pente.h"
 
@@ -16,8 +17,8 @@ public:
 private:
     struct MountainLayer {
         sf::VertexArray triangles;
-        float parallaxFactor;
-        float opacity;
+        float parallaxFactor = 0;
+        float opacity = 1;
     };
 
     sf::CircleShape moon;

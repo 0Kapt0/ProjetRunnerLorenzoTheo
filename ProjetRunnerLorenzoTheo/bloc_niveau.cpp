@@ -1,7 +1,5 @@
 #include "bloc_niveau.h"
 
-#include <iostream>
-
 BlocNiveau::BlocNiveau(sf::Vector2f posVal, int presetIdVal) : positionStart(posVal), presetId(presetIdVal)
 {
 	if (presetId == 0)

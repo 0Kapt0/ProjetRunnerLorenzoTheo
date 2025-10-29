@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Audio.hpp>
+#include <fstream>
+#include <iostream>
 
 class AudioSettings {
 public:

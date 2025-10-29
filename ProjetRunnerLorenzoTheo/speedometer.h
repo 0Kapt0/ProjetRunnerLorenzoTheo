@@ -1,5 +1,5 @@
 #pragma once
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include <iostream>
 
 class Speedometer
@@ -13,4 +13,3 @@ public:
 	void setSpeedText(float s);
 	void draw(sf::RenderTarget& target, const sf::View& view, const sf::Vector2f& playerPos);
 };
-

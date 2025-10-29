@@ -2,7 +2,7 @@
 #include <iostream>
 #include "player.h"
 #include "bloc_niveau.h"
-#include "ScoreManager.h"
+#include "score_manager.h"
 #include "background.h"
 #include "view.h"
 #include "speedometer.h"
