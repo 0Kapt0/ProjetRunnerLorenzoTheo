@@ -5,7 +5,7 @@
 #include <iostream>
 #include "view.h"
 #include "state.h"
-#include "ScoreManager.h"
+#include "score_Manager.h"
 
 class GameOverState : public State {
 private:

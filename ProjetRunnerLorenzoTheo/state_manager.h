@@ -8,7 +8,7 @@
 #include "options_state.h"
 #include "game_over_state.h"
 #include "stats_state.h"
-#include "ScoreManager.h"
+#include "score_Manager.h"
 #include "audio_settings.h"
 
 class StateManager {
