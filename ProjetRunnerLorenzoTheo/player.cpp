@@ -58,25 +58,19 @@ void Player::moveForward(float dt, Pente* pente)
     const float maxSpeed = 10000.f;
     const float minSpeed = 150.f;
 
-    // ---- Récupérer l’angle de la pente ----
     float slopeAngle = pente->getOrientation(static_cast<int>(position.x)).asDegrees();
 
-    // On limite un peu pour éviter des extrêmes
     slopeAngle = std::clamp(slopeAngle, -45.f, 45.f);
 
-    // ---- Influence de la pente ----
     float slopeFactor = std::sin(slopeAngle * 3.14159f / 180.f);
     float slopeInfluence = slopeFactor * 600.f;
 
-    // ---- Boost manuel (si le joueur charge) ----
     float baseDelta = (isCharging && hasBoost) ? accel : -(decel+(moveSpeed*0.12));
 
-    // ---- Calcul final ----
     float delta = baseDelta + slopeInfluence;
 
     if (!isGrounded)
     {
-        // Moins de frottement dans l’air
         delta *= 0.3f;
     }
 
@@ -105,7 +99,6 @@ void Player::handleInput(float dt)
     if (jumpPressed && canJump)
     {
         isCharging = true;
-        //chargeTime = std::min(chargeTime + dt, maxChargeTime);
 
         if (hasBoost) {
             rgbTimer += 2.f * dt;
@@ -117,7 +110,7 @@ void Player::handleInput(float dt)
     //RELACHEMENT DU SAUT
     if (isCharging && canJump)
     {
-        const float ratio = 1; //chargeTime / maxChargeTime;
+        const float ratio = 1;
         const float jumpStrength = 300.f + (750.f - 300.f) * (ratio * ratio);
 
         velocity.y = -jumpStrength;
@@ -150,16 +143,14 @@ void Player::checkGroundCollision(Pente* pente)
     constexpr float tolerance = 8.f;
     constexpr float crashAngle = 35.f;
 
-    // --- vérifie si le joueur est enfoncé dans le sol (ex : collision mur/bug pente)
-    if (position.y > surfaceY + 10.f) // marge de sécurité
+    if (position.y > surfaceY + 10.f and isGrounded == false)
     {
         isDead = true;
         isGrounded = false;
-        explodeOnDeath(); // ton effet d’explosion
+        explodeOnDeath();
         return;
     }
 
-    // --- collision sol (atterrissage)
     if (velocity.y >= 0.f && position.y >= surfaceY - tolerance)
     {
         position.y = surfaceY;
@@ -176,7 +167,6 @@ void Player::checkGroundCollision(Pente* pente)
         if (diff > 180.f)
             diff = 360.f - diff;
 
-        // vérifie si l'angle d'atterrissage est bon
         if (diff > crashAngle)
         {
             isDead = true;
@@ -185,7 +175,6 @@ void Player::checkGroundCollision(Pente* pente)
             return;
         }
 
-        // si atterrissage réussi
         shape.setRotation(sf::degrees(groundAngle));
         shape.setFillColor(sf::Color::Cyan);
     }
@@ -331,24 +320,17 @@ void Player::updateFlipBoost(float dt)
 {
     if (!speedBoostActive) return;
 
-    // Durée totale du boost (à définir quand tu l'actives)
-    const float totalBoostDuration = 1.5f; // exemple : 1.5 secondes
+    const float totalBoostDuration = 1.5f;
 
-    // Avancement normalisé du boost [0, 1]
     float progress = 1.f - (speedBoostTimer / totalBoostDuration);
     progress = std::clamp(progress, 0.f, 1.f);
 
-    // Courbe d'accélération/décélération (ease in/out)
-    // -> commence lentement, accélère, puis ralentit
-    float curve = std::sin(progress * 3.14159265f); // sin(0→π) monte puis redescend
+    float curve = std::sin(progress * 3.14159265f);
 
-    // Calcul du multiplicateur dynamique
     float dynamicMultiplier = 1.f + (speedBoostMultiplier - 1.f) * curve;
 
-    // Application du boost
     velocity.x *= dynamicMultiplier;
 
-    // Mise à jour du timer
     speedBoostTimer -= dt;
     if (speedBoostTimer <= 0.f)
     {

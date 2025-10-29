@@ -22,8 +22,6 @@ GameOverState::GameOverState(sf::RenderWindow& window)
         });
 
     std::vector<std::string> labels = { "Restart", "Quit to Menu" };
-    float spacing = 100.f;
-    float startY = static_cast<float>(window.getSize().y) / 2.f;
 
     for (std::size_t i = 0; i < labels.size(); ++i) {
         sf::Text text(font, labels[i], 70);
@@ -31,7 +29,7 @@ GameOverState::GameOverState(sf::RenderWindow& window)
         text.setOrigin({ b.size.x / 2.f, b.size.y / 2.f });
         text.setPosition({
             static_cast<float>(window.getSize().x) / 2.f,
-            startY + static_cast<float>(i) * spacing
+            static_cast<float>(window.getSize().y) / 2.f + static_cast<float>(i) * 100.f
             });
         text.setFillColor(sf::Color::White);
         options.push_back(text);
