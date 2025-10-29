@@ -9,6 +9,7 @@
 #include "game_over_state.h"
 #include "stats_state.h"
 #include "ScoreManager.h"
+#include "audio_settings.h"
 
 class StateManager {
 private:
@@ -20,12 +21,12 @@ private:
     GameOverState gameOverState;
     PauseState pauseState;
     StatsState statsState;
-    menu menuState;
+    Menu menuState;
 
     float timePaused = 0;
-    /*bool isPaused = false;*/
+
 public:
-    enum State
+    enum States
     {
         menu,
         options,
@@ -35,10 +36,10 @@ public:
         pause
     };
 
-    State currentState = menu;
+    States currentState = menu;
 
     StateManager(sf::RenderWindow& win);
 
-    state* getState();
+    State* getState();
     void run();
 };

@@ -1,9 +1,7 @@
 ﻿#include "menu.h"
-#include "AudioSettings.h"
-#include <iostream>
 
-menu::menu(sf::RenderWindow& window)
-    : state(window), selectedItemIndex(-1) {
+Menu::Menu(sf::RenderWindow& window)
+    : State(window), selectedItemIndex(-1) {
     if (!font.openFromFile("src/fonts/font.ttf")) {
         std::cerr << "Erreur de chargement de la police" << std::endl;
     }
@@ -31,11 +29,11 @@ menu::menu(sf::RenderWindow& window)
     initMenu();
 }
 
-menu::~menu() {
+Menu::~Menu() {
     menuMusic.stop();
 }
 
-void menu::initMenu() {
+void Menu::initMenu() {
     sf::Text startGame(font);
     startGame.setCharacterSize(65);
     startGame.setString("Play");
@@ -65,7 +63,7 @@ void menu::initMenu() {
     }
 }
 
-void menu::handleInput() {
+void Menu::handleInput() {
     sf::Vector2f mousePosF = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
 
     bool mouseOverOption = false;
@@ -104,15 +102,13 @@ void menu::handleInput() {
 
 }
 
-
-void menu::update(float) {
+void Menu::update(float) {
     for (std::size_t i = 0; i < menuOptions.size(); i++) {
         menuOptions[i].setFillColor(i == selectedItemIndex ? sf::Color::Red : sf::Color::White);
     }
 }
 
-
-void menu::draw() {
+void Menu::draw() {
     window.setView(window.getDefaultView());
     window.draw(backgroundShape);
     for (auto& option : menuOptions) {

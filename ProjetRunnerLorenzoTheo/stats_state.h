@@ -1,10 +1,10 @@
 #pragma once
-#include "state.h"
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
+#include "state.h"
 
-class StatsState : public state
+class StatsState : public State
 {
 private:
     sf::Font font;
@@ -19,6 +19,7 @@ private:
     unsigned int nbPiecesRecord = 0;
     unsigned int nbMetresRecord = 0;
     unsigned int vitesseRecord = 0;
+
 public:
 	bool backToMenu = false;
 
@@ -29,4 +30,3 @@ public:
     void draw() override;
     void updateData(int newMetersNb, int newPiecesNb, int vitesseMax);
 };
-

@@ -1,11 +1,13 @@
 #pragma once
-#include "state.h"
-#include "view.h"
-#include "ScoreManager.h"
+
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
+#include "view.h"
+#include "state.h"
+#include "ScoreManager.h"
 
-class GameOverState : public state {
+class GameOverState : public State {
 private:
     View view;
 
@@ -15,7 +17,7 @@ private:
     std::optional<sf::Text> scoreText;
     std::optional<sf::Text> bestScoreText;
     std::vector<sf::Text> options;
-
+    
     int selectedItem = -1;
 
 public:
@@ -23,7 +25,6 @@ public:
     bool quitToMenu = false;
     bool scoreInitialized = false;
     
-
     GameOverState(sf::RenderWindow& window);
 
     void handleInput() override;

@@ -1,6 +1,4 @@
-﻿#include "AudioSettings.h"
-#include <fstream>
-#include <iostream>
+﻿#include "audio_settings.h"
 
 float AudioSettings::globalMusicVolume = 30.f;
 float AudioSettings::globalSfxVolume = 30.f;

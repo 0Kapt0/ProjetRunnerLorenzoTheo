@@ -1,9 +1,12 @@
 #pragma once
+#include <SFML/Audio.hpp>
+#include <iostream>
 #include "state.h"
 #include "game.h"
-#include <SFML/Audio.hpp>
+#include "pause_state.h"
+#include "audio_settings.h"
 
-class GameState : public state {
+class GameState : public State {
 private:
     Game game;
     sf::Music gameMusic;

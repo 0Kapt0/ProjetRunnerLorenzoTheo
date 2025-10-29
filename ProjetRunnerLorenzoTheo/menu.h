@@ -1,9 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <iostream>
 #include "state.h"
+#include "audio_settings.h"
 
-class menu : public state {
+class Menu : public State {
 private:
 	std::vector<sf::Text> menuOptions;
 	sf::Font font;
@@ -15,8 +17,8 @@ private:
 
 	void initMenu();
 public:
-	menu(sf::RenderWindow& window);
-	~menu();
+	Menu(sf::RenderWindow& window);
+	~Menu();
 
 	int selectedItemIndex;
 
@@ -30,4 +32,3 @@ public:
 
 	sf::Music& getMusic() { return menuMusic; }
 };
-

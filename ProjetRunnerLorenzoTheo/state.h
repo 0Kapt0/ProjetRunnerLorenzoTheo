@@ -1,13 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class state {
+class State {
 protected:
 	sf::RenderWindow& window;
-
+     
 public:
-    state(sf::RenderWindow& window) : window(window) {}
-    virtual ~state() {}
+    State(sf::RenderWindow& window) : window(window) {}
+    virtual ~State() {}
     virtual void handleInput() = 0;
     virtual void update(float deltaTime) = 0;
     virtual void draw() = 0;

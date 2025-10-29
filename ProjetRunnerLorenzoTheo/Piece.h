@@ -1,8 +1,7 @@
 #pragma once
 #include "bonus.h"
 
-class Piece :
-    public Bonus
+class Piece : public Bonus
 {
 private:
     sf::CircleShape circle;
@@ -13,4 +12,3 @@ public:
     
    void draw(sf::RenderWindow& window);
 };
-

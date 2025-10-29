@@ -1,8 +1,7 @@
 #include "pause_state.h"
-#include <iostream>
 
 PauseState::PauseState(sf::RenderWindow& window)
-    : state(window)
+    : State(window)
 {
     if (!font.openFromFile("src/fonts/font.ttf")) {
         std::cerr << "Font non charge\n";

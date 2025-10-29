@@ -1,8 +1,7 @@
 ﻿#include "game_over_state.h"
-#include <iostream>
 
 GameOverState::GameOverState(sf::RenderWindow& window)
-    : state(window)
+    : State(window)
 {
     if (!font.openFromFile("src/fonts/font.ttf")) {
         std::cerr << "Erreur chargement font GameOverState\n";

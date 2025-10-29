@@ -139,7 +139,7 @@ void Game::updatePiece()
         );
     }
 }
-
+// Function to call on gameover state, reset Game
 void Game::isDeadReset()
 {
     player.isDeadReset();

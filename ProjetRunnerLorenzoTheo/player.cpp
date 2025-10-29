@@ -1,8 +1,4 @@
-﻿#include <cstdint>
-#include "player.h"
-#include <cmath>
-
-#include <iostream>
+﻿#include "player.h"
 
 Player::Player(sf::Vector2f startPos, float pspeed)
     : position(startPos),
@@ -78,9 +74,7 @@ void Player::moveForward(float dt, Pente* pente)
 
     velocity.x = moveSpeed;
     position.x += velocity.x * dt;
-
 }
-
 
 void Player::applyGravity(float dt)
 {
@@ -135,6 +129,7 @@ void Player::handleInput(float dt)
         shape.rotate(sf::degrees(-400.f * dt));
     }
 }
+
 void Player::checkGroundCollision(Pente* pente)
 {
     const int x = static_cast<int>(position.x);
@@ -339,7 +334,6 @@ void Player::updateFlipBoost(float dt)
     }
 }
 
-
 void Player::update(float dt, Pente* pente) {
 	//mort du joueur
     if (isDead == true) {
@@ -349,8 +343,6 @@ void Player::update(float dt, Pente* pente) {
         dt *= timeScale;
 
         updateParticles(dt);
-        //body.clear();
-        //bottomEdge.clear();
         return;
     }
 

@@ -1,6 +1,6 @@
 ﻿#include "Background.h"
-#include <random>
-#include <iostream>
+
+
 
 Background::Background(float width, float height, View& view)
     : m_width(width), m_height(height),

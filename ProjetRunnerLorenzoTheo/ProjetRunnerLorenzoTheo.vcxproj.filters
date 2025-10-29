@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="AudioSettings.cpp" />
+    <ClCompile Include="audio_settings.cpp" />
     <ClCompile Include="background.cpp" />
     <ClCompile Include="bloc_niveau.cpp" />
     <ClCompile Include="bonus.cpp" />
@@ -15,31 +15,29 @@
     <ClCompile Include="piece.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ScoreManager.cpp" />
-    <ClCompile Include="state.cpp" />
-    <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="score_manager.cpp" />
+    <ClCompile Include="state_manager.cpp" />
     <ClCompile Include="view.cpp" />
     <ClCompile Include="speedometer.cpp" />
     <ClCompile Include="stats_state.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AudioSettings.h" />
+    <ClInclude Include="audio_settings.h" />
     <ClInclude Include="background.h" />
     <ClInclude Include="bloc_niveau.h" />
     <ClInclude Include="bonus.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="game_over_state.h" />
     <ClInclude Include="game_state.h" />
-    <ClInclude Include="interface.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="options_state.h" />
     <ClInclude Include="pause_state.h" />
     <ClInclude Include="pente.h" />
     <ClInclude Include="piece.h" />
     <ClInclude Include="player.h" />
-    <ClInclude Include="ScoreManager.h" />
+    <ClInclude Include="score_manager.h" />
     <ClInclude Include="state.h" />
-    <ClInclude Include="StateManager.h" />
+    <ClInclude Include="state_manager.h" />
     <ClInclude Include="view.h" />
     <ClInclude Include="speedometer.h" />
     <ClInclude Include="stats_state.h" />
