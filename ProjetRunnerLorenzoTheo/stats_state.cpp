@@ -1,7 +1,6 @@
 #include "stats_state.h"
 
-
-StatsState::StatsState(sf::RenderWindow& window): state(window), back(font)
+StatsState::StatsState(sf::RenderWindow& window): State(window), back(font)
 {
 	if (!font.openFromFile("src/fonts/font.ttf")) {
 		std::cerr << "Erreur de chargement de la police\n";
@@ -15,7 +14,6 @@ StatsState::StatsState(sf::RenderWindow& window): state(window), back(font)
     {
         statsTexts.push_back(sf::Text(font, "", 40));
         statsTexts[i].setPosition({ 250.f, 100.f + i*100 });
-        std::cout <<statsTexts[i].getPosition().x << ", " << statsTexts[i].getPosition().y << "\n";
     }
 
     std::ifstream fichierStats("src/fichierStats.txt");
@@ -46,6 +44,7 @@ void StatsState::handleInput()
         }
     }
 }
+
 void StatsState::update(float dt) {}
 
 void StatsState::draw()
@@ -94,5 +93,4 @@ void StatsState::updateData(int newMetersNb, int newPiecesNb, int maxSpeed)
     statsTexts[3].setString("Nombre de metres parcourus          " + std::to_string(nbMetres));
     statsTexts[4].setString("Record de distance                                              " + std::to_string(nbMetresRecord));
     statsTexts[5].setString("Record de Vitesse                                                  " + std::to_string(vitesseRecord));
-
 }

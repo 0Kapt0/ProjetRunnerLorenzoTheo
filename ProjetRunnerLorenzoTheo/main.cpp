@@ -1,6 +1,6 @@
 ﻿#include <SFML/Graphics.hpp>
-#include "StateManager.h"
-#include "AudioSettings.h"
+#include "state_manager.h"
+#include "audio_settings.h"
 
 int main() {
     AudioSettings::load();

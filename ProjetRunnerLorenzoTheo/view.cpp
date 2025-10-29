@@ -1,4 +1,5 @@
 #include "view.h"
+
 View::View()
 {
 	view.setSize({ 1920.f, 1080.f });
@@ -20,6 +21,7 @@ void View::updateCamera(float dt, sf::Vector2f playerPos)
 
     view.setCenter(currentCenter);
 }
+
 void View::setView(sf::RenderWindow& window)
 {
     window.setView(view);

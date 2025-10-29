@@ -1,10 +1,7 @@
 ﻿#include "options_state.h"
-#include "AudioSettings.h"
-#include <iostream>
-#include <algorithm>
 
 OptionsState::OptionsState(sf::RenderWindow& window)
-    : state(window)
+    : State(window)
 {
     if (!font.openFromFile("src/fonts/font.ttf")) {
         std::cerr << "Erreur de chargement de la police\n";

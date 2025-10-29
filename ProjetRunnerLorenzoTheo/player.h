@@ -45,7 +45,6 @@ private:
 	void checkGroundCollision(Pente* pente);
 	void updateCoyoteTimer(float dt);
 	void explodeOnDeath();
-	
 
 	void updateGradient(float dt);
 	void drawCube(sf::RenderWindow& window);
@@ -70,6 +69,7 @@ private:
 	float particleSpawnTimer;
 
 	int maxSpeed = 0;
+
 public:
 	Player(sf::Vector2f startPos, float pspeed = 250.f);
 
@@ -89,4 +89,3 @@ public:
 	int getMaxSpeed() { return maxSpeed; };
 	void isDeadReset();
 };
-

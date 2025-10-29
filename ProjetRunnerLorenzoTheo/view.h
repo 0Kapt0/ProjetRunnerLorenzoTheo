@@ -1,5 +1,4 @@
 #pragma once
-
 #include "SFML/Graphics.hpp"
 
 class View
@@ -18,4 +17,3 @@ public:
 	void setView(sf::RenderWindow& window);
 	void reset(sf::Vector2f playerPos);
 };
-

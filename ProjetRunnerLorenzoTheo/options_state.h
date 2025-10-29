@@ -1,10 +1,13 @@
 #pragma once
-#include "state.h"
 #include <SFML/Graphics.hpp>
-#include <vector>
 #include <SFML/Audio.hpp>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include "audio_settings.h"
+#include "state.h"
 
-class OptionsState : public state {
+class OptionsState : public State {
 private:
     sf::Font font;
     std::vector<sf::Text> options;

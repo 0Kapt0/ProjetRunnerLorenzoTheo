@@ -1,10 +1,7 @@
 #include "game_state.h"
-#include "pause_state.h"
-#include "AudioSettings.h"
-#include <iostream>
 
 GameState::GameState(sf::RenderWindow& window)
-    : state(window)
+    : State(window)
 {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 

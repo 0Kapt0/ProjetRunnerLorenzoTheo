@@ -1,6 +1,4 @@
-﻿#include "ScoreManager.h"
-#include <algorithm>
-#include <iostream>
+﻿#include "score_manager.h"
 
 ScoreManager::ScoreManager(const sf::Font& font, sf::Vector2f uiPos, const Config& cfg)
     : cfg(cfg),
@@ -9,17 +7,10 @@ ScoreManager::ScoreManager(const sf::Font& font, sf::Vector2f uiPos, const Confi
     multText(font, "", 22)
 {
     scoreText.setFillColor(sf::Color::White);
-    //scoreText.setOutlineThickness(1);
-    //scoreText.setOutlineColor(sf::Color::Black);
-
     multText.setFillColor(sf::Color(200, 230, 255));
-    //multText.setOutlineThickness(1);
-    //multText.setOutlineColor(sf::Color::Black);
 
     comboBarBG.setSize({ 200.f, 10.f });
     comboBarBG.setFillColor(sf::Color(0, 0, 0, 120));
-    //comboBarBG.setOutlineThickness(1);
-    //comboBarBG.setOutlineColor(sf::Color::White);
 
     comboBarFill.setSize({ 200.f, 10.f });
     comboBarFill.setFillColor(sf::Color(0, 200, 255));
@@ -66,7 +57,6 @@ bool ScoreManager::detectBackflip(float playerAngleDeg)
 
     return false;
 }
-
 
 void ScoreManager::update(float dt, float playerX, float playerAngleDeg, bool isGrounded)
 {
@@ -203,10 +193,8 @@ void ScoreManager::draw(sf::RenderTarget& target, const sf::View& view, const sf
             arc.append(sf::Vertex(outer, c));
             arc.append(sf::Vertex(inner, c));
         }
-
         target.draw(arc);
     }
-
     target.setView(oldView);
 }
 
@@ -226,7 +214,6 @@ float ScoreManager::shortestAngleDelta(float a, float b)
     if (d < -180.f) d += 360.f;
     return d;
 }
-
 
 void ScoreManager::updateTexts()
 {
