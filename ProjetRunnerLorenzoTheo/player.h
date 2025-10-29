@@ -69,6 +69,7 @@ private:
 	std::vector<Particle> particles;
 	float particleSpawnTimer;
 
+	int maxSpeed = 0;
 public:
 	Player(sf::Vector2f startPos, float pspeed = 250.f);
 
@@ -85,6 +86,7 @@ public:
 	bool isUsingBoost() const { return isCharging && hasBoost; }
 	bool getIsDead() const { return isDead; }
 	float getSpeed() const { return velocity.x; }
+	int getMaxSpeed() { return maxSpeed; };
 	void isDeadReset();
 };
 

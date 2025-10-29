@@ -121,6 +121,7 @@ void StateManager::run() {
             
             if (gameOverState.restartGame) {
                 gameOverState.restartGame = false;
+                statsState.updateData((gameState.getGame().getPlayerPosition().x - 1000) / 20, gameState.getGame().getPiecesNb(), gameState.getGame().getPlayer().getMaxSpeed()/10);
                 gameState.getGame().isDeadReset();
                 
                 currentState = play;
@@ -128,7 +129,9 @@ void StateManager::run() {
             }
             else if (gameOverState.quitToMenu) {
                 gameOverState.quitToMenu = false;
+                statsState.updateData((gameState.getGame().getPlayerPosition().x - 1000)/20, gameState.getGame().getPiecesNb(), gameState.getGame().getPlayer().getMaxSpeed()/10);
                 gameState.getGame().isDeadReset();
+
                 currentState = menu;
                 continue;
             }

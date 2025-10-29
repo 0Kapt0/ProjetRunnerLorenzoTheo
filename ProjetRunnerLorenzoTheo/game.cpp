@@ -130,6 +130,7 @@ void Game::updatePiece()
                     if (distance < pickupRadius)
                     {
                         scoreManager->addScore(100);
+                        nbPiecesRun += 1;
                         return true;
                     }
                     return false;
