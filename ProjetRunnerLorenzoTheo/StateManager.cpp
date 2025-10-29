@@ -2,7 +2,7 @@
 #include "AudioSettings.h"
 
 #include <iostream>
-StateManager::StateManager(sf::RenderWindow& win): window(win), optionsState(win), gameState(win), gameOverState(win), pauseState(win), statsState(win), menuState(win) {}
+StateManager::StateManager(sf::RenderWindow& win): window(win), optionsState(win), gameState(win), gameOverState(win, score), pauseState(win), statsState(win), menuState(win) {}
 /*
 StateManager::State StateManager::getState() {
     return currentState;

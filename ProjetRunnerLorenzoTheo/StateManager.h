@@ -8,11 +8,13 @@
 #include "options_state.h"
 #include "game_over_state.h"
 #include "stats_state.h"
+#include "ScoreManager.h"
 
 class StateManager {
 private:
     sf::RenderWindow& window;
     sf::Clock clock;
+    ScoreManager& score;
 
     OptionsState optionsState;
     GameState gameState;

@@ -22,6 +22,13 @@ GameOverState::GameOverState(sf::RenderWindow& window)
     titleText->setPosition({ viewCenter.x, viewCenter.y - 200.f });
     titleText->setFillColor(sf::Color::White);
 
+    scoreText.emplace(font, "Score: " + std::to_string(score.getScoreInt()), 70);
+    sf::FloatRect scoreBounds = scoreText->getLocalBounds();
+    scoreText->setOrigin({ scoreBounds.size.x / 2.f, scoreBounds.size.y / 2.f });
+    scoreText->setPosition({ viewCenter.x, viewCenter.y - 80.f });
+    scoreText->setFillColor(sf::Color(255, 215, 0));
+
+
     const std::vector<std::string> labels = { "Restart", "Quit to Menu" };
     float startY = viewCenter.y + 50.f;
 
@@ -75,6 +82,8 @@ void GameOverState::draw()
     window.draw(overlay);
     if (titleText)
         window.draw(*titleText);
+    if (scoreText)
+        window.draw(*scoreText);
     for (auto& opt : options)
         window.draw(opt);
 }
