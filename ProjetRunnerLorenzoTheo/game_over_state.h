@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
+#include "view.h"
 #include "state.h"
 
 class GameOverState : public State {
