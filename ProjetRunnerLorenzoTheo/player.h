@@ -14,6 +14,7 @@ private:
 	//Player pos and mov
 	sf::Vector2f velocity;
 	sf::Vector2f position;
+	sf::Vector2f startPosition;
 	float moveSpeed;
 	float jumpForce;
 	float gravity;
@@ -84,5 +85,6 @@ public:
 	bool isUsingBoost() const { return isCharging && hasBoost; }
 	bool getIsDead() const { return isDead; }
 	float getSpeed() const { return velocity.x; }
+	void isDeadReset();
 };
 

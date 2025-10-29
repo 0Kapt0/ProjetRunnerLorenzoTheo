@@ -24,3 +24,8 @@ void View::setView(sf::RenderWindow& window)
 {
     window.setView(view);
 }
+
+void View::reset(sf::Vector2f playerPos)
+{
+    view.setCenter(playerPos);
+}

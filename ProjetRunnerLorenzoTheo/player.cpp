@@ -2,8 +2,11 @@
 #include "player.h"
 #include <cmath>
 
+#include <iostream>
+
 Player::Player(sf::Vector2f startPos, float pspeed)
     : position(startPos),
+    startPosition(startPos),
     moveSpeed(pspeed),
     jumpForce(400.f),
     gravity(1400.f),
@@ -356,6 +359,7 @@ void Player::updateFlipBoost(float dt)
 
 
 void Player::update(float dt, Pente* pente) {
+    std::cout << velocity.x << "\n";
 	//mort du joueur
     if (isDead == true) {
         static float slowTime = 0.f;
@@ -364,8 +368,8 @@ void Player::update(float dt, Pente* pente) {
         dt *= timeScale;
 
         updateParticles(dt);
-        body.clear();
-        bottomEdge.clear();
+        //body.clear();
+        //bottomEdge.clear();
         return;
     }
 
@@ -439,4 +443,17 @@ void Player::draw(sf::RenderWindow& window) {
         window.draw(chargeBar);
     }
 
+}
+
+void Player::isDeadReset()
+{
+    std::cout << "----------------------------------------------------------------\n";
+    position = startPosition;
+    velocity = sf::Vector2f(0, 0);
+    moveSpeed = 0;
+    speedBoostTimer = 0;
+    speedBoostActive = false;
+
+    isDead = false;
+    shape.setRotation(sf::degrees(0));
 }

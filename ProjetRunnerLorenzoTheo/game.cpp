@@ -139,3 +139,22 @@ void Game::updatePiece()
         );
     }
 }
+
+void Game::isDeadReset()
+{
+    player.isDeadReset();
+
+    scoreManager->setBoostCharge(0);
+
+    bonusX = 0;
+    blocNiveauList.clear();
+    for (int i = 0; i < 3; ++i) {
+        addBlocNiveau(0);
+    }
+
+    wantGameOver = false;
+
+    scoreManager->start(player.getPosition().x);
+
+    view.reset(player.getPosition());
+}

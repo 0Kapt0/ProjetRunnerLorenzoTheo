@@ -1,7 +1,7 @@
 ﻿#include "StateManager.h"
 #include "AudioSettings.h"
 
-
+#include <iostream>
 StateManager::StateManager(sf::RenderWindow& win): window(win), optionsState(win), gameState(win), gameOverState(win), pauseState(win), statsState(win), menuState(win) {}
 /*
 StateManager::State StateManager::getState() {
@@ -118,18 +118,21 @@ void StateManager::run() {
 
         else if (currentState == gameover) {
             gameOverState.handleInput();
+            
             if (gameOverState.restartGame) {
+                gameOverState.restartGame = false;
+                gameState.getGame().isDeadReset();
+                
                 currentState = play;
                 continue;
             }
             else if (gameOverState.quitToMenu) {
+                gameOverState.quitToMenu = false;
+                gameState.getGame().isDeadReset();
                 currentState = menu;
                 continue;
             }
         }
-        
-        
-
 
         if (currentState == menu) {
             AudioSettings::applyTo(menuState.getMusic());

@@ -16,5 +16,6 @@ public:
 	void updateCamera(float dt, sf::Vector2f playerPos);
 	sf::View& getView() { return view; }
 	void setView(sf::RenderWindow& window);
+	void reset(sf::Vector2f playerPos);
 };
 

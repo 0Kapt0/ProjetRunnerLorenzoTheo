@@ -40,5 +40,7 @@ public:
 
 	bool getWantGameOver() const { return wantGameOver; }
 	sf::Vector2f getPlayerPosition() const;
+	Player& getPlayer() { return player; };
+	void isDeadReset();
 };
 
