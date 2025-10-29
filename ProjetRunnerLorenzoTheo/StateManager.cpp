@@ -84,9 +84,7 @@ void StateManager::run() {
 
             gameState.handleInput();
 
-            if (!gameState.getIsPaused()) {
-                gameState.update(dt);
-            }
+            gameState.update(dt);
 
             if (gameState.getGame().getWantGameOver()) {
                 gameState.stopMusic();
@@ -99,7 +97,9 @@ void StateManager::run() {
         }
         
         else if (currentState == pause) {
+            gameState.draw();
             pauseState.handleInput();
+            pauseState.update(dt);
 
             if (pauseState.resumeGame) {
                 pauseState.resumeGame = false;
@@ -126,7 +126,10 @@ void StateManager::run() {
         }
 
         else if (currentState == gameover) {
+            gameState.draw();
             gameOverState.handleInput();
+            gameOverState.update(dt);
+            gameState.update(dt);
             
             if (gameOverState.restartGame) {
                 gameOverState.restartGame = false;
@@ -153,7 +156,8 @@ void StateManager::run() {
             AudioSettings::applyTo(gameState.getMusic());
         }
 
-        window.clear();
+        if (currentState != pause && currentState != gameover)
+            window.clear();
         getState()->draw();
         window.display();
     }
