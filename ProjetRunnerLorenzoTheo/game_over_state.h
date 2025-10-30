@@ -7,8 +7,11 @@
 #include "state.h"
 #include "score_Manager.h"
 
+#include "stats_state.h"
+
 class GameOverState : public State {
 private:
+    StatsState& stats;
     View view;
 
     sf::Font font;
@@ -25,7 +28,7 @@ public:
     bool quitToMenu = false;
     bool scoreInitialized = false;
     
-    GameOverState(sf::RenderWindow& window);
+    GameOverState(sf::RenderWindow& window, StatsState& stats);
 
     void handleInput() override;
     void update(float deltaTime) override;

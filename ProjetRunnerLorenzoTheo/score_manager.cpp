@@ -28,7 +28,6 @@ ScoreManager::ScoreManager(const sf::Font& font, sf::Vector2f uiPos, const Confi
 
     background.setSize({ 310.f, 90.f });
     background.setFillColor(sf::Color(0, 0, 0, 150));
-    updateTexts();
 }
 
 void ScoreManager::start(float startPlayerX)
@@ -224,6 +223,6 @@ float ScoreManager::shortestAngleDelta(float a, float b)
 
 void ScoreManager::updateTexts()
 {
-    scoreText.setString("Score  " + std::to_string(getScoreInt()));
+    scoreText.setString("Score  " + std::to_string(int(ScoreManager::score)));
     multText.setString("x" + std::to_string(currentMultiplier));
 }

@@ -1,6 +1,6 @@
 ﻿#include "state_manager.h"
 
-StateManager::StateManager(sf::RenderWindow& win): window(win), optionsState(win), gameState(win), gameOverState(win), pauseState(win), statsState(win), menuState(win) {}
+StateManager::StateManager(sf::RenderWindow& win): window(win), optionsState(win), gameState(win), gameOverState(win, statsState), pauseState(win), statsState(win), menuState(win) {}
 
 State* StateManager::getState() {
     if (currentState == menu)
