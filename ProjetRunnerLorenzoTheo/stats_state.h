@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include "state.h"
+#include "score_manager.h"
 
 class StatsState : public State
 {
@@ -19,6 +20,7 @@ private:
     unsigned int nbPiecesRecord = 0;
     unsigned int nbMetresRecord = 0;
     unsigned int vitesseRecord = 0;
+    unsigned int scoreRecord = 0;
 
 public:
 	bool backToMenu = false;
@@ -29,4 +31,5 @@ public:
     void update(float dt) override;
     void draw() override;
     void updateData(int newMetersNb, int newPiecesNb, int vitesseMax);
+    int getScoreRecord() { return scoreRecord; };
 };

@@ -8,9 +8,9 @@ StatsState::StatsState(sf::RenderWindow& window): State(window), back(font)
 
 	back.setCharacterSize(50);
 	back.setString("Back");
-	back.setPosition({ 200.f, 750.f });
+	back.setPosition({ 200.f, 850.f });
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 7; i++)
     {
         statsTexts.push_back(sf::Text(font, "", 40));
         statsTexts[i].setPosition({ 250.f, 100.f + i*100 });
@@ -19,7 +19,7 @@ StatsState::StatsState(sf::RenderWindow& window): State(window), back(font)
     std::ifstream fichierStats("src/fichierStats.txt");
     if (fichierStats.is_open())
     {
-        fichierStats >> nbRun >> nbPieces >> nbMetres >> nbPiecesRecord >> nbMetresRecord >> vitesseRecord;
+        fichierStats >> nbRun >> nbPieces >> nbMetres >> nbPiecesRecord >> nbMetresRecord >> vitesseRecord >> scoreRecord;
         fichierStats.close();
     }
     else {
@@ -32,6 +32,8 @@ StatsState::StatsState(sf::RenderWindow& window): State(window), back(font)
     statsTexts[3].setString("Nombre de metres parcourus          " + std::to_string(nbMetres));
     statsTexts[4].setString("Record de distance                                              " + std::to_string(nbMetresRecord));
     statsTexts[5].setString("Record de Vitesse                                                  " + std::to_string(vitesseRecord));
+    statsTexts[6].setString("Record de Points                                                  " + std::to_string(scoreRecord));
+    
 }
 
 void StatsState::handleInput()
@@ -51,11 +53,10 @@ void StatsState::draw()
 {
     window.setView(window.getDefaultView());
     window.draw(back);
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 7; i++)
     {
         window.draw(statsTexts[i]);
     }
-    
 }
 
 void StatsState::updateData(int newMetersNb, int newPiecesNb, int maxSpeed)
@@ -76,10 +77,15 @@ void StatsState::updateData(int newMetersNb, int newPiecesNb, int maxSpeed)
     {
         vitesseRecord = maxSpeed;
     }
+    if (ScoreManager::highestScore > scoreRecord)
+    {
+        scoreRecord = ScoreManager::highestScore;
+    }
+   
 
     std::ofstream fichierOut("src/fichierStats.txt");
     if (fichierOut.is_open()) {
-        fichierOut << nbRun << "\n" << nbPieces << "\n" << nbMetres << "\n" << nbPiecesRecord << "\n" << nbMetresRecord << "\n" << vitesseRecord << "\n";
+        fichierOut << nbRun << "\n" << nbPieces << "\n" << nbMetres << "\n" << nbPiecesRecord << "\n" << nbMetresRecord << "\n" << vitesseRecord << "\n" << scoreRecord << "\n";
         fichierOut.close();
         std::cout << "Ecriture réussie.\n";
     }
@@ -93,4 +99,5 @@ void StatsState::updateData(int newMetersNb, int newPiecesNb, int maxSpeed)
     statsTexts[3].setString("Nombre de metres parcourus          " + std::to_string(nbMetres));
     statsTexts[4].setString("Record de distance                                              " + std::to_string(nbMetresRecord));
     statsTexts[5].setString("Record de Vitesse                                                  " + std::to_string(vitesseRecord));
+    statsTexts[6].setString("Record de Points                                                  " + std::to_string(scoreRecord));
 }

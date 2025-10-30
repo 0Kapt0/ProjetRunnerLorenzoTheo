@@ -1,7 +1,7 @@
 ﻿#include "game_over_state.h"
 
-GameOverState::GameOverState(sf::RenderWindow& window)
-    : State(window)
+GameOverState::GameOverState(sf::RenderWindow& window, StatsState& s)
+    : State(window), stats(s)
 {
     if (!font.openFromFile("src/fonts/font.ttf")) {
         std::cerr << "Erreur chargement font GameOverState\n";
@@ -78,7 +78,7 @@ void GameOverState::handleInput()
 void GameOverState::update(float)
 {
     int finalScore = ScoreManager::lastScore;
-    int bestScore = ScoreManager::highestScore;
+    int bestScore = stats.getScoreRecord();
 
     if (scoreText)
         scoreText->setString("Score  " + std::to_string(finalScore));
